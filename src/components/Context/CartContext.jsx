@@ -67,9 +67,9 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchCartData(); // Fetch cart data when the component mounts
-  }, []);
+  // useEffect(() => {
+  //   fetchCartData(); // Fetch cart data when the component mounts
+  // }, []);
 
   // useEffect(() => {
   //   const total = cart.reduce((accumulator, currentItem) => {
