@@ -67,10 +67,10 @@ export default function AddProduct() {
 
     try {
       // You can use the fetch API or another method to send the form data to the backend
-      const response = await axios.post(
-        `${apiUrl}/v1/products`,
-        requestData
-      );
+      // const response = await axios.post(
+      //   `${apiUrl}/v1/products`,
+      //   requestData
+      // );
 
       console.log(response.data)
       console.log(response);

@@ -25,9 +25,9 @@ const ProductProvider = ({ children }) => {
     // Fetch products from the backend endpoint
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          `${apiUrl}/v1/products`
-        );
+        // const response = await axios.get(
+        //   `${apiUrl}/v1/products`
+        // );
 
         console.log(response.data.data)
         if (response.status === 200) {
