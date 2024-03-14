@@ -5,7 +5,7 @@ import product_3 from '../assets/images/product/product_3.png';
 import product_4 from '../assets/images/product/product_4.png';
 import product_5 from '../assets/images/product/product_5.png';
 
-const data = Array.from({ length: 60 }, (_, index) => {
+const products = Array.from({ length: 60 }, (_, index) => {
   let isFeatured = false;
   let discount = 0;
 
@@ -30,4 +30,4 @@ const data = Array.from({ length: 60 }, (_, index) => {
   };
 });
 
-export default data;
+export default products;
