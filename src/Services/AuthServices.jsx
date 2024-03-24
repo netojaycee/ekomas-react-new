@@ -32,7 +32,7 @@ export const logout = async () => {
     await axios.post(`${apiUrl}/v1/auth/logout`);
 
     // Clear the authentication token from local storage
-    Cookies.remove('sessionToken');
+    Cookies.remove('token');
 
     // Redirect to the login page or any other page
     window.location.replace('/login');
@@ -46,7 +46,7 @@ export const setupAxiosInterceptors = () => {
   // Add a request interceptor to include the authentication token in the request header
   axios.interceptors.request.use(
     (config) => {
-      const token = Cookies.get('sessionToken');
+      const token = Cookies.get('token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

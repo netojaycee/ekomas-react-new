@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Aos from "aos";
 
-const ProductItem = ({ id, name, price, images, discount, classx }) => {
+const ProductItem = ({ id, name, price, image, discount, classx }) => {
   const productDetailPath = `/product/${id}`;
 
   useEffect(() => {
     Aos.init();
   }, []);
 
-  const firstImage = images && images.length > 0 ? images[0] : '';
-  console.log(firstImage)
+  // const firstImage = images && images.length > 0 ? images[0] : '';
+  console.log(image)
   return (
     <div key={id} className={`flex flex-col gap-4 md:max-w-[250px] overflow-hidden  rounded-md  ${classx} xl:max-w-full justify-center`} >
       <div className="flex flex-row gap-4 rounded">
@@ -23,7 +23,7 @@ const ProductItem = ({ id, name, price, images, discount, classx }) => {
           <div className="group flex justify-center items-center h-32 w-full bg-white px-4 py-2" data-aos="zoom-out">
             <Link to={productDetailPath} className="my-2 w-full">
               <img
-                src={firstImage} 
+                src={image} 
                 alt={name}
                 className="w-32 h-32 mx-auto object-cover "
                 style={{ maxHeight: "100%" }}

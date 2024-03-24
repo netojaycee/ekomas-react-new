@@ -19,7 +19,7 @@ export const ProductsList = () => {
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
 
-
+console.log(data)
   const location = useLocation();
   
   // Extract the search parameter from the location

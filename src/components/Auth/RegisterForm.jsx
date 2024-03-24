@@ -14,11 +14,9 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
+    name: '',
     email: '',
     password: '',
-    confirm_password: '',
   });
 
 
@@ -40,10 +38,10 @@ export default function Register() {
 
     try {
       // Perform Axios request here
-      const response = await axios.post(`${apiUrl}/v1/auth/register`, formData);
+      const response = await axios.post(`${apiUrl}/auth/create`, formData);
       // console.log(response.data);
-
-      if (response.data.success) {
+      console.log(response)
+      if (response.statusText === 'OK'){
         // Redirect or handle success as needed
         setIsLoading(false);
         navigate('/login'); // Replace with your desired success page
@@ -97,18 +95,18 @@ export default function Register() {
         <div>
           <Input
             size="md"
-            label="First name"
+            label="Full name"
             className='rounded-none focus:outline-none focus:ring-0'
-            name="first_name"
+            name="name"
             type='text'
-            value={formData.first_name}
+            value={formData.name}
             onChange={handleChange}
           />
           {
-            errors.first_name && <p className='text-red-500 text-sm'>{errors.first_name}</p>
+            errors.name && <p className='text-red-500 text-sm'>{errors.name}</p>
           }
         </div>
-        <div>
+        {/* <div>
           <Input
             size="md"
             label="Last name"
@@ -119,7 +117,7 @@ export default function Register() {
             onChange={handleChange}
           />
           {errors.last_name && <p className='text-red-500 text-sm'>{errors.last_name}</p>}
-        </div>
+        </div> */}
         <div>
           <Input
             size="md"
@@ -144,7 +142,7 @@ export default function Register() {
           />
           {errors.password && <p className='text-red-500 text-sm'>{errors.password}</p>}
         </div>
-        <div>
+        {/* <div>
           <Input
             size="md"
             label="Confirm Password"
@@ -155,7 +153,7 @@ export default function Register() {
             onChange={handleChange}
           />
           {errors.confirm_password && <p className='text-red-500 text-sm'>{errors.confirm_password}</p>}
-        </div>
+        </div> */}
 
         <div>
           {isLoading && (

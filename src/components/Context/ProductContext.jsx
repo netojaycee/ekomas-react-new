@@ -6,33 +6,27 @@ import { useQuery } from '@tanstack/react-query';
 const ProductContext = createContext();
 
 const ProductProvider = ({ children }) => {
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
+  const [discount, setDiscount] = useState([]);
+  const [featured, setFeatured] = useState([]);
 
-  const fetchProducts = async () => {
-    const response = await axios.get(`${apiUrl}/v1/products`);
-
-    return response.data.data;
-
-  };
-
-  // const { data, isLoading, isError } = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
-  // console.log(data);
-  // useEffect(() => {
-  //   // console.log("Product Data:", data);
-  // }, [data]);
-
+  // Fetch products from the backend endpoint
   useEffect(() => {
-    // Fetch products from the backend endpoint
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get(
-        //   `${apiUrl}/v1/products`
-        // );
+        const response = await axios.get(`${apiUrl}/product/products`);
 
-        console.log(response.data.data)
         if (response.status === 200) {
-          const products = response.data;
-          setdata(products.data);
+          const products = response.data.products;
+          setData(products);
+          console.log(products);
+          // Filter featured products
+          const featuredProducts = products.filter(product => product.featured === "yes");
+          setFeatured(featuredProducts);
+
+          // Filter discounted products (assuming discount information is available in product data)
+          const discountedProducts = products.filter(product => product.discount > 0);
+          setDiscount(discountedProducts);
         } else {
           console.error('Failed to fetch products from the backend');
         }
@@ -45,7 +39,7 @@ const ProductProvider = ({ children }) => {
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
 
   return (
-    <ProductContext.Provider value={{ data }}>
+    <ProductContext.Provider value={{ data, discount, featured }}>
       {children}
     </ProductContext.Provider>
   );

@@ -28,60 +28,25 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    // console.log('Submitting:', formData);
+    setIsLoading(true); // Set loading to true when form is submitted
 
     // Clear previous errors
-    setErrors({});
-
-    //   try {
-    //     // Perform Axios request here
-    //     const response = await axios.post('https://ekomas-api.deltechverse.com/v1/auth/login', formData);
-    //     // console.log(response.data);
-
-    //     if (response.data.success) {
-    //       // Redirect or handle success as needed
-    //       navigate('/user/dashboard'); // Replace with your desired success page
-    //     } else {
-    //       return;
-    //     }
-    //   }  catch (error) {
-    //     // Handle error
-    //     // console.error('Error submitting form:', error);
-
-    //     // Use the error from the server for form validation
-    //     if (error.response && error.response.data && error.response.data.errors) {
-    //       const backendErrors = error.response.data.errors;
-
-    //       // Map backend errors to the corresponding form fields
-    //       const updatedErrors = {};
-    //       backendErrors.forEach(serverError => {
-    //        const [fieldName, errorMessage] = serverError.split(' ');
-
-    //         // Special handling for password match error
-
-    //           updatedErrors[fieldName.toLowerCase()] = serverError;
-
-    //       });
-
-    //       setErrors(updatedErrors);
-    //     } else {
-    //       // Handle other types of errors (e.g., network errors)
-    //       console.error('Unhandled error type:', error);
-    //       setErrors({ general: 'An unexpected error occurred. Please try again later.' });
-    //     }
-    //   }
-    // };
-
+    // setErrors({});
 
     try {
-      const response = await axios.post(`${apiUrl}/v1/auth/login`, formData);
+      const response = await axios.post(`${apiUrl}/auth/sign-in`, formData);
 
-      if (response.data.success) {
-        const { sessionToken, user } = response.data.data;
+      console.log(response);
+      if (response.statusText === 'OK') {
+        const { token, user } = response.data;
+        console.log(response);
+        setIsLoading(false);
+
+        console.log(token)
+        navigate('/admin/dashboard');
 
         // Save the token to local storage
-        setCookie('sessionToken', sessionToken);
+        setCookie('token', token);
 
         // Check user roles
         if (user.roles.includes('ADMIN')) {
@@ -99,6 +64,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       // Handle the error
+      // setErrors(error); // Assuming your backend returns errors in this format
       setIsLoading(false);
       console.error('Error:', error);
     }
@@ -116,7 +82,6 @@ const LoginForm = () => {
           type='email'
           className='rounded-none'
           name="email"
-
         />
         {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
       </div>
@@ -129,7 +94,6 @@ const LoginForm = () => {
           type="password" // Use secure text entry for passwords
           className='rounded-none'
           name="password"
-
         />
         {errors.password && <p className='text-red-500 text-sm'>{errors.password}</p>}
       </div>
@@ -138,24 +102,20 @@ const LoginForm = () => {
           <input
             type='checkbox'
             className='m-1'
-          // checked={rememberMe}
-          // onChange={() => setRememberMe(!rememberMe)}
           />
           Remember me
         </label>
       </div>
       <div>
-        {isLoading && (
+        {isLoading ? (
           <div className="flex flex-row text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear">
             <Spinner className="h-4 w-4" />
           </div>
-        )}
-        {!isLoading && (
+        ) : (
           <button type='submit' className='flex flex-row text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear'>
             Sign in<ArrowRightIcon className="ml-1 w-6" />
           </button>
         )}
-
       </div>
     </form>
   );

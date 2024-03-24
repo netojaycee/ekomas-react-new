@@ -6,17 +6,19 @@ import { Link } from 'react-router-dom';
 import Aos from 'aos';
 
 export default function Special() {
-  const { data } = useContext(ProductContext);
+  const { discount } = useContext(ProductContext);
 
   // Assuming that a product is considered a special offer if it has a discount
-  const specialOffers = data ? data.filter(product => product.discount > 0): [];
+  // const specialOffers = discount ? discount.filter(product => product.discount > 0): [];
 
-  // Display only a subset of special offers
-  const displayedProducts = specialOffers.slice(0, 10);
+  // // Display only a subset of special offers
+  // const displayedProducts = specialOffers.slice(0, 10);
 
   useEffect(() => {
     Aos.init();
   }, []);
+
+  console.log(discount);
 
 
   return (
@@ -35,8 +37,8 @@ export default function Special() {
       </div>
 
       <div className="flex  overflow-x flex-wrap auto gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm" x>
-        {displayedProducts.map((product) => (
-          <ProductItem key={product.id} {...product} discount={`${product.discount}%`} classx={`bg-gray-100 p-2`}  data-aos="flip-down"/>
+        {discount.map((product) => (
+          <ProductItem key={product.id} {...product} discount={`${product.discount}%`} classx={`bg-gray-100 p-2`}  discount-aos="flip-down"/>
         ))}
       </div>
     </div>

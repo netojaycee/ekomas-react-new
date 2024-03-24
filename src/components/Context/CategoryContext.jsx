@@ -12,12 +12,12 @@ const CategoryProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/gories`
+          `${apiUrl}/category/all-category`
         );
 
 
         if (response.status === 200) {
-          const categories = response.data.data;
+          const categories = response.data;
           console.log(categories);
           setCategoriesData(categories);
         } else {

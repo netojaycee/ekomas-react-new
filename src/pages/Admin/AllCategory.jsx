@@ -43,8 +43,8 @@ export default function AllCategory() {
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(categoriesData) &&
-            categoriesData.map((item, index) => {
+          {Array.isArray(categoriesData.category) &&
+            categoriesData.category.map((item, index) => {
               const isLast = index === categoriesData.length - 1;
               const classes = isLast
                 ? "p-4"
@@ -59,7 +59,7 @@ export default function AllCategory() {
                   </td>
                   <td className={classes}>
                     <Typography variant="small" className="font-normal">
-                      {item.description}
+                      {item.image}
                     </Typography>
                   </td>
                   {/* <td className="m-0">

@@ -15,7 +15,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AddProduct from "./pages/Admin/AddProduct";
 import AddCategory from "./pages/Admin/AddCategory";
 import AllCategory from "./pages/Admin/AllCategory";
-// import AllProduct from "./pages/Admin/AllProduct";
+import AllProduct from "./pages/Admin/AllProduct";
 import { CategoryProvider } from "./components/Context/CategoryContext";
 import PrivateRoutes from "./components/PrivateRoutes";
 import { setupAxiosInterceptors } from "./Services/AuthServices";
@@ -43,7 +43,7 @@ export default function App() {
                 {/* <Route path="/product/:productId" element={<ProductDetails />} /> */}
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
-                <Route path="/" element={<PrivateRoutes />}>
+                {/* <Route path="/" element={<PrivateRoutes />}> */}
                   <Route path="/user/dashboard" element={<UserDashboard />} />
                   <Route path="/user/orders" element={<Orders />} />
 
@@ -52,8 +52,8 @@ export default function App() {
                   <Route path="/admin/add-product" element={<AddProduct />} />
                   <Route path="/admin/add-category" element={<AddCategory />} />
                   <Route path="/admin/all-category" element={<AllCategory />} />
-                  {/* <Route path="/admin/all-product" element={<AllProduct />} /> */}
-                </Route>
+                  <Route path="/admin/all-product" element={<AllProduct />} />
+                {/* </Route> */}
                 <Route path="/admin/login" element={<AdminLogin />} />
               </Routes>
             </Router>

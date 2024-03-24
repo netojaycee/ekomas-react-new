@@ -3,7 +3,7 @@ import { getUser, isUserAuthenticated } from '../Services/AuthServices'
 import { Link, Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoutes = (props) => {
-    const auth = isUserAuthenticated('sessionToken');
+    const auth = isUserAuthenticated('token');
   return auth? <Outlet />: <div>Please log in <Navigate to="/login"></Navigate></div>
 }
 
