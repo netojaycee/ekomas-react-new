@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 
 
 export default function Featured() {
-  const { data } = useContext(ProductContext);
-  const featured =  data ? data.filter(product => product.featured === true) : [];
+  const { featured } = useContext(ProductContext);
+  // const featured =  data ? data.filter(product => product.featured === true) : [];
 
-    const displayedProducts = featured.slice(0, 10);
+  const displayedProducts = featured ? featured.slice(0, 6) : [];
+
   return (
     <div className="md:my-[100px] my-20 w-[80%] mx-auto flex-col flex gap-4">
       <div className="flex flex-row justify-between">
