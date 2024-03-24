@@ -37,7 +37,7 @@ const ProductProvider = ({ children }) => {
 
     fetchProducts();
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-
+console.log(data);
   return (
     <ProductContext.Provider value={{ data, discount, featured }}>
       {children}
