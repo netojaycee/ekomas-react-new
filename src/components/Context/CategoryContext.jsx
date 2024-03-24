@@ -17,8 +17,8 @@ const CategoryProvider = ({ children }) => {
 
 
         if (response.status === 200) {
-          const categories = response.data;
-          console.log(categories);
+          const categories = response.data.category;
+          // console.log(categories);
           setCategoriesData(categories);
         } else {
           console.error("Error fetching categories:", response.statusText);

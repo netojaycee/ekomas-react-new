@@ -12,7 +12,7 @@ const AutoPlay = () => {
   const { categoriesData } = useContext(CategoryContext);
 
   // const categories = data ? [...new Set(data.map((product) => product.category))] : [];
-  console.log(categoriesData);
+  // console.log(categoriesData);
 
 
   const settings = {
@@ -30,10 +30,10 @@ const AutoPlay = () => {
     <div className="md:mt-7 mt-3 w-[80%] mx-auto">
       <Slider {...settings}>
         {categoriesData.map((category) => (
-           <Link  to={`/products?category=${category}`} >
-          <div key={category} className="px-1 md:pr-4 relative rou">
-           <img src={image} alt="" className="w-full object-cover" />
-            <h1 className="absolute bottom-3 left-5 text-white md:text-2xl font-bold">{category}</h1>
+           <Link  to={`/products?category=${category._id}`} >
+          <div key={category._id} className="px-1 md:pr-4 relative rou">
+           <img src={category.image} alt="" className="w-full object-cover" />
+            <h1 className="absolute bottom-3 left-5 text-white md:text-2xl font-bold">{category.name}</h1>
           </div>
           </Link>
         ))}

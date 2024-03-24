@@ -18,7 +18,7 @@ export default function Home() {
         
           <Hero />
           {/* <div className="w-[80%] mx-auto"> */}
-          <Category />
+          {/* <Category /> */}
           <Products />
           <Special />
           <Tsp />

@@ -48,7 +48,7 @@ const Tsp = () => {
         <div className="pb-20">
           <Slider {...settings}>
             {topSelling.map((product) => (
-              <div key={product.id} className="flex flex-row pr-3">
+              <div key={product._id} className="flex flex-row pr-3">
                 {/* <div className="bg-white flex flex-row p-2 pr-0 relative">
                   <div className="mt-4 absolute">
                     <HeartIcon className="w-5 text-secondary" />
@@ -74,7 +74,7 @@ const Tsp = () => {
                   <div className="text-gray-600">${product.price}</div>
                 </div> */}
 
-                <ProductItem key={product.id} {...product} />
+                <ProductItem key={product._id} {...product} />
 
               </div>
             ))}

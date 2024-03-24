@@ -5,7 +5,7 @@ import { useLocation, Link } from "react-router-dom";
 import { ProductContext } from "../Context/ProductContext";
 
 export const ProductsList = () => {
-  const { data, discount, featured, categories, topSelling } = useContext(ProductContext);
+  const { data, discount, featured, topSelling } = useContext(ProductContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState("Default sorting");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -40,9 +40,11 @@ export const ProductsList = () => {
       filtered = featured;
     }
     if (categoryParam) {
-      filtered = categories;
+      // Filter products based on the categoryParam
+      filtered = data.filter(product => product.categoryId === categoryParam);
+      // console.log(filtered)
     }
-
+    
     setFilteredProducts(filtered);
 
     setCurrentPage(1); // Reset to the first page when filters change
@@ -108,8 +110,8 @@ export const ProductsList = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full gap-4">
             {filteredProducts.map((product) => (
-              <div key={product.id} className="flex  flex-col">
-                <ProductItem key={product.id} {...product} />
+              <div key={product._id} className="flex  flex-col">
+                <ProductItem key={product._id} {...product} />
               </div>
             ))}
           </div>

@@ -29,16 +29,16 @@ export default function Special() {
         </div>
         <div>
           <Link to="/products?specialOffers=true">
-            <button className="text-primary rounded py-1 px-2 text-xs border px-1 border-primary flex items-center">
+            <button className="text-primary rounded py-1 px-2 text-xs border border-primary flex items-center">
               view more<ArrowRightIcon className="ml-1 w-6" />
             </button>
           </Link>
         </div>
       </div>
 
-      <div className="flex  overflow-x flex-wrap auto gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm" x>
+      <div className="overflow-x flex-wrap auto gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm" x>
         {discount.map((product) => (
-          <ProductItem key={product.id} {...product} discount={`${product.discount}%`} classx={`bg-gray-100 p-2`}  discount-aos="flip-down"/>
+          <ProductItem key={product._id} {...product} discount={`${product.discount}%`} classx={`bg-gray-100 p-2`}  discount-aos="flip-down"/>
         ))}
       </div>
     </div>

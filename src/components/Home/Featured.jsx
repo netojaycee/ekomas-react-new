@@ -31,8 +31,8 @@ export default function Featured() {
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {displayedProducts.map((product) => (
-          <div key={product.id} className="flex flex-col">
-                      <ProductItem key={product.id} {...product}  />
+          <div key={product._id} className="flex flex-col">
+                      <ProductItem key={product._id} {...product}  />
 
           </div>
         ))}
