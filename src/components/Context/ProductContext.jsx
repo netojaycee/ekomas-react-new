@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { apiUrl } from '../../config/env';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 
 const ProductContext = createContext();
 
@@ -9,6 +8,8 @@ const ProductProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [discount, setDiscount] = useState([]);
   const [featured, setFeatured] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [topSelling, setTopSelling] = useState([]);
 
   // Fetch products from the backend endpoint
   useEffect(() => {
@@ -24,9 +25,17 @@ const ProductProvider = ({ children }) => {
           const featuredProducts = products.filter(product => product.featured === "yes");
           setFeatured(featuredProducts);
 
-          // Filter discounted products (assuming discount information is available in product data)
+          // Filter discounted products
           const discountedProducts = products.filter(product => product.discount > 0);
           setDiscount(discountedProducts);
+
+          // Extract categories from products
+          const uniqueCategories = [...new Set(products.map(product => product.category))];
+          setCategories(uniqueCategories);
+
+          // Sort products by topSelling in descending order and export only the first 5
+          const sortedTopSelling = products.sort((a, b) => b.topSell - a.topSell).slice(0, 5);
+          setTopSelling(sortedTopSelling);
         } else {
           console.error('Failed to fetch products from the backend');
         }
@@ -37,9 +46,9 @@ const ProductProvider = ({ children }) => {
 
     fetchProducts();
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-console.log(data);
+
   return (
-    <ProductContext.Provider value={{ data, discount, featured }}>
+    <ProductContext.Provider value={{ data, discount, featured, categories, topSelling }}>
       {children}
     </ProductContext.Provider>
   );

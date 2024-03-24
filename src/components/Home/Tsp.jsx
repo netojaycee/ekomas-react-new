@@ -7,8 +7,8 @@ import { ProductContext } from "../Context/ProductContext";
 import ProductItem from "../ProductItem";
 
 const Tsp = () => {
-  const { data } = useContext(ProductContext);
-  const tsP = data ? data.filter((product) => product.topSelling === true): [];
+  const { topSelling } = useContext(ProductContext);
+  // const tsP = data ? data.filter((product) => product.topSelling === true): [];
 
   const settings = {
     dots: true,
@@ -47,7 +47,7 @@ const Tsp = () => {
         </div>
         <div className="pb-20">
           <Slider {...settings}>
-            {tsP.map((product) => (
+            {topSelling.map((product) => (
               <div key={product.id} className="flex flex-row pr-3">
                 {/* <div className="bg-white flex flex-row p-2 pr-0 relative">
                   <div className="mt-4 absolute">

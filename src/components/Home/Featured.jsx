@@ -20,7 +20,8 @@ export default function Featured() {
         <div>
           <h1 className="text-secondary md:text-2xl">Featured Products</h1>
         </div>
-        <div>        <Link to="/products?featured=true">
+        <div>        
+          <Link to="/products?featured=true">
 
           <button className="text-primary border px-1 border-primary flex items-center">
             view more<ArrowRightIcon className="ml-1 w-6"/>

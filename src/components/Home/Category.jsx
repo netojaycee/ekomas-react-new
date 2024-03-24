@@ -5,11 +5,15 @@ import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 import image from '../../assets/images/category/category_1.png';
 import { ProductContext } from "../Context/ProductContext";
 import { Link } from "react-router-dom";
+import { CategoryContext } from "../Context/CategoryContext";
 
 const AutoPlay = () => {
-  const { data } = useContext(ProductContext);
+  // const { data } = useContext(ProductContext);
+  const { categoriesData } = useContext(CategoryContext);
 
-  const categories = data ? [...new Set(data.map((product) => product.category))] : [];
+  // const categories = data ? [...new Set(data.map((product) => product.category))] : [];
+  console.log(categoriesData);
+
 
   const settings = {
     dots: true,
@@ -25,7 +29,7 @@ const AutoPlay = () => {
   return (
     <div className="md:mt-7 mt-3 w-[80%] mx-auto">
       <Slider {...settings}>
-        {categories.map((category) => (
+        {categoriesData.map((category) => (
            <Link  to={`/products?category=${category}`} >
           <div key={category} className="px-1 md:pr-4 relative rou">
            <img src={image} alt="" className="w-full object-cover" />

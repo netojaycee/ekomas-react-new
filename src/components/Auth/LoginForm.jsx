@@ -43,7 +43,6 @@ const LoginForm = () => {
         setIsLoading(false);
 
         console.log(token)
-        navigate('/admin/dashboard');
 
         // Save the token to local storage
         setCookie('token', token);
