@@ -7,29 +7,28 @@ import { useNavigate } from "react-router-dom";
 import EditDialog from "../../components/AdminDashboard/EditCategory";
 
 export default function AllCategory() {
-    const { categoriesData } = useContext(CategoryContext);
-    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-    const [categoryToEdit, setCategoryToEdit] = useState(null);
-  
-    const handleEditCategory = (updatedCategoryData) => {
-      // Handle the logic to update the category
-      console.log('Updated Category Data:', updatedCategoryData);
-      // You can trigger an API request to update the category with the new data
-    };
+  const { categoriesData } = useContext(CategoryContext);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [categoryToEdit, setCategoryToEdit] = useState(null);
+
+  const handleEditCategory = (updatedCategoryData) => {
+    // Handle the logic to update the category
+    console.log("Updated Category Data:", updatedCategoryData);
+    // You can trigger an API request to update the category with the new data
+  };
 
   return (
-    <AdminLayout>
+    <>
+      {" "}
       <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
         All Categories Page
       </h1>
-
       <EditDialog
         isOpen={isEditDialogOpen}
         handleClose={() => setIsEditDialogOpen(false)}
         categoryData={categoryToEdit}
         handleEditCategory={handleEditCategory}
       />
-
       <table className="w-[90%] mx-auto min-w-max table-auto text-center bg-white mt-3 overflow-visible">
         <thead>
           <tr className="border-2 border-blue-gray-200">
@@ -51,7 +50,10 @@ export default function AllCategory() {
                 : "p-4 border-b border-blue-gray-50";
 
               return (
-                <tr key={item.id} className="border-2 border-blue-gray-200 text-center">
+                <tr
+                  key={item.id}
+                  className="border-2 border-blue-gray-200 text-center"
+                >
                   <td className={classes}>
                     <Typography variant="small" className="font-normal">
                       {item.name}
@@ -98,6 +100,6 @@ export default function AllCategory() {
             })}
         </tbody>
       </table>{" "}
-    </AdminLayout>
+    </>
   );
 }

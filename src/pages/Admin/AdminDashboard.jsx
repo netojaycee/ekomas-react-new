@@ -59,7 +59,6 @@ const TABLE_ROWS = [
 
 export default function AdminDashboard() {
   return (
-    <AdminLayout>
       <div className='flex flex-col w-full '>
         <div className="flex lg:flex-row flex-col w-full gap-8 p-10">
           <div className="flex flex-col gap-4 w-full lg:w-4/5 ">
@@ -195,6 +194,5 @@ export default function AdminDashboard() {
           </Card>
         </div>
       </div>
-    </AdminLayout>
   )
 }

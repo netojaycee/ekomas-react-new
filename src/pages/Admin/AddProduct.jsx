@@ -111,7 +111,6 @@ export default function AddProduct() {
 
   return (
     <>
-      <AdminLayout>
         <div>
           <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
             Upload New Product
@@ -257,7 +256,6 @@ export default function AddProduct() {
             </form>
           </div>
         </div>
-      </AdminLayout>
     </>
   );
 }

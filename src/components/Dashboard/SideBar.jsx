@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   Typography,
@@ -21,12 +21,12 @@ import {
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import AuthContext from "../Context/AuthContext";
 
-const handleLogout = () => {
-  // logout();
-};
+
 export default function AdminSidebar() {
   const [open, setOpen] = React.useState(0);
+  const { logout } = useContext(AuthContext);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -154,7 +154,7 @@ export default function AdminSidebar() {
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
 
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={logout}>Logout</button>
         </ListItem>
       </List>
     </Card>

@@ -7,9 +7,8 @@ import { apiUrl } from "../../config/env";
 // import { gql, useMutation, useQuery } from "@apollo/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-// 
+//
 export default function AllProduct() {
-
   // const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
@@ -36,8 +35,6 @@ export default function AllProduct() {
   //   };
   //   fetchData();
   // }, []);
-  
-  
 
   const fetchAllProducts = async () => {
     const response = await axios.get(`${apiUrl}/product/products`);
@@ -45,7 +42,11 @@ export default function AllProduct() {
     return response.data.products;
   };
 
-  const { data: products, isLoading, error } = useQuery({queryKey: ["products"], queryFn: fetchAllProducts});
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["products"], queryFn: fetchAllProducts });
   // console.log(data);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
@@ -65,7 +66,7 @@ export default function AllProduct() {
           },
         },
       });
-      alert('Product published status updated successfully');
+      alert("Product published status updated successfully");
     } catch (error) {
       console.log(error);
       // Handle error
@@ -74,12 +75,12 @@ export default function AllProduct() {
 
   const handleEditProduct = (updateddata) => {
     // Handle the logic to update the product
-    console.log('Updated Product Data:', updateddata);
+    console.log("Updated Product Data:", updateddata);
     // You can trigger an API request to update the product with the new data
   };
 
   return (
-    <AdminLayout>
+    <>
       <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
         All Products Page
       </h1>
@@ -94,13 +95,18 @@ export default function AllProduct() {
       <table className="w-[90%] mx-auto min-w-max table-auto text-center bg-white mt-3">
         <thead>
           <tr className="border-2 border-blue-gray-200">
-            {["Name", "Description", "Image", "Price", ""].map((head, index) => (
-              <th key={index} className="text-secondary p-4">
-                <Typography variant="small" className="font-bold leading-none">
-                  {head}
-                </Typography>
-              </th>
-            ))}
+            {["Name", "Description", "Image", "Price", ""].map(
+              (head, index) => (
+                <th key={index} className="text-secondary p-4">
+                  <Typography
+                    variant="small"
+                    className="font-bold leading-none"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              )
+            )}
           </tr>
         </thead>
         <tbody>
@@ -138,7 +144,7 @@ export default function AllProduct() {
                         className="w-16 h-16 object-cover"
                       />
                     ) : (
-                      'No Image'
+                      "No Image"
                     )}
                   </Typography>
                 </td>
@@ -149,7 +155,8 @@ export default function AllProduct() {
                 </td>
                 <td className="p-4x flex justify-center items-center  gap-2 mt-8 ">
                   <Typography variant="small" className="font-normal">
-                    <button className="rounded py-1 px-4 border border-yellow-700"
+                    <button
+                      className="rounded py-1 px-4 border border-yellow-700"
                       onClick={() => {
                         setProductToEdit(item);
                         setIsEditDialogOpen(true);
@@ -161,9 +168,7 @@ export default function AllProduct() {
                   <Typography variant="small" className="font-normal">
                     <button
                       className={`rounded py-1 px-4 border ${
-                        item.published
-                          ? "border-green-500"
-                          : "border-red-500"
+                        item.published ? "border-green-500" : "border-red-500"
                       }`}
                       onClick={() => handlePublish(item.id, item.published)}
                     >
@@ -176,7 +181,6 @@ export default function AllProduct() {
           )}
         </tbody>
       </table>
-    </AdminLayout>
+    </>
   );
 }
-
