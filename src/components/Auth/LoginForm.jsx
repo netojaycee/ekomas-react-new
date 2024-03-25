@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import { setCookie } from '../../Services/AuthServices';
 import { apiUrl } from '../../config/env';
 
 
@@ -45,7 +43,6 @@ const LoginForm = () => {
         console.log(token)
 
         // Save the token to local storage
-        setCookie('token', token);
 
         // Check user roles
         if (user.roles.includes('ADMIN')) {

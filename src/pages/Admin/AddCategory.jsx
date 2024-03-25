@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AdminLayout from "../../components/Dashboard/AdminLayout";
 import axios from "axios";
 import { apiUrl } from "../../config/env";
-import { getCookie } from "../../Services/AuthServices";
 
 export default function AddCategory() {
   const [formData, setFormData] = useState({
@@ -52,7 +51,6 @@ export default function AddCategory() {
       }
 
       // Send data to backend endpoint
-      const token = getCookie("token");
       const response = await axios.post(
         `${apiUrl}/category/create-category`,
         {

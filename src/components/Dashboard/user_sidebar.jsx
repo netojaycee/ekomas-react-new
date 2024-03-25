@@ -28,11 +28,10 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { logout, logoutUser } from "../../Services/AuthServices";
 
 const handleLogout = () => {
   // Call the logout function to initiate the logout process
-  logout();
+  // logout();
 };
 
 export function UserSidebar() {

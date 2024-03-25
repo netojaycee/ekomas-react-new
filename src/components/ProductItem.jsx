@@ -4,17 +4,20 @@ import { Link } from "react-router-dom";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Aos from "aos";
 
-const ProductItem = ({ id, name, price, image, discount, classx }) => {
-  const productDetailPath = `/product/${id}`;
+const ProductItem = ({ _id, name, price, image, discount, classx, category }) => {
+  const productDetailPath = `/product/${_id}`;
+  
+  
+  
 
   useEffect(() => {
     Aos.init();
   }, []);
 
   // const firstImage = images && images.length > 0 ? images[0] : '';
-  console.log(image)
+  // console.log(image)
   return (
-    <div key={id} className={`flex flex-col gap-4 md:max-w-[250px] overflow-hidden  rounded-md  ${classx} xl:max-w-full justify-center`} >
+    <div key={_id} className={`flex flex-col gap-4 md:max-w-[250px] overflow-hidden  rounded-md  ${classx} xl:max-w-full justify-center`} >
       <div className="flex flex-row gap-4 rounded">
         <div className="bg-white flex flex-row p-2 rounded overflow-hidden h-fit pr-0 relative w-full h-[200px] duration-300 transform hover:scale-105 transition ease-linear">
           <div className="top-0 absolute">
