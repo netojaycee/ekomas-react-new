@@ -1,36 +1,51 @@
 import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const WishContext = createContext();
 
 const WishProvider = ({ children }) => {
   const [wish, setWish] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const addToWish = (data, id) => {
-    const newItem = { ...data };
-    const wishItemIndex = wish.findIndex((item) => item.id === id);
+  useEffect(() => {
+    const fetchWishItems = async () => {
+      try {
+        const response = await axios.get("/api/wishlist"); // Replace with your API endpoint
+        setWish(response.data.wishItems);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching wish items:", error);
+      }
+    };
 
-    if (wishItemIndex !== -1) {
-      // If item already exists, remove it
-      const newWish = [...wish];
-      newWish.splice(wishItemIndex, 1);
-      setWish(newWish);
-      setIsFavorite(false);
-    } else {
-      // If item does not exist, add it
-      setWish([...wish, newItem]);
-      setIsFavorite(true);
+    fetchWishItems();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  const addToWish = async (productId) => {
+    try {
+      const response = await axios.post("/api/wishlist/add", { productId }); // Replace with your API endpoint
+      setWish(response.data.wishItems);
+    } catch (error) {
+      console.error("Error adding to wish list:", error);
     }
   };
 
-  const removeFromWish = (id) => {
-    const newWish = wish.filter((item) => item.id !== id);
-    setWish(newWish);
-    setIsFavorite(false);
+  const removeFromWish = async (productId) => {
+    try {
+      const response = await axios.post("/api/wishlist/remove", { productId }); // Replace with your API endpoint
+      setWish(response.data.wishItems);
+    } catch (error) {
+      console.error("Error removing from wish list:", error);
+    }
   };
 
-  const clearWish = () => {
-    setWish([]);
+  const clearWish = async () => {
+    try {
+      const response = await axios.post("/api/wishlist/clear"); // Replace with your API endpoint
+      setWish(response.data.wishItems);
+    } catch (error) {
+      console.error("Error clearing wish list:", error);
+    }
   };
 
   return (
@@ -40,8 +55,7 @@ const WishProvider = ({ children }) => {
         addToWish,
         removeFromWish,
         clearWish,
-        isFavorite,
-        setIsFavorite,
+        loading,
       }}
     >
       {children}

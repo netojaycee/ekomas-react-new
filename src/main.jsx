@@ -9,6 +9,7 @@ import CartProvider from "./components/Context/CartContext.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./components/Context/AuthContext.jsx";
 import { LoadingProvider } from "./components/Context/LoadingContext.jsx";
+import WishProvider from "./components/Context/WishContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -18,9 +19,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <CartProvider>
             <CategoryProvider>
               <ProductProvider>
+                <WishProvider>
                 <Routes>
                   <Route path="/*" element={<App />} />
                 </Routes>
+                </WishProvider>
               </ProductProvider>
             </CategoryProvider>
           </CartProvider>
