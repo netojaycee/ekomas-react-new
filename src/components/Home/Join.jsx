@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Join() {
   return (
-    <div className="bg-[#FF3E3E]  p-[10px] ">
+    <div className="bg-[#FF3E3E]x bg-secondary  p-[10px] ">
       <div className="w-[80%] mx-auto text-center">
       <h1 className=" text-white font-bold text-xl my-[30px]">
             JOIN THE YOA-MAT COMMUNITY

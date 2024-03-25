@@ -48,7 +48,7 @@ function NavList() {
   const onChange = ({ target }) => setSearch(target.value);
   return (
     <>
-      <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between  z-50 text-white">
+      <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between  ">
         <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[50px] mx-3 ">
           <Typography
             as="li"
@@ -77,7 +77,7 @@ function NavList() {
             </span>
             {/* Dropdown Content */}
             {isDropdownOpen && (
-              <div className="absolute border w-full h-[100px] z-50 border-gray-200 shadow-lg py-2 px-4 bg-primary">
+              <div className="a bg-red-800">
                 {/* Example dropdown items */}
                 {categories.map((category) => (
                   <Link
@@ -183,9 +183,9 @@ export default function Nav() {
   }, []);
 
   return (
-    <Navbar className="max-w-full w-full px-4 md:px-[50px] lg:px-[100px] py-3 rounded-none shadow-none bg-primary z-5">
+    <Navbar className="max-w-full w-full px-4 md:px-[50px] lg:px-[100px] py-3 rounded-none bg-white my-auto shadow-lg h-20 z-50 text-black  font-bold z-5">
       <div className="flex items-center w-full justify-between text-blue-gray-900">
-        <Link to="/" className="w-[40%] md:w-[10%]">
+        <Link to="/" className="w-[40%] md:w-[30%]">
           <img src={logo} alt="logo" className="mr-[40px]" />
         </Link>
 
