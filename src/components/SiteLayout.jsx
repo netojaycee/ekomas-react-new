@@ -14,7 +14,7 @@ const SiteLayout = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="min-h-screen overflow-hidden bg-gray-200">
+        <div className="overflow-x-hidden bg-gray-200">
           <Nav />
           <Outlet />
           <Footer fullFooter={false} />

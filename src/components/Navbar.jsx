@@ -23,6 +23,9 @@ import { ProductContext } from "./Context/ProductContext";
 import { CartContext } from "./Context/CartContext";
 import Searchbox from "./seachbox";
 import AuthContext from "./Context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import Wishlist from "./Wishlist";
 
 function NavList() {
   const { data } = useContext(ProductContext);
@@ -48,7 +51,7 @@ function NavList() {
   const onChange = ({ target }) => setSearch(target.value);
   return (
     <>
-      <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between  z-50 text-white">
+      <div className="flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between top-0 text-white">
         <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[50px] mx-3 ">
           <Typography
             as="li"
@@ -151,9 +154,8 @@ function NavList() {
         <Searchbox placeholder="Search for all items here..." />
         <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-end items-center">
           {/* <InformationCircleIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" /> */}
-          <Link to={auth?.user ? "/user/dashboard" : "/login"}>
-            <UserIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" />
-          </Link>
+         
+         <Wishlist />
           <Link to="/cart">
             <div className="relative">
               <ShoppingCartIcon className="w-6 duration-300 transform hover:scale-125 transition ease-linear" />
@@ -161,6 +163,9 @@ function NavList() {
                 {itemAmount}
               </span>
             </div>
+          </Link>
+          <Link to={auth?.user ? "/user/dashboard" : "/login"}>
+            <UserIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" />
           </Link>
         </div>
       </div>
