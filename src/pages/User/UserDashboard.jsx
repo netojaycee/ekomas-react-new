@@ -90,7 +90,6 @@ export default function UserDashboard() {
   };
 
   return (
-    <UserLayout>
       <div className='flex-col flex w-full h-[90%] p-4'>
         <div>
           <h2>Account Overview</h2>
@@ -148,6 +147,5 @@ export default function UserDashboard() {
 
         </div> 
       </div>
-    </UserLayout >
   )
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import SiteLayout from "../components/SiteLayout";
 import Hero from "../components/Home/Hero";
 import Category from "../components/Home/Category";
 import Products from "../components/Home/Products";
@@ -14,7 +13,6 @@ import Join from "../components/Home/Join";
 export default function Home() {
   return (
     <>
-      <SiteLayout>
         
           <Hero />
           {/* <div className="w-[80%] mx-auto"> */}
@@ -28,7 +26,6 @@ export default function Home() {
           <About />
           <Join />
         {/* </div> */}
-      </SiteLayout>
     </>
   );
 }

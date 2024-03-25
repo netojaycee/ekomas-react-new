@@ -6,7 +6,6 @@ import paymentcard from '../assets/images/cards.webp'
 
 export default function Checkout() {
   return (
-    <SiteLayout>
       <div className='flex w-full lg:w-[70%] h-full overflow-y-auto my-10 rounded-md mx-auto bg-white items-center bg-[#f8f8f8] gap-6'>
         <div className='flex-col flex w-full h-[90%] p-8'>
           <div>
@@ -21,6 +20,5 @@ export default function Checkout() {
           </div>
         </div>
       </div>
-    </SiteLayout>
   )
 }

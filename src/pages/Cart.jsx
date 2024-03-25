@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SiteLayout from "../components/SiteLayout";
 import { CartContext } from "../components/Context/CartContext";
 import {
@@ -14,19 +14,22 @@ export default function Cart() {
   const { cart, removeFromCart, increaseAmount, decreaseAmount, total } =
     useContext(CartContext);
 
-  const handleRemoveItem = (id) => {
-    removeFromCart(id);
+  const handleRemoveItem = (_id) => {
+    removeFromCart(_id);
   };
 
-  const handleQuantityIncrease = (id) => {
-    increaseAmount(id);
+  const handleQuantityIncrease = (_id) => {
+    increaseAmount(_id);
   };
-  const handleQuantityDecrease = (id) => {
-    decreaseAmount(id);
+  const handleQuantityDecrease = (_id) => {
+    decreaseAmount(_id);
   };
+
+  useEffect(() => {
+    console.log(cart);
+  },[]);
 
   return (
-    <SiteLayout>
       <div className="flex flex-col gap-6 mt-9">
         <section className="w-[80%] mx-auto flex flex-col gap-5 ">
           <div className="flex flex-row justify-between">
@@ -62,7 +65,7 @@ export default function Cart() {
                     : "p-4 border-b border-blue-gray-50";
 
                   return (
-                    <tr key={item.id} className="border-2 border-blue-gray-200">
+                    <tr key={item._id} className="border-2 border-blue-gray-200">
                       <td className={classes}>
                         <Typography variant="small" className="font-normal">
                           {item.name}
@@ -76,14 +79,14 @@ export default function Cart() {
                       <td className="flex justify-center items-center gap-2 p-4">
                         <button
                           className="w-5 h-5"
-                          onClick={() => handleQuantityDecrease(item.id)}
+                          onClick={() => handleQuantityDecrease(item._id)}
                         >
                           <MinusIcon className="w-full h-full" />
                         </button>
                         {item.amount}
                         <button
                           className="w-5 h-5"
-                          onClick={() => handleQuantityIncrease(item.id)}
+                          onClick={() => handleQuantityIncrease(item._id)}
                         >
                           <PlusIcon className="w-full h-full" />
                         </button>
@@ -99,7 +102,7 @@ export default function Cart() {
                           href="#"
                           variant="small"
                           className="font-medium"
-                          onClick={() => handleRemoveItem(item.id)}
+                          onClick={() => handleRemoveItem(item._id)}
                         >
                           <XMarkIcon className="w-5" />
                         </Typography>
@@ -139,6 +142,5 @@ export default function Cart() {
           </Link>
         </section>
       </div>
-    </SiteLayout>
   );
 }

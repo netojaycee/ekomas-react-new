@@ -22,11 +22,15 @@ import { useContext } from "react";
 import { ProductContext } from "./Context/ProductContext";
 import { CartContext } from "./Context/CartContext";
 import Searchbox from "./seachbox";
+import AuthContext from "./Context/AuthContext";
 
 function NavList() {
   const { data } = useContext(ProductContext);
   const { itemAmount } = useContext(CartContext);
-  const categories = data ? [...new Set(data.map((product) => product.category))] : [];
+  const { auth } = useContext(AuthContext);
+  const categories = data
+    ? [...new Set(data.map((product) => product.category))]
+    : [];
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => {
@@ -81,12 +85,12 @@ function NavList() {
                     to={`/products?category=${category}`} // Use the category in the link URL
                     className="gap-8 hover:text-secondary flex flex-col duration-300 absolute transform ease-linear"
                   >
-                   <div className="flex flex-col h-fit gap-10">
-                    <ul>
-                      <li>{category}</li>
-                      <li>{category}</li>
-                    </ul>
-                   </div>
+                    <div className="flex flex-col h-fit gap-10">
+                      <ul>
+                        <li>{category}</li>
+                        <li>{category}</li>
+                      </ul>
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -147,7 +151,7 @@ function NavList() {
         <Searchbox placeholder="Search for all items here..." />
         <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-end items-center">
           {/* <InformationCircleIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" /> */}
-          <Link to="/user/dashboard">
+          <Link to={auth?.user ? "/user/dashboard" : "/login"}>
             <UserIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" />
           </Link>
           <Link to="/cart">
@@ -190,7 +194,7 @@ export default function Nav() {
         </div>
         <IconButton
           variant="text"
-          className="ml-auto md:hidden lg:hidden block h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          className="ml-auto md:hidden lg:hidden block h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
         >
@@ -207,5 +211,3 @@ export default function Nav() {
     </Navbar>
   );
 }
-
-

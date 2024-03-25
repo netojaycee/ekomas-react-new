@@ -6,7 +6,6 @@ import googleIcon from '../assets/images/googleIcon.png'
 
 export default function Login() {
   return (
-    <SpecialLayout>
       <div className='flex flex-col w-[80%] md:[50%] lg:w-[30%] mx-auto justify-center h-screen'>
         <div className='flex flex-col gap-3'>
           <button className='flex flex-row py-3 px-4 md:px-10 bg-[#FC6767] rounded-sm items-center justify-center'>
@@ -30,6 +29,5 @@ export default function Login() {
           Don't have an account? <a href='/register'>Register here</a>
         </p>
       </div>
-    </SpecialLayout>
   );
 }

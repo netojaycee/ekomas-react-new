@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 
-const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-
+const storedCart = JSON.parse(localStorage.getItem("cartEkomas")) || [];
 
 export const CartContext = createContext();
 
@@ -16,7 +15,7 @@ const CartProvider = ({ children }) => {
         return acc + item.amount;
       }, 0);
       setItemAmount(amount);
-      localStorage.setItem("cart", JSON.stringify(cart)); // Save cart data to local storage
+      localStorage.setItem("cartEkomas", JSON.stringify(cart)); // Save cart data to local storage
     }
   }, [cart]);
 
@@ -27,19 +26,34 @@ const CartProvider = ({ children }) => {
     setTotal(total);
   }, [cart]);
 
+  // const addToCart = (data, _id, quantityToAdd = 1) => {
+  //   const newItem = { ...data, amount: quantityToAdd };
 
+  //   // Check if item already exists in the cart
+  //   const existingItemIndex = cart.findIndex((item) => item._id === _id);
 
-  const addToCart = (data, id) => {
-    const newItem = { ...data, amount: 1 };
+  //   if (existingItemIndex !== -1) {
+  //     // If item exists, update the quantity
+  //     const newCart = [...cart];
+  //     newCart[existingItemIndex].amount += quantityToAdd;
+  //     setCart(newCart);
+  //   } else {
+  //     // If item doesn't exist, add it to the cart
+  //     setCart([...cart, newItem]);
+  //   }
+  // };
+
+  const addToCart = (data, _id, quantityToAdd = 1) => {
+    const newItem = { ...data, amount: quantityToAdd };
     // check if item already exists
     const cartItem = cart.find((item) => {
-      return item.id === id;
+      return item._id === _id;
     });
     // if cart item exists
     if (cartItem) {
       const newCart = [...cart].map((item) => {
-        if (item.id === id) {
-          return { ...item, amount: cartItem.amount + 1 };
+        if (item._id === _id) {
+          return { ...item, amount: cartItem.amount + quantityToAdd };
         } else {
           return item;
         }
@@ -50,29 +64,29 @@ const CartProvider = ({ children }) => {
     }
     // console.log(cartItem);
   };
-  console.log(cart);
+  // console.log(cart);
 
-  const removeFromCart = (id) => {
-    const newCart = [...cart].filter((item) => item.id !== id);
+  const removeFromCart = (_id) => {
+    const newCart = [...cart].filter((item) => item._id !== _id);
     setCart(newCart);
   };
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem("cart");
+    localStorage.removeItem("cartEkomas");
   };
 
-  const increaseAmount = (id) => {
-    const cartItem = cart.find((item) => item.id === id);
-    addToCart(cartItem, id);
+  const increaseAmount = (_id) => {
+    const cartItem = cart.find((item) => item._id === _id);
+    addToCart(cartItem, _id, 1);
   };
 
-  const decreaseAmount = (id) => {
+  const decreaseAmount = (_id) => {
     const cartItem = cart.find((item) => {
-      return item.id === id;
+      return item._id === _id;
     });
     if (cartItem) {
       const newCart = [...cart].map((item) => {
-        if (item.id === id) {
+        if (item._id === _id) {
           return { ...item, amount: cartItem.amount - 1 };
         } else {
           return item;
@@ -81,7 +95,7 @@ const CartProvider = ({ children }) => {
       setCart(newCart);
     }
     if (cartItem.amount < 2) {
-      removeFromCart(id);
+      removeFromCart(_id);
     }
   };
   return (

@@ -1,30 +1,25 @@
-import { Input, Spinner } from '@material-tailwind/react';
-import React, { useState } from 'react';
+import { Input, Spinner } from "@material-tailwind/react";
+import React, { useState } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { apiUrl } from '../../config/env';
-
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../../config/env";
+import { toast } from "react-toastify";
 
 export default function Register() {
-
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-
 
   // ... (previous code)
 
@@ -40,71 +35,38 @@ export default function Register() {
       // Perform Axios request here
       const response = await axios.post(`${apiUrl}/auth/create`, formData);
       // console.log(response.data);
-      console.log(response)
-      if (response.statusText === 'OK'){
+      console.log(response);
+      if (response.statusText === "OK") {
         // Redirect or handle success as needed
         setIsLoading(false);
-        navigate('/login'); // Replace with your desired success page
+        toast.success("Registration Successful");
+        // setTimeout(() => {
+        //   navigate("/login"); // Redirect to login page
+        // }, 3000);
+        navigate("/login"); // Redirect to login page
       } else {
         return;
       }
     } catch (error) {
       setIsLoading(false);
-
-      // Handle error
-      // console.error('Error submitting form:', error);
-
-      // Use the error from the server for form validation
-      if (error.response && error.response.data && error.response.data.errors) {
-        setIsLoading(false);
-
-        const backendErrors = error.response.data.errors;
-
-        // Map backend errors to the corresponding form fields
-        const updatedErrors = {};
-        backendErrors.forEach(serverError => {
-          const [fieldName, errorMessage] = serverError.split(' ');
-
-          // Special handling for password match error
-          if (fieldName.toLowerCase() === 'confirm_password' && serverError.toLowerCase() === 'password' &&
-            serverError.includes('do not match')) {
-            setIsLoading(false);
-
-            updatedErrors['confirm_password'] = serverError;
-          } else {
-            updatedErrors[fieldName.toLowerCase()] = serverError;
-          }
-        });
-
-
-        setErrors(updatedErrors);
-      } else {
-        // Handle other types of errors (e.g., network errors)
-        console.error('Unhandled error type:', error);
-        setErrors({ general: 'An unexpected error occurred. Please try again later.' });
-      }
+      setErrors(error.response.data.errors);
     }
   };
 
-
-
   return (
-    <div className='flex flex-col gap-3'>
-
-      <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+    <div className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div>
           <Input
             size="md"
             label="Full name"
-            className='rounded-none focus:outline-none focus:ring-0'
+            className="rounded-none focus:outline-none focus:ring-0"
             name="name"
-            type='text'
+            type="text"
             value={formData.name}
             onChange={handleChange}
           />
-          {
-            errors.name && <p className='text-red-500 text-sm'>{errors.name}</p>
-          }
+          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </div>
         {/* <div>
           <Input
@@ -122,25 +84,29 @@ export default function Register() {
           <Input
             size="md"
             label="Email"
-            className='rounded-none'
+            className="rounded-none"
             name="email"
-            type='email'
+            type="email"
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
         </div>
         <div>
           <Input
             size="md"
             label="Password"
-            className='rounded-none'
+            className="rounded-none"
             name="password"
-            type='password'
+            type="password"
             value={formData.password}
             onChange={handleChange}
           />
-          {errors.password && <p className='text-red-500 text-sm'>{errors.password}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
         </div>
         {/* <div>
           <Input
@@ -162,14 +128,16 @@ export default function Register() {
             </div>
           )}
           {!isLoading && (
-            <button type='submit' className='flex flex-row text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear'>
-              Register<ArrowRightIcon className="ml-1 w-6" />
+            <button
+              type="submit"
+              className="flex flex-row text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear"
+            >
+              Register
+              <ArrowRightIcon className="ml-1 w-6" />
             </button>
           )}
         </div>
       </form>
-
     </div>
   );
-};
-
+}

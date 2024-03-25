@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   Typography,
@@ -28,15 +28,12 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-
-const handleLogout = () => {
-  // Call the logout function to initiate the logout process
-  // logout();
-};
+import AuthContext from "../Context/AuthContext";
 
 export function UserSidebar() {
   const [open, setOpen] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
+  const { logout } = useContext(AuthContext);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -51,7 +48,6 @@ export function UserSidebar() {
               <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
             My Account
-
           </ListItem>
         </Link>
         <hr className=" border-blue-gray-50" />
@@ -61,8 +57,6 @@ export function UserSidebar() {
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
             Orders
-
-
             {/* <ListItemSuffix>
               <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix> */}
@@ -92,27 +86,20 @@ export function UserSidebar() {
 
         <hr className=" border-blue-gray-50 " />
 
-        <ListItem>
-          Account Management
-        </ListItem>
+        <ListItem>Account Management</ListItem>
 
-        <ListItem>
-          Address book
-        </ListItem>
+        <ListItem>Address book</ListItem>
 
-        <ListItem>
-          Close Account
-        </ListItem>
+        <ListItem>Close Account</ListItem>
         <hr className=" border-blue-gray-50" />
 
         <ListItem className="flex font-bold justify-center">
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <button onClick={handleLogout}>LOGOUT</button>
+          <button onClick={logout}>LOGOUT</button>
         </ListItem>
       </List>
-
     </Card>
   );
 }

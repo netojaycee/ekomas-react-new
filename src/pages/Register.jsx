@@ -1,12 +1,10 @@
 import React from 'react';
 import RegisterForm from '../components/Auth/RegisterForm';
-import SpecialLayout from '../components/SpecialLayout';
 import facebookIcon from '../assets/images/facebookIcon.png'
 import googleIcon from '../assets/images/googleIcon.png'
 
 export default function Register() {
   return (
-    <SpecialLayout>
       <div className='flex flex-col w-[80%] lg:w-[30%] mx-auto justify-center h-screen'>
 
 
@@ -30,6 +28,5 @@ export default function Register() {
           Already have an account? <a href='/login'>Sign In</a>
         </p>
       </div>
-    </SpecialLayout>
   );
 }

@@ -1,17 +1,26 @@
 // Layout.js
-import React from 'react';
-import Nav from './Navbar';
-import Footer from './Footer';
+import React from "react";
+import Nav from "./Navbar";
+import Footer from "./Footer";
+import Loader from "./Loader";
+import { Outlet } from "react-router-dom";
+import { useLoading } from "./Context/LoadingContext";
 
-const SiteLayout = ({ children }) => {
+const SiteLayout = () => {
+  const { isLoading } = useLoading();
+
   return (
     <>
-    <div className='min-h-screen overflow-hidden bg-gray-200'>
-      <Nav />
-      {children}
-      <Footer />
-      </div>
-      </>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="min-h-screen overflow-hidden bg-gray-200">
+          <Nav />
+          <Outlet />
+          <Footer fullFooter={false} />
+        </div>
+      )}
+    </>
   );
 };
 

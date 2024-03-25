@@ -19,7 +19,7 @@ const ProductProvider = ({ children }) => {
         if (response.status === 200) {
           const products = response.data.products;
           setData(products);
-          console.log(products);
+          // console.log(products);
           // Filter featured products
           const featuredProducts = products.filter(product => product.featured === "yes");
           setFeatured(featuredProducts);
