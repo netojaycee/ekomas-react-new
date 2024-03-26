@@ -41,10 +41,10 @@ export default function ProductsList() {
     }
     if (categoryParam) {
       // Filter products based on the categoryParam
-      filtered = data.filter(product => product.categoryId === categoryParam);
+      filtered = data.filter((product) => product.categoryId === categoryParam);
       // console.log(filtered)
     }
-    
+
     setFilteredProducts(filtered);
 
     setCurrentPage(1); // Reset to the first page when filters change
@@ -85,15 +85,29 @@ export default function ProductsList() {
     // Update the state with the sorted products
     setFilteredProducts(sortedProducts); // Update filteredProducts, not products
   };
-
+  let paginationRange;
+  if (filteredProducts.length > 20) {
+    paginationRange = `${Math.min(
+      indexOfFirstProduct + 1,
+      indexOfLastProduct
+    )}-${Math.min(indexOfLastProduct, filteredProducts.length)} of ${
+      filteredProducts.length
+    } results`;
+  } else {
+    paginationRange = `${Math.min(
+      indexOfFirstProduct + 1,
+      indexOfLastProduct
+    )}-${filteredProducts.length} of ${filteredProducts.length} results`;
+  }
   return (
     <>
       <div className="pt-[60px]">
         <div className="w-[80%] mx-auto flex-col flex gap-4 rounded-full">
           <div className="flex flex-row justify-between text-gray-700">
             <div>
-              Showing {indexOfFirstProduct + 1}-{indexOfLastProduct} of{" "}
-              {filteredProducts.length} results
+              {/* Showing {indexOfFirstProduct + 1}-{indexOfLastProduct} of{" "}
+              {filteredProducts.length} results */}
+              Showing {paginationRange}
             </div>
             <div>
               {/* Use the select dropdown for sorting options */}
@@ -126,4 +140,4 @@ export default function ProductsList() {
       </div>
     </>
   );
-};
+}

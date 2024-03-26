@@ -38,8 +38,8 @@ const Tsp = () => {
   };
 
   return (
-    <div className="md:mt-7 mt-10 py-10 w-full bg-tsp_background">
-      <div className="flex-col flex gap-4 w-[80%] mx-auto">
+    <div className=" mt-10 py-10 w-full bg-tsp_background">
+      <div className="flex-col flex gap-4 w-[90%] mx-auto">
         <div>
           <h1 className="text-[#B32b2b] py-4 md:mt-8 md:text-2xl mt-3 font-bold">
             Top Selling Products

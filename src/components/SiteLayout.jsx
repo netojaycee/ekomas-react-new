@@ -14,7 +14,7 @@ const SiteLayout = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-x-hidden">
+        <div className="overflow-x-hidden font-serif">
           <Nav />
           <Outlet />
           <Footer fullFooter={false} />

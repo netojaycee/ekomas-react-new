@@ -15,10 +15,10 @@ export default function Featured() {
   const displayedProducts = featured ? featured.slice(0, 6) : [];
 
   return (
-    <div className="md:my-[100px] my-20 w-[80%] mx-auto flex-col flex gap-4">
+    <div className="md:mt-10 w-[90%] mx-auto flex-col flex gap-4">
       <div className="flex flex-row justify-between">
         <div>
-          <h1 className="text-secondary md:text-2xl">Featured Products</h1>
+          <h1 className="text-secondary md:text-2xl font-semibold">Featured Products</h1>
         </div>
         <div>        
           <Link to="/products?featured=true">
@@ -29,7 +29,7 @@ export default function Featured() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {displayedProducts.map((product) => (
           <div key={product._id} className="flex flex-col">
                       <ProductItem key={product._id} {...product}  />

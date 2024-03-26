@@ -18,14 +18,14 @@ export default function Special() {
     Aos.init();
   }, []);
 
-  console.log(discount);
+  // console.log(discount);
 
 
   return (
-    <div className="md:my-20 my-10 w-[90%] md:w-[80%] mx-auto flex-col  flex gap-4">
+    <div className="md:my-10 my-10 w-[90%] mx-auto flex-col  flex gap-4">
       <div className="flex flex-row justify-between">
         <div>
-          <h1 className="text-gray-700 md:text-2xl">Special Offers</h1>
+          <h1 className="text-gray-700 md:text-2xl font-semibold">Special Offers</h1>
         </div>
         <div>
           <Link to="/products?specialOffers=true">

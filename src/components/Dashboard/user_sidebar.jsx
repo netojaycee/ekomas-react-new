@@ -77,20 +77,20 @@ export function UserSidebar() {
           </ListItemPrefix>
           Saved Items
         </ListItem>
-        <ListItem>
+        {/* <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
           Recently Viewed
-        </ListItem>
+        </ListItem> */}
 
         <hr className=" border-blue-gray-50 " />
 
         <ListItem>Account Management</ListItem>
 
-        <ListItem>Address book</ListItem>
+        {/* <ListItem>Address book</ListItem> */}
 
-        <ListItem>Close Account</ListItem>
+        {/* <ListItem>Close Account</ListItem> */}
         <hr className=" border-blue-gray-50" />
 
         <ListItem className="flex font-bold justify-center">

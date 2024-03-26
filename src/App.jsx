@@ -39,6 +39,7 @@ function App() {
 
             {/* PUBLIC ROUTES */}
             <Route path="/" element={<Home />} />
+            <Route path="/:reference" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<Products />} />
@@ -46,13 +47,13 @@ function App() {
             <Route path="/cart" element={<Cart />} />
 
             {/* USER ROUTES */}
-            <Route path="/" element={<UserLayout />}>
+            {/* <Route path="/" element={<UserLayout />}> */}
               <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                 <Route path="/user/dashboard" element={<UserDashboard />} />
                 <Route path="/user/orders" element={<Orders />} />
                 <Route path="/checkout" element={<Checkout />} />
               </Route>
-            </Route>
+            {/* </Route> */}
 
             {/* ADMIN AND USER ROUTES */}
             <Route

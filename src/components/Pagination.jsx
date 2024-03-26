@@ -10,11 +10,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex justify-center my-8">
       <button
         onClick={() => onPageChange(1)}
         disabled={currentPage === 1}
-        className='mx-2 px-4 py-2 bg-primary rounded text-white'
+        className='mx-2 px-4 py-2 bg-primary rounded-full text-white'
       >
         {'<<'}
       </button>
@@ -29,7 +29,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`mx-2 px-4 rounded py-2 ${currentPage === page ? 'bg-primary text-white' : 'bg-gray-200'}`}
+          className={`mx-2 px-4 rounded-full py-2 ${currentPage === page ? 'bg-primary text-white' : 'bg-gray-200'}`}
         >
           {page} 
         </button>
@@ -44,7 +44,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(totalPages)}
         disabled={currentPage === totalPages}
-        className='mx-2 px-4 rounded py-2 bg-primary text-white'
+        className='mx-2 px-4 rounded-full py-2 bg-primary text-white'
       >
         {'>>'}
       </button>

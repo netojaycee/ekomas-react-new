@@ -18,10 +18,10 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="md:mt-20 mt-10 w-[90%] md:w-[80%] h-full mx-auto flex-col flex gap-4">
+    <div className="md:mt-10 mt-10 w-[90%] h-full mx-auto flex-col flex gap-4">
       <div className="flex flex-row items-center justify-between">
         <div>
-          <h1 className="text-black md:text-2xl">Products</h1>
+          <h1 className="text-black md:text-2xl font-semibold font-serif">Products</h1>
         </div>
         <div>
           <Link to="/products">
@@ -33,8 +33,8 @@ const Products = () => {
         </div>
       </div>
 
-      <div className="md:bg-whitex bg-gray-100 rounded-md py-2  px-4">
-        <div className="overflow-x auto gap-4 grid grid-cols-1   sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full rounded-sm">
+      <div className="rounded-md py-2  px-4">
+        <div className="gap-4 grid grid-cols-1  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
           {displayedProducts.map((product) => (
             <ProductItem key={product._id} {...product} />
           ))}

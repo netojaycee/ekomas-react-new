@@ -20,7 +20,8 @@ const ProductItem = ({
 }) => {
   const productDetailPath = `/product/${_id}`;
 
-  const { addToWish, removeFromWish, wish, clearWish } = useContext(WishContext);
+  const { addToWish, removeFromWish, wish, clearWish } =
+    useContext(WishContext);
 
   useEffect(() => {
     Aos.init();
@@ -56,31 +57,25 @@ const ProductItem = ({
     >
       <div className="flex flex-row gap-4 rounded ">
         <div className="bg-white flex flex-row p-2 rounded overflow-hidden pr-0 relative w-full h-[200px] duration-300 transform hover:scale-105 transition ease-linear">
-          <div
-            className="group flex justify-center items-center h-32 w-full bg-white px-4 py-2"
-            data-aos="zoom-out"
-          >
-            <Link to={productDetailPath} className="my-2 w-full">
+            <div
+              className="group flex justify-center items-center w-full bg-white px-4 py-2"
+              data-aos="zoom-out"
+            >          <Link to={productDetailPath}>
+
               <img
                 src={image}
                 alt={name}
-                className="w-32 h-32 mx-auto object-cover "
-                style={{ maxHeight: "100%" }}
+                className="w-full object-cover "
               />
-            </Link>
-            <a
-              href={productDetailPath}
-              className="hidden group-hover:block text-xs absolute bottom-0 left-0 right-0 py-1 px-8 text-center bg-red-500 text-white border-b-2 border-secondary"
-            >
-              Shop Now
-            </a>
-            <a
-              href="#"
-              className="hidden group-hover:block text-base absolute bottom-0 left-0 right-0 py-1 px-8 text-center bg-gray-300 text-red-900 border-b-2 border-secondary"
-            >
-              Shop Now
-            </a>
-          </div>
+
+              <a
+                href="#"
+                className="hidden group-hover:block text-base absolute bottom-0 left-0 right-0 py-1 px-8 text-center bg-gray-300 text-red-900 border-b-2 border-secondary"
+              >
+                Shop Now
+              </a>          </Link>
+
+            </div>
 
           <div className=" -right-2 rounded absolute " data-aos="fade-up">
             <div className="absolute -right-1">
@@ -90,21 +85,21 @@ const ProductItem = ({
                 </div>
               )}
             </div>
-            <div className="bg-badge h-5 w-3 rounded-l-md relative ml-[30px] mt-28"></div>
+            <div className="bg-badge h-5 w-5 rounded-l-md relative ml-[30px] mt-28"></div>
           </div>
         </div>
       </div>
-      <div className="flex flex-row gap-4 rounded ">
-        <div className="flex flex-col px-4 gap-1" data-aos="zoom-in">
+      <div className="flex flex-row justify-between rounded items-center px-2 py-1">
+        <div className="flex flex-col " data-aos="zoom-in">
           <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md">
             {name}
           </div>
           <div className="text-gray-600 sm:text-sm md:text-lg">${price}</div>
         </div>
-        <div className="">
+        <div className="flex justify-end">
           <FontAwesomeIcon
             icon={isWish ? faHeart : faHeartOutline}
-            style={{ color: isWish ? "red" : "gray" }}
+            style={{ color: isWish ? "red" : "red" }}
             size="lg"
             className="cursor-pointer"
             onClick={toggleWish}
