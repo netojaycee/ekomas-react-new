@@ -4,7 +4,7 @@ import Pagination from "../Pagination";
 import { useLocation, Link } from "react-router-dom";
 import { ProductContext } from "../Context/ProductContext";
 
-export const ProductsList = () => {
+export default function ProductsList() {
   const { data, discount, featured, topSelling } = useContext(ProductContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState("Default sorting");

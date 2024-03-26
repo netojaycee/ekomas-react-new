@@ -27,135 +27,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import Wishlist from "./Wishlist";
 
-function NavList() {
+function NavChild() {
   const { data } = useContext(ProductContext);
   const { itemAmount } = useContext(CartContext);
   const { auth } = useContext(AuthContext);
   const categories = data
     ? [...new Set(data.map((product) => product.category))]
     : [];
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const handleDropdownToggle = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
-
-  const handleMouseEnter = () => {
-    setIsDropdownOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDropdownOpen(false);
-  };
   const [search, setSearch] = React.useState("");
   const onChange = ({ target }) => setSearch(target.value);
   return (
     <>
-      <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between  ">
-        <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[50px] mx-3 ">
-          <Typography
-            as="li"
-            variant="medium"
-            className="p-1 font-medium  duration-300 transform hover:scale-25 transition ease-linear"
-          >
-            <Link
-              to="/products"
-              className="flex items-center hover:text-secondary transition-colors"
+      <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between px-4">
+        <div className="flex items-center">
+          <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[30px] mx-3 ">
+            <Typography
+              as="li"
+              variant="medium"
+              className="p-1 font-medium  duration-300 transform hover:scale-25 transition ease-linear"
             >
-              Products
-            </Link>
-          </Typography>
-          <Typography
-            as="li"
-            variant="medium"
-            className="p-1 font-medium z-10 duration-300 transform hover:scale-25 transition ease-linear "
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <span
-              className="flex items-center relative cursor-pointer"
-              onClick={handleDropdownToggle}
+              <Link
+                to="/products"
+                className="flex items-center hover:text-secondary transition-colors"
+              >
+                Products
+              </Link>
+            </Typography>
+            <Typography
+              as="li"
+              variant="medium"
+              className="p-1 font-medium  duration-300 transform hover:scale-25 transition ease-linear"
             >
-              Categories <ChevronDownIcon className="w-4" />
-            </span>
-            {/* Dropdown Content */}
-            {isDropdownOpen && (
-              <div className="a bg-red-800">
-                {/* Example dropdown items */}
-                {categories.map((category) => (
-                  <Link
-                    key={category} // Make sure to set a unique key for each element in the array
-                    to={`/products?category=${category}`} // Use the category in the link URL
-                    className="gap-8 hover:text-secondary flex flex-col duration-300 absolute transform ease-linear"
-                  >
-                    <div className="flex flex-col h-fit gap-10">
-                      <ul>
-                        <li>{category}</li>
-                        <li>{category}</li>
-                      </ul>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </Typography>
-          {/* <Typography
-            as="li"
-            variant="medium"
-            className="p-1 font-medium hover:text-secondary  duration-300 transform hover:scale-100 transition ease-linear"
-          >
-            <a
-              href="#"
-              className="flex items-center hover:text-secondary transition-colors"
-            >
-              Promotions
-            </a>
-          </Typography>
-          <Typography
-            as="li"
-            variant="medium"
-            className="p-1 font-medium hover:text-secondary  duration-300 transform hover:scale-100 transition ease-linear"
-          >
-            <a
-              href="#"
-              className="flex items-center hover:text-secondary transition-colors"
-            >
-              Explore
-            </a>
-          </Typography> */}
-        </ul>
-        {/* <div className="relative flex w-full lg:flex-row items-center mx-5">
-          <div className=" md:w-full">
-            {" "}
-            <MagnifyingGlassIcon
-              opacity={search ? 0 : 1}
-              className="hidden lg:!absolute left-2 top-1/2 transform -translate-y-1/2 text-blue-gray-400 w-4"
-            />
-            <Input
-              type="search"
-              label="Search for products"
-              value={search}
-              onChange={onChange}
-              className="rounded-md hover:rounded-none w-full outline-none border-none bg-white focus:border-white focus:rounded-none"
-              containerProps={{
-                className: "min-w-0",
-              }}
-            />
-          </div>
-          <Button
-            size="md"
-            color={search ? "gray" : "blue-gray"}
-            disabled={!search}
-            className=" rounded-none m-1 text-white rounded-md bg-secondary duration-300 transform hover:scale-125 transition ease-linear"
-          >
-            Search
-          </Button>
-        </div> */}
+              <Link
+                to="/products"
+                className="flex items-center hover:text-secondary transition-colors"
+              >
+                Category
+              </Link>
+            </Typography>
+          </ul>
+        </div>
         <Searchbox placeholder="Search for all items here..." />
         <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-end items-center">
-          {/* <InformationCircleIcon className="w-6  duration-300 transform hover:scale-125 transition ease-linear" /> */}
-         
-         <Wishlist />
+          <Wishlist />
           <Link to="/cart">
             <div className="relative">
               <ShoppingCartIcon className="w-6 duration-300 transform hover:scale-125 transition ease-linear" />
@@ -188,31 +103,34 @@ export default function Nav() {
   }, []);
 
   return (
-    <Navbar className="max-w-full w-full px-4 md:px-[50px] lg:px-[100px] py-3 rounded-none bg-white my-auto shadow-lg h-20 z-50 text-black  font-bold z-5">
-      <div className="flex items-center w-full justify-between text-blue-gray-900">
-        <Link to="/" className="w-[40%] md:w-[30%]">
-          <img src={logo} alt="logo" className="mr-[40px]" />
-        </Link>
-
-        <div className="hidden md:flex w-[90%]">
-          <NavList />
+    <>
+      <div className="bg-white shadow-lg fixed top-0 left-0 right-0 z-40 w-full py-3">
+        <div className="flex items-center justify-evenly px-4 py-3 md:px-[50px] lg:px-[100px]">
+          <div className="flex items-center">
+            <Link to="/" className="w-[50%] md:w-[70%] object-cover">
+              <img src={logo} alt="logo" className="mr-[40px]" />
+            </Link>
+          </div>{" "}
+          <div className="hidden md:flex w-[90%]">
+            <NavChild />{" "}
+          </div>{" "}
+          <IconButton
+            variant="text"
+            className="ml-auto md:hidden lg:hidden block h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
         </div>
-        <IconButton
-          variant="text"
-          className="ml-auto md:hidden lg:hidden block h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
+        <Collapse open={openNav}>
+          <NavChild />
+        </Collapse>
       </div>
-      <Collapse open={openNav}>
-        <NavList />
-      </Collapse>
-    </Navbar>
+    </>
   );
 }

@@ -41,7 +41,7 @@ export default function AdminNav() {
   }, []);
 
   return (
-    <Navbar className="max-w-full w-full py-3 rounded-none shadow-none bg-primary z-10">
+    <Navbar className="max-w-full w-full py-3 rounded-none shadow-none bg-primary">
       <div className="w-[80%] md:w-[95%] mx-auto items-center flex justify-between">
         <div className="md:hidden">
           <DrawerDefault className="" />

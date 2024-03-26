@@ -20,7 +20,7 @@ export default function Wishlist() {
         icon={faHeart}
         color="black"
         size="lg"
-        className="cursor-pointer"
+        className="cursor-pointer duration-300 transform hover:scale-125 transition ease-linear"
         onClick={openDrawer}
       />
       <Drawer
@@ -33,7 +33,11 @@ export default function Wishlist() {
           <Typography variant="h5" color="blue-gray">
             Material Tailwind
           </Typography>
-          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            onClick={closeDrawer}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -1,11 +1,10 @@
-import React from 'react'
-import product from '../../assets/images/productBreadcrumb.png'
+import React from "react";
+import product from "../../assets/images/productBreadcrumb.png";
 
-export const Breadcrumb = () => {
+export default function Breadcrumb() {
   return (
     <>
-    <img src={product} alt='' className='w-full h-[150px] object-cover' />
-    
+      <img src={product} alt="" className="w-full object-cover mt-[70px] " />
     </>
-  )
+  );
 }

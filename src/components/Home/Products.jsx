@@ -33,7 +33,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div className="md:bg-whitex bg-gray-100x rounded-md py-2  px-4">
+      <div className="md:bg-whitex bg-gray-100 rounded-md py-2  px-4">
         <div className="overflow-x auto gap-4 grid grid-cols-1   sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full rounded-sm">
           {displayedProducts.map((product) => (
             <ProductItem key={product._id} {...product} />

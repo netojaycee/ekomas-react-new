@@ -44,8 +44,8 @@ const ProductItem = ({
       className={`flex flex-col gap-4 bg-gray-300 border border-gray-400 md:max-w-[250px] overflow-hidden  rounded-xl  ${classx} xl:max-w-full justify-center`}
     >
       <div className="flex flex-row gap-4 rounded ">
-        <div className="bg-white flex flex-row p-2 rounded overflow-hidden h-fit pr-0 relative w-full h-[200px] duration-300 transform hover:scale-105 transition ease-linear">
-          <div className="top-4 left-3 absolute z-50">
+        <div className="bg-white flex flex-row p-2 rounded overflow-hidden pr-0 relative w-full h-[200px] duration-300 transform hover:scale-105 transition ease-linear">
+          <div className="top-4 left-3 absolute">
             <FontAwesomeIcon
               icon={isInWishList ? faHeart : faHeartOutline}
               style={{ color: isInWishList ? "red" : "gray" }}
