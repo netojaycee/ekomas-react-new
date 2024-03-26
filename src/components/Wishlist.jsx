@@ -31,7 +31,7 @@ export default function Wishlist() {
       >
         <div className="mb-6 flex items-center justify-between">
           <Typography variant="h5" color="blue-gray">
-            Material Tailwind
+            WishList
           </Typography>
           <IconButton
             variant="text"
@@ -54,15 +54,9 @@ export default function Wishlist() {
             </svg>
           </IconButton>
         </div>
-        <Typography color="gray" className="mb-8 pr-4 font-normal">
-          Material Tailwind features multiple React and HTML components, all
-          written with Tailwind CSS classes and Material Design guidelines.
-        </Typography>
-        <div className="flex gap-2">
-          <Button size="sm" variant="outlined">
-            Documentation
-          </Button>
-          <Button size="sm">Get Started</Button>
+        <div className="">
+
+          do the design here
         </div>
       </Drawer>
     </React.Fragment>
