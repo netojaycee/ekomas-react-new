@@ -25,7 +25,7 @@ const RequireAuth = ({ allowedRoles }) => {
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   } else {
     // If the user is not logged in, navigate to action page
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 };
 

@@ -24,15 +24,15 @@ function PaymentComplete({ open, handleOpen, paymentInfo }) {
     <Dialog open={open} handler={handleOpen}>
       {paymentInfo && (
         <>
-          <DialogHeader>Payment {paymentInfo.data.status}</DialogHeader>
+          <DialogHeader>Payment {paymentInfo?.data?.status}</DialogHeader>
           {/* Display payment information */}
           <DialogBody>
-            {paymentInfo.message}
+            {paymentInfo?.message}
             <ul>
-              <li>Transaction ID: {paymentInfo.data.id}</li>
-              <li>name: {paymentInfo.data.metadata.customerName}</li>
+              <li>Transaction ID: {paymentInfo?.data?.id}</li>
+              <li>name: {paymentInfo?.data?.metadata?.customerName}</li>
 
-              <li>email: {paymentInfo.data.customer.email}</li>
+              <li>email: {paymentInfo?.data?.customer?.email}</li>
             </ul>
           </DialogBody>
           <DialogFooter>
