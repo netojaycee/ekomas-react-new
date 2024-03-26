@@ -18,21 +18,22 @@ import {
 } from "@material-tailwind/react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { apiUrl } from "../config/env";
 
 function PaymentComplete({ open, handleOpen, paymentInfo }) {
   return (
     <Dialog open={open} handler={handleOpen}>
       {paymentInfo && (
         <>
-          <DialogHeader>Payment {paymentInfo?.data?.status}</DialogHeader>
+          <DialogHeader>Payment {paymentInfo.data.status}</DialogHeader>
           {/* Display payment information */}
           <DialogBody>
-            {paymentInfo?.message}
+            {paymentInfo.message}
             <ul>
-              <li>Transaction ID: {paymentInfo?.data?.id}</li>
-              <li>name: {paymentInfo?.data?.metadata?.customerName}</li>
+              <li>Transaction ID: {paymentInfo.data.id}</li>
+              <li>name: {paymentInfo.data.metadata.customerName}</li>
 
-              <li>email: {paymentInfo?.data?.customer?.email}</li>
+              <li>email: {paymentInfo.data.customer.email}</li>
             </ul>
           </DialogBody>
           <DialogFooter>
@@ -58,7 +59,7 @@ export default function Home() {
       async function verifyPayment() {
         try {
           const response = await axios.get(
-            `/payment/verify?reference=${reference}`
+            `${apiUrl}/payment/verify?reference=${reference}`
           );
           console.log(response.data);
           // If payment verification is successful, open the PaymentComplete modal
