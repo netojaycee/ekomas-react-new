@@ -109,7 +109,6 @@ const ProductItem = ({
             className="cursor-pointer"
             onClick={toggleWish}
           />
-          <FontAwesomeIcon icon={faTrash} onclick={clearWish}/>
         </div>
       </div>
     </div>
