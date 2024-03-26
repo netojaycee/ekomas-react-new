@@ -66,6 +66,7 @@ const ProductItem = ({
                 style={{ maxHeight: "100%" }}
               />
             </Link>
+            <a href={productDetailPath} className="hidden group-hover:block text-xs absolute bottom-0 left-0 right-0 py-1 px-8 text-center bg-red-500 text-white border-b-2 border-secondary">Shop Now</a>
             <a
               href="#"
               className="hidden group-hover:block text-xs text-base absolute bottom-0 left-0 right-0 py-1 px-8 text-center bg-gray-300 text-red-900 border-b-2 border-secondary"
