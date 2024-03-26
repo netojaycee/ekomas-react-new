@@ -27,7 +27,7 @@ const ProductItem = ({
   }, []);
 
   useEffect(() => {
-    setIsInWishList(wish.some((item) => item._id === _id));
+    setIsInWishList(wish && wish.some((item) => item._id === _id));
   }, [wish, _id]);
 
   const handleWishClick = () => {
