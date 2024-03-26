@@ -18,7 +18,7 @@ export default function Wishlist() {
     <React.Fragment>
       <FontAwesomeIcon
         icon={faHeart}
-        color="white"
+        color="black"
         size="lg"
         className="cursor-pointer"
         onClick={openDrawer}
