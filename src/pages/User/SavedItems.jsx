@@ -16,7 +16,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-export default function Orders() {
+export default function SavedItems() {
   const [errors, setErrors] = useState({});
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState('all');
@@ -86,35 +86,18 @@ export default function Orders() {
               </div>
 
             ))}
+            
             <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
               <div className="flex gap-4 w-2/3">
                 <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
                 <div className="flex flex-col">
-                  <div className="text-sm font-bold text-[#FF9213]">Pending</div>
-
-                  <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
-                  <p>Quantity: 1</p>
-                  <p className="font-bold text-lg">$200</p>
-                </div>
-              </div>
-              <div className="btn w-1/3 flex justify-end">
-                <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Cancel order</button>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
-              <div className="flex gap-4 w-2/3">
-                <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
-                <div className="flex flex-col">
-                  <div className="text-sm font-bold text-green-600">completed</div>
-
                   <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
                   <p>Quantity: 1</p>
                   <p className="font-bold text-lg">$200</p>
                 </div>
               </div>
               <div className="btn w-1/3 flex justify-end items-center gap-4">
-                <button className='bg-transparent border border-gray-300 text-black px-4 py-2 rounded-md'>Order again</button>
+                <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
                 <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
               </div>
             </div>
@@ -123,52 +106,17 @@ export default function Orders() {
               <div className="flex gap-4 w-2/3">
                 <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
                 <div className="flex flex-col">
-                  <div className="text-sm font-bold text-red-600">Cancelled</div>
-
                   <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
                   <p>Quantity: 1</p>
                   <p className="font-bold text-lg">$200</p>
                 </div>
               </div>
               <div className="btn w-1/3 flex justify-end items-center gap-4">
-                <button className='bg-transparent border border-gray-300 text-black px-4 py-2 rounded-md'>Re-order</button>
+                <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
                 <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
               </div>
             </div>
-            <hr />
-            <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
-              <div className="flex gap-4 w-2/3">
-                <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
-                <div className="flex flex-col">
-                  <div className="text-sm font-bold text-red-600">Cancelled</div>
-
-                  <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
-                  <p>Quantity: 1</p>
-                  <p className="font-bold text-lg">$200</p>
-                </div>
-              </div>
-              <div className="btn w-1/3 flex justify-end items-center gap-4">
-                <button className='bg-transparent border border-gray-300 text-black px-4 py-2 rounded-md'>Re-order</button>
-                <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
-              <div className="flex gap-4 w-2/3">
-                <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
-                <div className="flex flex-col">
-                  <div className="text-sm font-bold text-red-600">Cancelled</div>
-
-                  <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
-                  <p>Quantity: 1</p>
-                  <p className="font-bold text-lg">$200</p>
-                </div>
-              </div>
-              <div className="btn w-1/3 flex justify-end items-center gap-4">
-                <button className='bg-transparent border border-gray-300 text-black px-4 py-2 rounded-md'>Re-order</button>
-                <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
-              </div>
-            </div>
+            
           </TabPanel>
           <TabPanel value="pending">
             {orders.filter(order => order.status === 'pending').map(order => (

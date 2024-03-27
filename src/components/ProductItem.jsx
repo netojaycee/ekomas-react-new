@@ -45,7 +45,7 @@ const ProductItem = ({
       );
       toast.success(`${name} added to wishlist`);
     } else {
-      removeFromWish(_id);
+      removeFromWish(_id);x1
       toast.success(`${name} removed from wishlist`);
     }
   };
@@ -65,7 +65,7 @@ const ProductItem = ({
               <img
                 src={image}
                 alt={name}
-                className="w-full object-cover "
+                className="w-full object-cover rounded-lg"
               />
 
               <a
@@ -94,7 +94,7 @@ const ProductItem = ({
           <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md">
             {name}
           </div>
-          <div className="text-gray-600 sm:text-sm md:text-lg">${price}</div>
+          <div className="text-gray-900 sm:text-sm md:text-md">${price}</div>
         </div>
         <div className="flex justify-end">
           <FontAwesomeIcon

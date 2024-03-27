@@ -136,7 +136,7 @@ export default function Checkout() {
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon
                     icon={faLocationDot}
-                    style={{ color: "#A9CA4E" }}
+                    style={{ color: "#FF3E3E  " }}
                     size="lg"
                   />
                   {isEditableAd ? (
@@ -157,19 +157,19 @@ export default function Checkout() {
                   >
                     <FontAwesomeIcon
                       icon={faPencilAlt}
-                      style={{ color: "#A9CA4E" }}
+                      style={{ color: "#FF3E3E  " }}
                       size="lg"
                     />
                   </button>
                 </div>
-                <div className="flex flex-col gap-2 bg-[#f3bcdf] p-2 w-[40%] text-sm">
+                <div className="flex flex-col gap-2 bg-[#FFdd60] p-2 w-[40%] text-sm">
                   <p className="font-semibold">15-25 min</p>
                   <p>As soon as possible</p>
                 </div>
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon
                     icon={faPhone}
-                    style={{ color: "#A9CA4E" }}
+                    style={{ color: "#FF3E3E" }}
                     size="lg"
                   />
                   {isEditablePh ? (
@@ -190,7 +190,7 @@ export default function Checkout() {
                   >
                     <FontAwesomeIcon
                       icon={faPencilAlt}
-                      style={{ color: "#A9CA4E" }}
+                      style={{ color: "#FF3E3E" }}
                       size="lg"
                     />
                   </button>
@@ -246,7 +246,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex flex-row justify-between text-sm">
                   <p>SubTotal</p>
-                  <p>N {parseFloat(total).toFixed(2)}</p>
+                  <p>N {parseFloat(total).toFixed(2)}</p> 
                 </div>
                 <div className="flex flex-row justify-between font-semibold my-5">
                   <p>Total</p>
@@ -254,7 +254,7 @@ export default function Checkout() {
                 </div>
               </div>
               <button
-                className="bg-secondary text-black font-semibold p-2 rounded-md"
+                className="bg-secondary hover:bg-primary transition duration-200 text-white font-semibold p-2 rounded-md"
                 onClick={() => handleConfirmOrder()}
               >
                 Confirm Order

@@ -45,25 +45,28 @@ export default function ProductDetails() {
   return (
     <>
     {detail && (
-      <div className="flex flex-col mb-10 gap-6">
-        <div className="flex flex-col lg:flex-row  gap-6 w-[65%] mx-auto mt-9 h-[300px]">
-          <div className="bg-white flex flex-row p-2 pr-0 relative shadow-md flex-1 justify-center items-center">
-            <div className="flex flex-row gap-5">
-              <div className="">
-                <HeartIcon className="w-5 text-secondary" />
-              </div>
-              <div className="my-2">
-                {/* <img
+      <div className="flex flex-col mt-32 gap-6">
+        <div className="flex flex-col lg:flex-row  gap-6 w-[90%] md:w-[80%] mx-auto mt-9 lg:h-[300px]">
+          <div className="bg-white flex flex-row p-2 pr-0 relative overflow-auto shadow-md object-contain border rounded-md flex-1 justify-center items-center">
+            <div className="flex flex-row gap-5 relative overflow-auto object-contain">
+              
+              <div className="my-2 p-4 rounded-xl object-cover overflow-auto">
+                <img
                   src={detail.image}
                   alt={detail.name}
-                  className="w-full object-cover"
-                /> */}
+                  className=" object-cover rounded-md w-[700px] h-[250px]"
+                />
               </div>
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 w-full flex-col gap-4">
+            <div className="flex w-full items-center justify-between">
             <h1>{detail.name}</h1>
+            <div className="">
+                <HeartIcon className="w-5 text-secondary" />
+              </div>
+            </div>
             <div className="text-[#b32b2b] text-xl font-semibold">
               {detail.price}
             </div>

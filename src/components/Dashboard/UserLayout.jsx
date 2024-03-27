@@ -18,7 +18,7 @@ const UserLayout = () => {
         //   <Outlet />
         //   <Footer fullFooter={false} />
         // </div>
-        <div className="flex flex-col lg:flex-row w-[90%]  h-screen my-10 mx-auto md:p-40 gap-4 ">
+        <div className="flex flex-col lg:flex-row w-[90%]  h-screen my-32 border shadow-md mx-auto md:p-0 gap-4 ">
 
           <div className="w-full lg:w-[30%] h-full ">
             <UserSidebar />

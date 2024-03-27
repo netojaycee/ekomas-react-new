@@ -95,7 +95,7 @@ export default function UserDashboard() {
           <h2>Account Overview</h2>
         </div>
         <hr className='w-full' />
-        <div className='grid grid-cols-2 my-4 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 my-4 gap-4'>
           <Card className='border rounded-none pb-20'>
             <h5 className='px-4 py-2'>Account Details</h5>
             <hr className=" border-blue-gray-50" />

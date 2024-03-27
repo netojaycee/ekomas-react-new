@@ -71,12 +71,15 @@ export function UserSidebar() {
             <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem> */}
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Saved Items
-        </ListItem>
+        <Link to="/user/saved-items">
+          <ListItem>
+            <ListItemPrefix>
+              <UserCircleIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Saved Items
+          </ListItem>
+        </Link>
+
         {/* <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />

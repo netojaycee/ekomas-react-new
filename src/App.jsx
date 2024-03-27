@@ -22,6 +22,7 @@ import UserLayout from "./components/Dashboard/UserLayout";
 import RequireAuth from "./components/hook/RequireAuth";
 import AdminLayout from "./components/Dashboard/AdminLayout";
 import "react-toastify/dist/ReactToastify.css";
+import SavedItems from "./pages/User/SavedItems";
 
 
 function App() {
@@ -47,13 +48,14 @@ function App() {
             <Route path="/cart" element={<Cart />} />
 
             {/* USER ROUTES */}
-            {/* <Route path="/" element={<UserLayout />}> */}
+            <Route path="/" element={<UserLayout />}>
               <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                 <Route path="/user/dashboard" element={<UserDashboard />} />
                 <Route path="/user/orders" element={<Orders />} />
+                <Route path="/user/saved-items" element={<SavedItems />} />
                 <Route path="/checkout" element={<Checkout />} />
               </Route>
-            {/* </Route> */}
+            </Route>
 
             {/* ADMIN AND USER ROUTES */}
             <Route
