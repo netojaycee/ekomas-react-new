@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Drawer,
   Button,
@@ -7,9 +7,13 @@ import {
 } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import ProductItem from "./ProductItem";
+import { WishContext } from "./Context/WishContext";
+import emptywish from "../assets/images/emptywish.png";
 
 export default function Wishlist() {
   const [open, setOpen] = React.useState(false);
+  const { wish } = useContext(WishContext);
 
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -27,10 +31,10 @@ export default function Wishlist() {
         placement="right"
         open={open}
         onClose={closeDrawer}
-        className="p-4"
+        className="p-4 bg-secondary"
       >
-        <div className="mb-6 flex items-center justify-between">
-          <Typography variant="h5" color="blue-gray">
+        <div className="mb-6 flex items-center justify-between bg-white p-2">
+          <Typography variant="h5" color="blue-gray" className="font-serif font-semibold ">
             WishList
           </Typography>
           <IconButton
@@ -54,10 +58,35 @@ export default function Wishlist() {
             </svg>
           </IconButton>
         </div>
-        <div className="">
+        <>
+        <div
+        className="overflow-y-auto"
+        style={{ maxHeight: "calc(100vh - 100px)" }}
+      >
+      <div className="flex p-3">
+        {wish.length > 0 && ( // Check if the wishlist is not empty
+          <div className="grid grid-cols-1 gap-3">
+            {wish.map((item) => (
+              <div key={item._id} className="flex flex-col">
+                <ProductItem key={item._id} {...item} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
-          do the design here
+      {wish.length === 0 && (
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <img
+            src={emptywish}
+            alt="Empty Wishlist"
+            className="w-[50%] object-cover"
+          />
+          <p className="text-xl font-semibold">Your wishlist is empty</p>
+          <p className="text-gray-500">Add some restaurants to your wishlist</p>
         </div>
+      )}</div>
+    </>
       </Drawer>
     </React.Fragment>
   );
