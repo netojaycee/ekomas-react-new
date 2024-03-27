@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import logo from "../assets/images/logo.png";
 import { Input } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-// import CardDetails from "./CardDetails";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import AuthContext from "../components/Context/AuthContext";
 import { CartContext } from "../components/Context/CartContext";
 import { useLoading } from "../components/Context/LoadingContext";
@@ -17,13 +16,22 @@ import axios from "axios";
 import { apiUrl } from "../config/env";
 
 export default function Checkout() {
+  const location = useLocation();
+  // Check if the user has come from the cart page
+  const fromCart = location.state && location.state.fromCart;
+
+  // If the user has not come from the cart page, redirect back
+
+  // If the user has not come from the cart page, redirect to the home page
+  if (!fromCart) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
   const { auth } = useContext(AuthContext);
   const { total, cart } = useContext(CartContext);
   const { setIsLoading } = useLoading();
 
-  const [deliveryAddress, setDeliveryAddress] = useState(
-    auth?.user?.address
-  );
+  const [deliveryAddress, setDeliveryAddress] = useState(auth?.user?.address);
   const [phone, setPhone] = useState(auth?.user?.phone);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -39,7 +47,6 @@ export default function Checkout() {
   const handleConfirmOrder = async () => {
     try {
       setIsLoading(true);
-
 
       // Prepare cart items data for metadata
       const cartData = cart.map((item) => ({
@@ -61,8 +68,6 @@ export default function Checkout() {
         totalPrice: amount / 100,
       };
 
-     
-
       // Send payment request to backend
       let token = localStorage.getItem("user");
       token = token.replace(/['"]+/g, "");
@@ -74,7 +79,7 @@ export default function Checkout() {
 
       const response = await axios.post(
         `${apiUrl}/payment/payment`,
-        { amount , email: customerEmail, metadata },
+        { amount, email: customerEmail, metadata },
         { headers }
       );
 

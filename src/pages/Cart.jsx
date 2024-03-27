@@ -144,7 +144,8 @@ export default function Cart() {
             </h3>
           </div>
         </div>
-        <Link to="/checkout">
+        <Link to={{ pathname: "/checkout", state: { fromCart: true } }}>
+          
           <button className="bg-secondary text-white p-2 rounded-none mt-1 w-full">
             Proceed to Checkout
           </button>
