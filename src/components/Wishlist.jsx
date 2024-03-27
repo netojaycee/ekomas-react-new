@@ -76,14 +76,14 @@ export default function Wishlist() {
       </div>
 
       {wish.length === 0 && (
-        <div className="flex flex-col items-center justify-center w-full h-full">
+        <div className="flex flex-col items-center justify-center w-full h-screen bg-white gap-3">
           <img
             src={emptywish}
             alt="Empty Wishlist"
             className="w-[50%] object-cover"
           />
-          <p className="text-xl font-semibold">Your wishlist is empty</p>
-          <p className="text-gray-500">Add some restaurants to your wishlist</p>
+          <p className="text-2xl font-semibold text-center">Your wishlist is empty</p>
+          <p className="text-gray-700 text-justify text-sm">Add some products to your wishlist</p>
         </div>
       )}</div>
     </>
