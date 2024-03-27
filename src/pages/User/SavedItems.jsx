@@ -54,7 +54,7 @@ export default function SavedItems() {
       <div className='grid grid-cols-2 my-4 gap-4'>
         {/* Render order details here */}
       </div>
-      <Tabs value={activeTab} className="max-w-[70%] overflow-y-auto">
+      <Tabs value={activeTab} className="w-full lg:max-w-[70%] overflow-y-auto">
         <TabsHeader
           className="bg-transparent space-x-6"
           indicatorProps={{
@@ -87,8 +87,8 @@ export default function SavedItems() {
 
             ))}
             
-            <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
-              <div className="flex gap-4 w-2/3">
+            <div className="lg:flex-row flex flex-col lg:justify-between h-[400px] overflow-auto md:h-[200px] my-8 p-4 border gap-3 lg:gap-x-10 items-center">
+              <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
                 <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
                 <div className="flex flex-col">
                   <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
@@ -96,14 +96,14 @@ export default function SavedItems() {
                   <p className="font-bold text-lg">$200</p>
                 </div>
               </div>
-              <div className="btn w-1/3 flex justify-end items-center gap-4">
+              <div className="btn w-full lg:w-1/3 flex justify-center md:justify-end items-center gap-4">
                 <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
                 <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
               </div>
             </div>
             <hr />
-            <div className="flex justify-between h-[200px] my-8 p-4 border gap-x-10 items-center">
-              <div className="flex gap-4 w-2/3">
+            <div className="lg:flex-row flex flex-col lg:justify-between h-[400px] overflow-auto md:h-[200px] my-8 p-4 border gap-3 lg:gap-x-10 items-center">
+              <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
                 <div className="object-contain p-3 border rounded flex-3 "><img src={OrderImage} className='h-20 w-30' alt="image" /></div>
                 <div className="flex flex-col">
                   <h2 className='text-black font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem facilis </h2>
@@ -111,7 +111,7 @@ export default function SavedItems() {
                   <p className="font-bold text-lg">$200</p>
                 </div>
               </div>
-              <div className="btn w-1/3 flex justify-end items-center gap-4">
+              <div className="btn w-full lg:w-1/3 flex justify-center md:justify-end items-center gap-4">
                 <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
                 <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
               </div>
