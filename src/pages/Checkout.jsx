@@ -18,13 +18,14 @@ import { apiUrl } from "../config/env";
 export default function Checkout() {
   const location = useLocation();
   // Check if the user has come from the cart page
-  const fromCart = location.state && location.state.fromCart;
+  const fromCart = location.state?.fromCart;
+  // console.log(location)
 
   // If the user has not come from the cart page, redirect back
 
   // If the user has not come from the cart page, redirect to the home page
   if (!fromCart) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/cart" />;
   }
 
   const { auth } = useContext(AuthContext);
