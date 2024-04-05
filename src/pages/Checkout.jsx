@@ -147,6 +147,7 @@ export default function Checkout() {
                       className="my-2"
                       value={deliveryAddress}
                       onChange={(e) => setDeliveryAddress(e.target.value)}
+                      required
                     />
                   ) : (
                     <p className="my-2">{deliveryAddress}</p>
@@ -180,6 +181,7 @@ export default function Checkout() {
                       className="my-2"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      required
                     />
                   ) : (
                     <p className="my-2">{phone}</p>
@@ -256,6 +258,7 @@ export default function Checkout() {
               <button
                 className="bg-secondary hover:bg-primary transition duration-200 text-white font-semibold p-2 rounded-md"
                 onClick={() => handleConfirmOrder()}
+                disabled={!phone || !deliveryAddress}
               >
                 Confirm Order
               </button>

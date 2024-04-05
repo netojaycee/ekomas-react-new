@@ -24,7 +24,6 @@ import AdminLayout from "./components/Dashboard/AdminLayout";
 import "react-toastify/dist/ReactToastify.css";
 import SavedItems from "./pages/User/SavedItems";
 
-
 function App() {
   const ROLES = {
     User: "user",
@@ -36,8 +35,6 @@ function App() {
       <Routes>
         <Route element={<PersistLogin />}>
           <Route path="/" element={<SiteLayout />}>
-
-
             {/* PUBLIC ROUTES */}
             <Route path="/" element={<Home />} />
             <Route path="/:reference" element={<Home />} />
@@ -46,26 +43,27 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-
-            {/* USER ROUTES */}
-            <Route path="/" element={<UserLayout />}>
-              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-                <Route path="/user/dashboard" element={<UserDashboard />} />
-                <Route path="/user/orders" element={<Orders />} />
-                <Route path="/user/saved-items" element={<SavedItems />} />
-                <Route path="/checkout" element={<Checkout />} />
-              </Route>
-            </Route>
-
-            {/* ADMIN AND USER ROUTES */}
             <Route
               element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}
             >
+              <Route path="/checkout" element={<Checkout />} />
+
               <Route path="/unauthorized" element={<Unauthorized />} />
             </Route>
 
             <Route path="/*" element={<Error />} />
           </Route>
+
+          {/* USER ROUTES */}
+          <Route path="/" element={<UserLayout />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route path="/user/dashboard" element={<UserDashboard />} />
+              <Route path="/user/orders" element={<Orders />} />
+              <Route path="/user/saved-items" element={<SavedItems />} />
+            </Route>
+          </Route>
+
+          {/* ADMIN AND USER ROUTES */}
 
           {/* ADMIN ROUTES */}
           <Route path="/" element={<AdminLayout />}>

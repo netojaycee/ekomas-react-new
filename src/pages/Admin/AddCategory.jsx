@@ -85,7 +85,6 @@ export default function AddCategory() {
 
   return (
     <>
-      <AdminLayout>
         <div>
           <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
             Add New Category
@@ -126,7 +125,6 @@ export default function AddCategory() {
             </form>
           </div>
         </div>
-      </AdminLayout>
     </>
   );
 }
