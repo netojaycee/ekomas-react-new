@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../../components/Dashboard/AdminLayout";
 import axios from "axios";
 import { useContext } from "react";
 import { CategoryContext } from "../../components/Context/CategoryContext";

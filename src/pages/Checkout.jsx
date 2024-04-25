@@ -110,7 +110,7 @@ export default function Checkout() {
   };
   return (
     <>
-      <section className="flex flex-col gap-2 w-[95%] mx-auto mt-[100px] font-serif h-screen">
+      <section className="flex flex-col gap-2 w-[95%] mx-auto font-serif h-screen">
         <div className="flex flex-col gap-2 items-start">
           <Link to="/">
             <img

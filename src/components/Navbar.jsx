@@ -104,7 +104,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className="bg-white shadow-lg fixed top-0 left-0 right-0 z-40 w-full py-3  mb-[150px]">
+      <div className="bg-white shadow-md sticky top-0 z-40 w-full py-3 ">
         <div className="flex items-center justify-evenly px-4 py-3 md:px-[50px] lg:px-[100px]">
           <div className="flex items-center">
             <Link to="/" className="w-[50%] md:w-[70%] object-cover">

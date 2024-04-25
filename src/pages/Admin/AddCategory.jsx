@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AdminLayout from "../../components/Dashboard/AdminLayout";
 import axios from "axios";
 import { apiUrl } from "../../config/env";
 
@@ -85,7 +84,7 @@ export default function AddCategory() {
 
   return (
     <>
-        <div>
+        <div className="">
           <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
             Add New Category
           </h1>

@@ -11,6 +11,7 @@ import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faMinusCircle, faPlusCircle, faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart() {
   const {
@@ -38,8 +39,8 @@ export default function Cart() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 mt-[120px]">
-      <section className="w-[80%] mx-auto flex flex-col gap-5 ">
+    <div className="flex flex-col gap-6 p-4">
+      <section className="w-[90%] mx-auto flex flex-col gap-5 ">
         <div className="flex flex-row justify-between">
           <h1 className="text-2xl font-semibold text-secondary">Cart</h1>
           <h3
@@ -50,11 +51,11 @@ export default function Cart() {
           </h3>
         </div>
 
-        <div>
-          <table className="w-full min-w-max table-auto text-center bg-white">
+        <div className="overflow-x-auto">
+          <table className="w-[65%] mx-auto min-w-max table-auto text-center bg-white">
             <thead>
               <tr className="border-2 border-blue-gray-200">
-                {["Product", "Price", "Quantity", "Sub-Total", ""].map(
+                {["Product", "Quantity", "Sub-Total", ""].map(
                   (head, index) => (
                     <th key={index} className="text-secondary p-4">
                       <Typography
@@ -72,34 +73,31 @@ export default function Cart() {
               {cart.map((item, index) => {
                 const isLast = index === cart.length - 1;
                 const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+                  ? "md:p-2 p-1"
+                  : "md:p-2 p-1 border-b border-blue-gray-50";
 
                 return (
                   <tr key={item._id} className="border-2 border-blue-gray-200">
                     <td className={classes}>
-                      <Typography variant="small" className="font-normal">
-                        {item.name}
+                      <Typography variant="small" className="font-normal flex flex-col">
+                        <span>{item.name}</span>
+                        <span>${item.price}</span>
                       </Typography>
                     </td>
-                    <td className={classes}>
-                      <Typography variant="small" className="font-normal">
-                        {item.price}
-                      </Typography>
-                    </td>
-                    <td className="flex justify-center items-center gap-2 p-4">
+                    
+                    <td className={`flex justify-center items-center gap-2 ${classes}`}>
                       <button
                         className="w-5 h-5"
                         onClick={() => handleQuantityDecrease(item._id)}
                       >
-                        <MinusIcon className="w-full h-full" />
+                        <FontAwesomeIcon icon={faMinusCircle} size="lg" style={{ color: "red" }} />
                       </button>
                       {item.amount}
                       <button
                         className="w-5 h-5"
                         onClick={() => handleQuantityIncrease(item._id)}
                       >
-                        <PlusIcon className="w-full h-full" />
+                        <FontAwesomeIcon icon={faPlusCircle} size="lg" style={{ color: "green"}} />
                       </button>
                     </td>
                     <td className={classes}>
@@ -115,7 +113,7 @@ export default function Cart() {
                         className="font-medium"
                         onClick={() => handleRemoveItem(item._id)}
                       >
-                        <XMarkIcon className="w-5" />
+                        <FontAwesomeIcon icon={faTrashAlt} size="lg" style={{ color: "red" }}/>
                       </Typography>
                     </td>
                   </tr>

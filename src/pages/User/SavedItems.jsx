@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SpecialLayout from '../../components/SpecialLayout';
-import { UserIcon, BriefcaseIcon, InboxIcon, HeartIcon, ClockIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import Sidebar from '../../components/Dashboard/SideBar';
-import { UserSidebar } from '../../components/Dashboard/user_sidebar';
-import UserLayout from '../../components/Dashboard/UserLayout';
-import { Card } from '@material-tailwind/react';
+
 import { apiUrl } from '../../config/env';
 import OrderImage from '../../assets/images/order.png';
 import {

@@ -1,112 +1,326 @@
-import React, { useEffect, useState } from "react";
-import AdminLayout from "../../components/Dashboard/AdminLayout";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Button, Spinner, Typography } from "@material-tailwind/react";
-import EditProductDialog from "../../components/AdminDashboard/EditProduct";
 import { apiUrl } from "../../config/env";
-// import { gql, useMutation, useQuery } from "@apollo/client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { ProductContext } from "../../components/Context/ProductContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { CategoryContext } from "../../components/Context/CategoryContext";
 
-//
-export default function AllProduct() {
-  // const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-  // const [updateProductPublishedStatus] = useMutation(UPDATE_PRODUCT_PUBLISHED_STATUS);
+function EditProduct({ data }) {
+  const [open, setOpen] = React.useState(false);
+  // const { categoriesData } = useContext(CategoryContext);
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   category: "",
+  //   description: "",
+  //   price: "",
+  //   quantity: "",
+  //   image: null,
+  //   featured: "no", // Empty string initially
+  //   discount: "",
+  // });
 
-  // const { data: productsData, loading, error } = useQuery(GET_PRODUCTS);
+  // const [selectedCategory, setSelectedCategory] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
 
-  //  useEffect(() => {
-  //    const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${apiUrl}/product/products`
-  //       );
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
 
-  //       if (response.status === 200) {
-  //         const productsData = response.data;
-  //         setProducts(productsData);
-  //       } else {
-  //         console.error("Error fetching products:", response.statusText);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
+  //   // For normal inputs, directly update the state
+  //   if (name !== "featured" && name !== "discount") {
+  //     setFormData({ ...formData, [name]: value });
+  //   } else {
+  //     // For featured and discount, set selected value
+  //     setFormData({ ...formData, [name]: value });
+  //   }
+
+  //   if (name === "category") {
+  //     setSelectedCategory(value);
+  //   }
+  // };
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData({ ...formData, image: file });
+  // };
+
+  // const uploadFile = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "db0zguvf");
+  //   formData.append("folder", "Music Blog");
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/dgz5bgdzc/auto/upload",
+  //       formData
+  //     );
+  //     return response.data.secure_url;
+  //   } catch (error) {
+  //     console.error("Error uploading file:", error);
+  //     throw new Error("Failed to upload file to Cloudinary");
+  //   }
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   let imageUrl = null;
+  //   if (formData.image) {
+  //     imageUrl = await uploadFile(formData.image);
+  //   }
+
+  //   setIsLoading(true);
+  //   const requestData = {
+  //     name: formData.name,
+  //     categoryId: selectedCategory,
+  //     description: formData.description,
+  //     price: parseInt(formData.price),
+  //     quantity: parseInt(formData.quantity),
+  //     image: imageUrl,
+  //     featured: formData.featured, // Include featured in requestData
+  //     discount: parseInt(formData.discount), // Parse discount to int
   //   };
-  //   fetchData();
-  // }, []);
 
-  const fetchAllProducts = async () => {
-    const response = await axios.get(`${apiUrl}/product/products`);
-    console.log(response.data.products);
-    return response.data.products;
+  //   try {
+  //     const response = await axios.post(
+  //       `${apiUrl}/product/create-product`,
+  //       requestData
+  //     );
+
+  //     setIsLoading(false);
+  //     console.log(response);
+
+  //     if (response.status === 200) {
+  //       alert("Product uploaded successfully!");
+  //       setFormData({
+  //         name: "",
+  //         category: "", // Reset category to empty string
+  //         description: "",
+  //         price: "",
+  //         quantity: "",
+  //         image: null,
+  //         featured: "", // Reset featured to empty string
+  //         discount: "",
+  //       });
+  //     } else {
+  //       console.error("Error uploading product:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  const handleOpen = () => setOpen(!open);
+  // const { name }  =  data;
+  return (
+    <>
+      <FontAwesomeIcon
+        icon={faPencil}
+        className="cursor-pointer"
+        onClick={handleOpen}
+      />
+      {data && (
+        <Dialog open={open} handler={handleOpen}>
+          <DialogBody className="p-3">
+            <div className="flex justify-between items-center">
+              <Typography
+                variant="h5"
+                className="font-semibold font-serif"
+                color="blue-gray"
+              >
+                Order Management
+              </Typography>
+              <FontAwesomeIcon
+                icon={faXmarkCircle}
+                size="xl"
+                className="cursor-pointer mr-5"
+                onClick={handleOpen}
+              />
+            </div>
+            <div>
+              <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
+                Upload New Product
+              </h1>
+              <div className="flex flex-col gap-3 w-[65%] mx-auto mt-9">
+                <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+                  <div className="flex gap-3 md:flex-row flex-col">
+                    <div className="flex flex-col flex-1">
+                      <label htmlFor="name">Product Name</label>
+                      <input
+                        onChange={handleChange}
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={formData.name}
+                        placeholder="Enter product name"
+                        className="p-2 border border-gray-400 rounded-md"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label htmlFor="category">Product Category</label>
+                      <select
+                        name="category"
+                        onChange={handleChange}
+                        value={formData.category}
+                        id="category"
+                        className="p-2 border border-gray-400 rounded-md"
+                      >
+                        <option value="" disabled>
+                          Select category
+                        </option>
+                        {Array.isArray(categoriesData.category) &&
+                          categoriesData.category.map((category) => (
+                            <option key={category._id} value={category._id}>
+                              {category.name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="description">Product Description</label>
+                    <textarea
+                      name="description"
+                      onChange={handleChange}
+                      value={formData.description}
+                      id="description"
+                      placeholder="Enter product description"
+                      className="p-2 border border-gray-400 rounded-md"
+                    />
+                  </div>
+
+                  <div className="flex gap-3 md:flex-row flex-col">
+                    <div className="flex flex-col flex-1">
+                      <label htmlFor="price">Product Price</label>
+                      <input
+                        onChange={handleChange}
+                        type="number"
+                        name="price"
+                        id="price"
+                        value={formData.price}
+                        placeholder="Enter product price"
+                        className="p-2 border border-gray-400 rounded-md"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label htmlFor="quantity">Product Quantity</label>
+                      <input
+                        onChange={handleChange}
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        value={formData.quantity}
+                        placeholder="Enter product quantity"
+                        className="p-2 border border-gray-400 rounded-md"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <label htmlFor="quantity">Discount</label>
+                      <select
+                        name="discount"
+                        id="discount"
+                        value={formData.discount}
+                        onChange={handleChange}
+                        className="py-2 w-full rounded-md border-gray-400 border px-4"
+                      >
+                        <option value="" disabled>
+                          Select discount
+                        </option>
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                        <option value="40">40%</option>
+                        <option value="50">50%</option>
+                        <option value="60">60%</option>
+                        <option value="70">70%</option>
+                        {/* Add more options as needed */}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="image">Product Image</label>
+                    <input
+                      type="file"
+                      name="image"
+                      id="image"
+                      onChange={handleImageChange}
+                      className="p-2 border border-gray-400 rounded-md"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="image">Featured</label>
+                    <select
+                      name="featured"
+                      id="featured"
+                      value={formData.featured}
+                      onChange={handleChange}
+                      className="py-3 w-full rounded-md border-gray-400 border px-4"
+                    >
+                      <option value="" disabled>
+                        Select featured
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+
+                  {/* submit button */}
+                  <div className="flex flex-col i">
+                    {isLoading && (
+                      <div className="flex flex-row items-center text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear">
+                        <Spinner className="h-4 w-4" /> updating...
+                      </div>
+                    )}
+                    {!isLoading && (
+                      <button
+                        type="submit"
+                        className="flex items-center flex-row text-white justify-center py-2 px-10 bg-secondary rounded-sm w-full  duration-300 transform hover:scale-95 hover:bg-red-500 transition ease-linear"
+                      >
+                        Upload Product
+                      </button>
+                    )}
+                  </div>
+                  {/* <div className="flex flex-col">
+                <button className="p-2 bg-secondary text-white rounded-md">
+                  Upload Product
+                </button>
+              </div> */}
+                </form>
+              </div>
+            </div>
+          </DialogBody>
+        </Dialog>
+      )}
+    </>
+  );
+}
+
+export default function AllProduct() {
+  const { data } = useContext(ProductContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  
+  const handleOpenEditProduct = (item) => {
+    setSelectedProduct(item);
   };
-
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery({ queryKey: ["products"], queryFn: fetchAllProducts });
-  // console.log(data);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [productToEdit, setProductToEdit] = useState(null);
-
-  const handlePublish = async (productId, currentPublishedStatus) => {
-    try {
-      const newPublishedStatus = !currentPublishedStatus; // Toggle the current published status
-      await updateProductPublishedStatus({
-        variables: { productId, published: newPublishedStatus },
-        // Optimistically update the local state
-        optimisticResponse: {
-          __typename: "Mutation",
-          updateProductPublishedStatus: {
-            __typename: "Product",
-            id: productId,
-            published: newPublishedStatus,
-          },
-        },
-      });
-      alert("Product published status updated successfully");
-    } catch (error) {
-      console.log(error);
-      // Handle error
-    }
-  };
-
-  const handleEditProduct = (updateddata) => {
-    // Handle the logic to update the product
-    console.log("Updated Product Data:", updateddata);
-    // You can trigger an API request to update the product with the new data
-  };
-
   return (
     <>
       <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
         All Products Page
       </h1>
 
-      <EditProductDialog
-        isOpen={isEditDialogOpen}
-        handleClose={() => setIsEditDialogOpen(false)}
-        data={productToEdit}
-        handleEditProduct={handleEditProduct}
-      />
-
       <table className="w-[90%] mx-auto min-w-max table-auto text-center bg-white mt-3">
         <thead>
           <tr className="border-2 border-blue-gray-200">
-            {["Name", "Description", "Image", "Price", ""].map(
-              (head, index) => (
-                <th key={index} className="text-secondary p-4">
-                  <Typography
-                    variant="small"
-                    className="font-bold leading-none"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              )
-            )}
+            {["Name", "Image", "Price", ""].map((head, index) => (
+              <th key={index} className="text-secondary p-4">
+                <Typography variant="small" className="font-bold leading-none">
+                  {head}
+                </Typography>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -116,36 +330,22 @@ export default function AllProduct() {
                 <Spinner color="blue" size="sm" />
               </td>
             </tr>
-          ) : error ? (
-            <tr>
-              <td colSpan="5" className="py-4">
-                Error fetching products.
-              </td>
-            </tr>
           ) : (
-            products.map((item) => (
-              <tr key={item.id} className="border-2 border-blue-gray-200">
+            data.map((item) => (
+              <tr key={item._id} className="border-2 border-blue-gray-200">
                 <td className="p-4">
                   <Typography variant="small" className="font-normal">
                     {item.name}
                   </Typography>
                 </td>
+
                 <td className="p-4">
                   <Typography variant="small" className="font-normal">
-                    {item.description}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <Typography variant="small" className="font-normal">
-                    {item.images && item.images.length > 0 ? (
-                      <img
-                        src={item.images[0].url} // Assuming the first image is the one to display
-                        alt={item.name}
-                        className="w-16 h-16 object-cover"
-                      />
-                    ) : (
-                      "No Image"
-                    )}
+                    <img
+                      src={item.image} // Assuming the first image is the one to display
+                      alt={item.name}
+                      className="w-16 h-16 object-cover"
+                    />
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -155,24 +355,19 @@ export default function AllProduct() {
                 </td>
                 <td className="p-4x flex justify-center items-center  gap-2 mt-8 ">
                   <Typography variant="small" className="font-normal">
-                    <button
-                      className="rounded py-1 px-4 border border-yellow-700"
-                      onClick={() => {
-                        setProductToEdit(item);
-                        setIsEditDialogOpen(true);
-                      }}
-                    >
-                      Edit
+                    <button className="rounded py-1 px-4 border border-yellow-700">
+                      <EditProduct
+                        data={selectedProduct}
+                        onClick={() => handleOpenEditProduct(item)}
+                      />
                     </button>
                   </Typography>
                   <Typography variant="small" className="font-normal">
-                    <button
-                      className={`rounded py-1 px-4 border ${
-                        item.published ? "border-green-500" : "border-red-500"
-                      }`}
-                      onClick={() => handlePublish(item.id, item.published)}
-                    >
-                      {item.published ? "Published" : "Publish"}
+                    <button>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{ color: "red" }}
+                      />
                     </button>
                   </Typography>
                 </td>

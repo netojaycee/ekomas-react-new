@@ -20,7 +20,7 @@ const UserLayout = () => {
         <>
           {" "}
           <Nav />
-          <div className="flex flex-col lg:flex-row w-[90%]  h-screen my-32 border shadow-md mx-auto md:p-0 gap-4 ">
+          <div className="flex flex-col lg:flex-row w-full border shadow-md mx-auto md:py-7 gap-4 ">
             <div className="w-full lg:w-[30%] h-full ">
               <UserSidebar />
             </div>

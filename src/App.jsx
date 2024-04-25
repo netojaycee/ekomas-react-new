@@ -20,7 +20,7 @@ import Error from "./components/Error";
 import { ToastContainer } from "react-toastify";
 import UserLayout from "./components/Dashboard/UserLayout";
 import RequireAuth from "./components/hook/RequireAuth";
-import AdminLayout from "./components/Dashboard/AdminLayout";
+import AdminLayout from "./components/AdminDashboard/AdminLayout";
 import "react-toastify/dist/ReactToastify.css";
 import SavedItems from "./pages/User/SavedItems";
 

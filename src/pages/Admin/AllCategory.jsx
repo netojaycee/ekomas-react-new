@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import AdminLayout from "../../components/Dashboard/AdminLayout";
 import axios from "axios";
 import { Button, Typography } from "@material-tailwind/react";
 import { CategoryContext } from "../../components/Context/CategoryContext";

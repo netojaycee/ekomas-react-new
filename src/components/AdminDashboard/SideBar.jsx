@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   Typography,
@@ -21,15 +21,23 @@ import {
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import AuthContext from "../Context/AuthContext";
 
-export default function AdminSidebar() {
-  const [open, setOpen] = React.useState(0);
+export default function AdminSidebar({hidden = "hidden" }) {
+  const [openCategory, setOpenCategory] = React.useState(false);
+  const [openProducts, setOpenProducts] = React.useState(false);
+  const { logout } = useContext(AuthContext);
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
+  const handleOpenCategory = () => {
+    setOpenCategory(!openCategory);
   };
+
+  const handleOpenProducts = () => {
+    setOpenProducts(!openProducts);
+  };
+
   return (
-    <Card className=" w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-full hidden md:block">
+    <Card className={`w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-full md:block ${hidden}`}>
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
           Sidebar
@@ -43,21 +51,19 @@ export default function AdminSidebar() {
           <Link to="/admin/dashboard">Dashboard</Link>
         </ListItem>
         <Accordion
-          open={open === 2}
+          open={openCategory}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                openCategory ? "rotate-180" : ""
               }`}
             />
           }
+          onClick={() => handleOpenCategory()}
         >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
-            >
+          <ListItem className="p-0" selected={openCategory}>
+            <AccordionHeader className="border-b-0 p-3">
               <ListItemPrefix>
                 <ShoppingBagIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -84,21 +90,19 @@ export default function AdminSidebar() {
           </AccordionBody>
         </Accordion>
         <Accordion
-          open={open === 2}
+          open={openProducts}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                openProducts ? "rotate-180" : ""
               }`}
             />
           }
+          onClick={() => handleOpenProducts()}
         >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
-            >
+          <ListItem className="p-0" selected={openProducts}>
+            <AccordionHeader className="border-b-0 p-3">
               <ListItemPrefix>
                 <ShoppingBagIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -126,31 +130,9 @@ export default function AdminSidebar() {
         </Accordion>
         <ListItem>
           <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Inbox
-          <ListItemSuffix>
-            <Chip
-              value="14"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Profile
-        </ListItem>
-       
-        <ListItem>
-          <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          <button onClick={logout}>Logout</button>
         </ListItem>
       </List>
     </Card>
