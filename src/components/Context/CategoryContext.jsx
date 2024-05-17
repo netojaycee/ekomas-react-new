@@ -16,7 +16,7 @@ const CategoryProvider = ({ children }) => {
 
       if (response.status === 200) {
         const categories = response.data.category;
-        console.log(categories);
+        // console.log(categories);
         setCategoriesData(categories);
       } else {
         console.error("Error fetching categories:", response.statusText);
@@ -45,7 +45,7 @@ const CategoryProvider = ({ children }) => {
       setIsLoading(false);
 
       toast.success("Category deleted successfully!");
-      console.log(response);
+      // console.log(response);
       fetchData();
       //   if (response.message === true) {
       //     toast.success("Category deleted successfully!");

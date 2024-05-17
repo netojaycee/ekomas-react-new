@@ -9,9 +9,8 @@ import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
 import { Table } from "antd";
 
-const TABLE_HEAD = ["Order", "Email", "Amount", "Status", "Date", ""];
 
-function EditOrder({ data }) {
+function EditOrder({ data, fetchOrders }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -32,7 +31,7 @@ function EditOrder({ data }) {
           },
         }
       );
-      console.log(res);
+      // console.log(res);
       handleOpen();
       toast.success("Order Status Updated");
       fetchOrders();
@@ -356,6 +355,7 @@ function AdminOrders({ title, fields = ["_id","action",] }) {
               data={item}
               open={openDialog}
               handleOpen={setOpenDialog}
+              fetchOrders={fetchOrders}
             />
           ) : (
             <Typography variant="small">{item}</Typography>

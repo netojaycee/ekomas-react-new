@@ -82,7 +82,7 @@ export default function AddProduct() {
     try {
       console.log(requestData);
       const response = await axios.post(
-        `${apiUrl}/product/create-product`,
+        `${apiUrl}/blog/create`,
         {
           name: formData.name,
           categoryId: selectedCategory,
@@ -129,10 +129,9 @@ export default function AddProduct() {
 
   return (
     <>
-      <div className="bg-white shadow-md p-5 rounded-md">
-        <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
-          Upload New Product
-        </h1>
+       <div className=''>
+      <h3 className='font-bold text-xl mb-3'>Create product</h3>
+      <div className="bg-white shadow-md p-3 overflow-auto">
         <div className="flex flex-col gap-3 w-[65%] mx-auto mt-9">
           <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <div className="flex gap-3 md:flex-row flex-col">
@@ -275,7 +274,7 @@ export default function AddProduct() {
               </div> */}
           </form>
         </div>
-      </div>
+      </div></div>
     </>
   );
 }
