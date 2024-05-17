@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import ProductItem from '../ProductItem';
-import { ProductContext } from '../Context/ProductContext'; // Adjust the path accordingly
-import { Link } from 'react-router-dom';
-import Aos from 'aos';
+import ProductItem from "../ProductItem";
+import { ProductContext } from "../Context/ProductContext"; // Adjust the path accordingly
+import { Link } from "react-router-dom";
+import Aos from "aos";
 
 export default function Special() {
   const { discount } = useContext(ProductContext);
@@ -20,27 +20,35 @@ export default function Special() {
 
   // console.log(discount);
 
-
   return (
     <div className="md:my-10 my-10 w-[90%] mx-auto flex-col  flex gap-4">
       <div className="flex flex-row justify-between">
         <div>
-          <h1 className="text-gray-700 md:text-2xl font-semibold">Special Offers</h1>
+          <h1 className="text-gray-700 md:text-2xl font-semibold">
+            Special Offers
+          </h1>
         </div>
         <div>
           <Link to="/products?specialOffers=true">
             <button className="text-primary rounded py-1 px-2 text-xs border border-primary flex items-center">
-              view more<ArrowRightIcon className="ml-1 w-6" />
+              view more
+              <ArrowRightIcon className="ml-1 w-6" />
             </button>
           </Link>
         </div>
       </div>
 
-      <div className="overflow-x flex-wrap auto gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm" x>
+      <div className="gap-4 grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
         {discount.map((product) => (
-          <ProductItem key={product._id} {...product} discount={`${product.discount}%`} classx={`bg-gray-100 p-2`}  discount-aos="flip-down"/>
+          <ProductItem
+            key={product._id}
+            {...product}
+            discount={`${product.discount}%`}
+            classx={`bg-gray-100 p-1`}
+            discount-aos="flip-down"
+          />
         ))}
       </div>
     </div>
   );
-};
+}

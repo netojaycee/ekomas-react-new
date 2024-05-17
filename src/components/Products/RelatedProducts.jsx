@@ -31,10 +31,10 @@ export const RelatedProducts = ({ category }) => {
   };
 
   return (
-    <div className="md:pt-[60px] pt-[30px]">
-      <div className="w-[80%] mx-auto flex-col flex gap-4">
+    <div className="p-4">
+      <div className="w-[90%] mx-auto flex-col flex gap-2">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {currentProducts.slice(0,2).map((product) => (
+          {currentProducts.slice(0,4).map((product) => (
             <div key={product.id} className="flex flex-col">
               <ProductItem key={product.id} {...product} />
             </div>
@@ -42,11 +42,11 @@ export const RelatedProducts = ({ category }) => {
         </div>
 
         {/* Replace Previous and Next buttons with Pagination component */}
-        <Pagination
+        {/* <Pagination
           currentPage={currentPage}
           totalPages={Math.ceil(filteredProducts.length / itemsPerPage)}
           onPageChange={handlePageChange}
-        />
+        /> */}
       </div>
     </div>
   );

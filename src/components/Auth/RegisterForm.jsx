@@ -65,6 +65,7 @@ export default function Register() {
             type="text"
             value={formData.name}
             onChange={handleChange}
+            required
           />
           {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </div>
@@ -89,6 +90,8 @@ export default function Register() {
             type="email"
             value={formData.email}
             onChange={handleChange}
+            required
+
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email}</p>
@@ -103,6 +106,8 @@ export default function Register() {
             type="password"
             value={formData.password}
             onChange={handleChange}
+            required
+
           />
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password}</p>

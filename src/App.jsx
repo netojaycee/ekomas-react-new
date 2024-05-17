@@ -23,6 +23,16 @@ import RequireAuth from "./components/hook/RequireAuth";
 import AdminLayout from "./components/AdminDashboard/AdminLayout";
 import "react-toastify/dist/ReactToastify.css";
 import SavedItems from "./pages/User/SavedItems";
+import AdminOrders from "./pages/Admin/AdminOrders";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import BlogDetails from "./pages/BlogDetails";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
+import RefundPolicy from "./pages/RefundPolicy";
+import ShippingPolicy from "./pages/ShippingPolicy";
 
 function App() {
   const ROLES = {
@@ -43,6 +53,15 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blog" element={<BlogDetails />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route
               element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}
             >
@@ -73,6 +92,7 @@ function App() {
               <Route path="/admin/add-category" element={<AddCategory />} />
               <Route path="/admin/all-category" element={<AllCategory />} />
               <Route path="/admin/all-product" element={<AllProduct />} />
+              <Route path="/admin/orders" element={<AdminOrders />} />
             </Route>
           </Route>
         </Route>

@@ -2,10 +2,13 @@ import React from 'react';
 import RegisterForm from '../components/Auth/RegisterForm';
 import facebookIcon from '../assets/images/facebookIcon.png'
 import googleIcon from '../assets/images/googleIcon.png'
+import { Link } from 'react-router-dom';
 
 export default function Register() {
   return (
-      <div className='flex flex-col w-[80%] lg:w-[30%] mx-auto justify-center h-screen'>
+      <div className='flex flex-col bg-gray-300 w-full mx-auto justify-center p-10'>
+      <div className="flex flex-col gap-3 bg-white md:w-[500px] w-[90%] mx-auto p-5 rounded-md shadow-md">
+      <h2 className="text-center text-xl font-bold">Create Account</h2>
 
 
         <RegisterForm />
@@ -24,9 +27,9 @@ export default function Register() {
           </button> */}
         </div>
 
-        <p className='my-5 text-center'>
-          Already have an account? <a href='/login'>Sign In</a>
+        <p className=' text-center'>
+          Already have an account? <Link to='/login'>Sign In</Link>
         </p>
-      </div>
+      </div></div>
   );
 }

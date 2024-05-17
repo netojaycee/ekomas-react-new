@@ -87,7 +87,7 @@ export default function Home() {
       <Special />
       <Tsp />
       <Featured />
-      {/* <Explore /> */}
+      <Explore />
       {/* <Reviews /> */}
       <About />
       {/* <Join /> */}

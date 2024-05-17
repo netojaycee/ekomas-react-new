@@ -41,7 +41,7 @@ function NavChild() {
     <>
       <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between px-4">
         <div className="flex items-center">
-          <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[30px] mx-3 ">
+          {/* <ul className="my-2 flex flex-col md:gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:gap-[30px] mx-3 ">
             <Typography
               as="li"
               variant="medium"
@@ -66,7 +66,7 @@ function NavChild() {
                 Category
               </Link>
             </Typography>
-          </ul>
+          </ul> */}
         </div>
         <Searchbox placeholder="Search for all items here..." />
         <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-end items-center">

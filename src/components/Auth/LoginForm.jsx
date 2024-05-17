@@ -1,7 +1,7 @@
 import { Input, Spinner } from "@material-tailwind/react";
 import React, { useContext, useState } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../config/env";
 import { jwtDecode } from "jwt-decode";
@@ -91,6 +91,8 @@ const LoginForm = () => {
           type="email"
           className="rounded-none"
           name="email"
+          required
+
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
@@ -103,16 +105,19 @@ const LoginForm = () => {
           type="password" // Use secure text entry for passwords
           className="rounded-none"
           name="password"
+          required
+
         />
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password}</p>
         )}
       </div>
-      <div>
+      <div className="flex flex-row justify-between">
         <label>
           <input type="checkbox" className="m-1" />
           Remember me
         </label>
+        <Link to="/forgot-password" className="text-secondary">forgot password?</Link>
       </div>
       <div>
         {isLoading ? (

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function About() {
   return (
-    <div className="bg-primary  md:mt-[50px] mt-10 p-[10px] ">
+    <div className="bg-primary p-[10px] ">
       <div className="w-[80%] mx-auto text-center">
         <h1 className=" text-white font-bold text-xl my-[30px]">
           About Us

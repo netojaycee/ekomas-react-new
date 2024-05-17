@@ -2,11 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body {
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+.kenburns-top {
+  -webkit-animation: kenburns-top 5s cubic-bezier(0.215, 0.61, 0.355, 1)
+    backwards;
+  animation: kenburns-top 5s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+}
+
+@-webkit-keyframes kenburns-top {
+  0% {
+    -webkit-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+    -webkit-transform-origin: 50% 16%;
+    transform-origin: 50% 16%;
   }
-  
+  100% {
+    -webkit-transform: scale(1.25) translateY(-15px);
+    transform: scale(1.25) translateY(-15px);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+  }
+}
+@keyframes kenburns-top {
+  0% {
+    -webkit-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+    -webkit-transform-origin: 50% 16%;
+    transform-origin: 50% 16%;
+  }
+  100% {
+    -webkit-transform: scale(1.25) translateY(-15px);
+    transform: scale(1.25) translateY(-15px);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+  }
+}

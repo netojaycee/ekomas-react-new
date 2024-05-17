@@ -11,7 +11,7 @@ const Products = () => {
   const { data } = useContext(ProductContext);
 
   // Slice the data array to display a maximum of 6 products
-  const displayedProducts = data ? data.slice(0, 6) : [];
+  const displayedProducts = data ? data.slice(0, 10) : [];
 
   useEffect(() => {
     Aos.init({ duration: 1000 });

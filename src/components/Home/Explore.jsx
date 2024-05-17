@@ -1,77 +1,69 @@
 import React from "react";
 import exploreImage from "../../assets/images/explore/explore.png";
+import BlogItem from "../BlogItem";
+
+
+
+const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
 
 const dummyData = [
   {
-    id: 1,
-    title: "Card 1",
+    title: "Unveiling the Power of: A Comprehensive Guide",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Dive deep into the features and benefits of. Include high-quality images, customer testimonials (if available), and use cases. Briefly mention complementary products for upselling opportunities.",
+    type: "product_spotlight",
+    date: today,
   },
   {
-    id: 2,
-    title: "Card 2",
+    title: "3 Must-Have Gadgets for Tech Enthusiasts",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Create a collection featuring Cards that cater to tech enthusiasts. Highlight the synergy between the products and how they can elevate the user experience.",
+    type: "curated_collection",
+    date: today,
   },
   {
-    id: 3,
-    title: "Card 3",
+    title: "Top Tips for Choosing the Perfect [Product Category of Card 3]",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Offer valuable advice related to your products. This could involve a buying guide, troubleshooting tips, or seasonal recommendations for Card 3.",
+    type: "educational_content",
+    date: today,
   },
   {
-    id: 4,
-    title: "Card 4",
+    title: "Real People, Real Results: How Our Customers Use Cards 4 & 5",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Feature customer success stories, reviews, or photos using Cards 4 & 5. Ensure you have permission to use customer content. This builds trust and authenticity with potential buyers.",
+    type: "user_generated_content",
+    date: today,
   },
   {
-    id: 5,
-    title: "Card 5",
+    title: "Elevate Your Style with Our Latest Collection",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Showcase different ways to style Cards 1, 2, & 3. Include high-quality lifestyle images and provide product links for easy purchase.",
+    type: "lookbook",
+    date: today,
   },
   {
-    id: 6,
-    title: "Card 6",
+    title: "Celebrate [Holiday/Event] with These Gift Ideas (Cards 4, 5, & 6)",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Quis quisque nibh nibh urna eu convallis vulputate mollis aenean. Enim quis dolor quis erat. Massa lorem rhoncus nisi aliquet aliquam.",
+      "Tailor your blog to a specific holiday, event, or seasonal trend. Recommend Cards 4, 5, & 6 and create a sense of urgency with limited-time offers or promotions.",
+    type: "trend_and_event",
+    date: today,
   },
 ];
 
 export default function Explore() {
   return (
-    <div className="my-5">
-      <hr className="border-gray-300 my-8" />
+    <div className="p-[30px] bg-gray-200 mt-5">
       <div className="flex flex-col gap-4">
         <div>
           <h1 className="text-center text-[#bf2b2b] font-bold text-2xl">
             Explore YOA-mat
           </h1>
         </div>
-        <div className="md:mt-[50px] mt-3 w-[80%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-          {dummyData.map((item) => (
-            <div key={item.id} className="flex flex-col">
-              <div>
-                <img
-                  src={exploreImage}
-                  alt={`explore-${item.id}`}
-                  className="w-full object-cover p-0"
-                />
-              </div>
-              <div className="flex flex-col mt-4 gap-4">
-                <div className="text-[#ff3e3e]">{item.title}</div>
-                <div> 
-                  <p>{item.description}</p> 
-                </div>
-                <div>
-                  <button className="bg-secondary rounded p-2 text-white">
-                    View more
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div className="md:mt-[30px] mt-3 w-[90%] mx-auto flex flex-col md:flex-row gap-4">
+          {dummyData.slice(0, 4).map((item) => (
+          <BlogItem  item={item} />
+        
           ))}
         </div>
       </div>

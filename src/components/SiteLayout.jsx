@@ -17,7 +17,7 @@ const SiteLayout = () => {
         <div className="overflow-x-hidden font-serif">
           <Nav />
           <Outlet />
-          <Footer fullFooter={false} />
+          <Footer fullFooter={true} />
         </div>
       )}
     </>

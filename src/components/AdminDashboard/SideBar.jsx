@@ -130,6 +130,12 @@ export default function AdminSidebar({hidden = "hidden" }) {
         </Accordion>
         <ListItem>
           <ListItemPrefix>
+            <PresentationChartBarIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/admin/orders">Orders</Link>
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
           <button onClick={logout}>Logout</button>

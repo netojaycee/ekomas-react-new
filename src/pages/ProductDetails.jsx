@@ -13,9 +13,72 @@ import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { WishContext } from "../components/Context/WishContext";
 import { toast } from "react-toastify";
+import ReactStars from "react-rating-stars-component";
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
 
+function Icon({ id, open }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className={`${
+        id === open ? "rotate-180" : ""
+      } h-5 w-5 transition-transform`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  );
+}
 
+export function InstructionAccordion() {
+  const [open, setOpen] = React.useState(0);
 
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+
+  return (
+    <>
+      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
+        <AccordionHeader
+          className="h-2 text-sm font-normal"
+          onClick={() => handleOpen(1)}
+        >
+          Shipping & Returns
+        </AccordionHeader>
+        <AccordionBody>
+          We&apos;re not always in the position that we want to be at.
+          We&apos;re constantly growing. We&apos;re constantly making mistakes.
+          We&apos;re constantly trying to express ourselves and actualize our
+          dreams.
+        </AccordionBody>
+      </Accordion>
+      <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+        <AccordionHeader
+          className="h-2 text-sm font-normal"
+          onClick={() => handleOpen(2)}
+        >
+          Payment
+        </AccordionHeader>
+        <AccordionBody>
+          We&apos;re not always in the position that we want to be at.
+          We&apos;re constantly growing. We&apos;re constantly making mistakes.
+          We&apos;re constantly trying to express ourselves and actualize our
+          dreams.
+        </AccordionBody>
+      </Accordion>
+    </>
+  );
+}
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -74,41 +137,48 @@ export default function ProductDetails() {
   return (
     <>
       {detail && (
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col lg:flex-row  gap-6 w-[90%] md:w-[80%] mx-auto mt-9 lg:h-[300px]">
-            <div className="bg-white flex flex-row p-2 pr-0 relative overflow-auto shadow-md object-contain border rounded-md flex-1 justify-center items-center">
-              <div className="flex flex-row gap-5 relative overflow-auto object-contain">
-                <div className="my-2 p-4 rounded-xl object-cover overflow-auto">
-                  <img
-                    src={detail.image}
-                    alt={detail.name}
-                    className=" object-cover rounded-md md:w-[700px] md:h-[250px] w-[4000px] h-[200px]"
-                  />
-                </div>
-              </div>
+        <div className="flex flex-col gap-6 bg-gray-200">
+          <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] mx-auto mt-9 ">
+            <div className="flex flex-row p-2 pr-0 relative  border-r-2  rounded-md md:w-1/2 w-full justify-center items-center">
+              {/* <div className="flex flex-row gap-3 relative "> */}
+              {/* <div className=" rounded-xl object-cover "> */}
+              <img
+                src={detail.image}
+                alt={detail.name}
+                className="md:w-[250px] md:h-[250px] object-cover rounded-md"
+              />
+              {/* </div> */}
+              {/* </div> */}
             </div>
 
-            <div className="flex flex-1 w-full flex-col gap-4">
+            <div className="flex md:w-1/2 w-full flex-col gap-1">
               <div className="flex w-full items-center justify-between">
                 <h1>{detail.name}</h1>
-                <div className="">
-                  <FontAwesomeIcon
-                    icon={isWish ? faHeart : faHeartOutline}
-                    style={{ color: isWish ? "red" : "red" }}
-                    size="lg"
-                    className="cursor-pointer"
-                    onClick={toggleWish}
-                  />{" "}
-                </div>
               </div>
+              <hr className=" border-2 border-[#b32b2b] w-full" />
+
               <div className="text-[#b32b2b] text-xl font-semibold">
                 {detail.price}
               </div>
-              <hr className="mb-4 border-2 border-[#b32b2b] w-full" />
-              <div className="text-black text-sm font-semibold">Details</div>
-              <p className="text-gray-600 mt-3 h-[50%]">
-                {detail.description}
-              </p>
+              <ReactStars
+                count={5}
+                size={20}
+                value={3}
+                edit={false}
+                activeColor="#ffd700"
+              />
+              <span className="text-gray-500 text-sm">
+                <h2 className="text-black text-[16px] font-semibold ">
+                  Category:{" "}
+                </h2>{" "}
+                {detail.category}
+              </span>
+              <span className="text-gray-500 text-sm flex items-center gap-2">
+                <h2 className="text-black text-[16px] font-semibold ">
+                  Availability:{" "}
+                </h2>
+                <p className="">300 In stock</p>
+              </span>
 
               <div className="flex flex-row items-center justify-center gap-3 mt-3">
                 <div className="flex flex-row gap-2">
@@ -121,9 +191,7 @@ export default function ProductDetails() {
                   <input
                     type="number"
                     value={quantity}
-                    onChange={(e) =>
-                      setQuantity(parseInt(e.target.value) || 1)
-                    }
+                    onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                     className="w-16 text-center border border-gray-300 rounded-md"
                   />
                   <button
@@ -141,12 +209,32 @@ export default function ProductDetails() {
                   Add to cart
                 </button>
               </div>
+              <div
+                onClick={toggleWish}
+                className="flex items-center gap-1 cursor-pointer"
+              >
+                <FontAwesomeIcon
+                  icon={isWish ? faHeart : faHeartOutline}
+                  style={{ color: isWish ? "red" : "red" }}
+                  size="lg"
+                  className=""
+                />
+                <p className="text-sm">Add to wishlist</p>
+              </div>
+              <InstructionAccordion />
             </div>
           </div>
-          <div className="md:mt-40 mt-20 flex flex-col gap-5 text-xl text-[#b32b2b]">
-            <div className="w-[80%] mx-auto">
+
+          <div className="flex flex-col gap-1 w-[90%] mx-auto">
+                      <div className="text-black text-xl font-bold">Description</div>
+
+          <div className="bg-white shadow-md shadow-gray-400 p-6">
+            <p className="text-sm text-gray-500">{detail.description}</p>
+          </div></div>
+          <div className="flex flex-col gap-5 text-xl text-[#b32b2b]">
+            <div className="w-[90%] mx-auto">
               <h1>Related Products</h1>
-              <hr className="mb-4 border-2 border-[#b32b2b] w-full" />
+              <hr className=" border-2 border-[#b32b2b] w-full" />
             </div>
             <div>
               <RelatedProducts category={detail.category} itemsPerPage={5} />
