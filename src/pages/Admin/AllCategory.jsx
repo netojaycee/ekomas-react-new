@@ -12,8 +12,11 @@ import { CategoryContext } from "../../components/Context/CategoryContext";
 import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "../../components/Context/LoadingContext";
+import { Table } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function EditCategory({item}) {
+function EditCategory({ item }) {
   const [open, setOpen] = React.useState(false);
   const { categoriesData, fetchData } = useContext(CategoryContext);
 
@@ -96,69 +99,15 @@ function EditCategory({item}) {
     }
   };
 
-  // Function to handle form submission
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   try {
-  //     // Upload image to Cloudinary if an image is selected
-  //     let imageUrl = null;
-  //     if (formData.image) {
-  //       imageUrl = await uploadFile(formData.image);
-  //     }
-
-  //     // Send data to backend endpoint
-  //     const token = JSON.parse(localStorage.getItem("user"));
-
-  //     const response = await axios.post(
-  //       `${apiUrl}/category/create-category`,
-  //       {
-  //         name: formData.name,
-  //         image: imageUrl, // Send image URL to backend
-  //       },
-  //       {
-  //         headers: {
-  //           accept: "*/*",
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     console.log(response);
-  //     setIsLoading(false);
-  //     if (response.status === 200) {
-  //       console.log("Category uploaded successfully!");
-  //       // Reset form
-  //       setFormData({
-  //         name: "",
-  //         image: null,
-  //       });
-  //       toast.success("Category uploaded successfully!");
-  //     } else {
-  //       console.error("Error uploading category:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     toast.error("Failed to upload category!");
-  //   }
-  // };
-
-  // const handleEdit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("ddd");
-  // };
-
   return (
     <>
-      <Button
-        variant="outlined"
-        color="primary"
-        size="small"
-        onClick={handleOpen}
-      >
-        Edit
-      </Button>
+      <FontAwesomeIcon
+        onClick={() => handleOpen}
+        icon={faPencilAlt}
+        // style={{ color: "red"}}
+        className="cursor-pointer"
+        size="lg"
+      />
 
       <Dialog open={open} handler={handleOpen}>
         <Card className="mx-auto w-full max-w-[24rem]">
@@ -183,7 +132,7 @@ function EditCategory({item}) {
               onChange={handleChange}
               name="name"
             />
-           
+
             <div className="flex flex-col">
               <label htmlFor="image">Category Image</label>
               <input
@@ -209,88 +158,51 @@ function EditCategory({item}) {
   );
 }
 
-export default function AllCategory() {
+function AllCategory() {
   const { categoriesData, handleDeleteCategory } = useContext(CategoryContext);
-
   const [openDialog, setOpenDialog] = useState(false);
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <Typography variant="small">{text}</Typography>,
+    },
+    {
+      title: "Action",
+      dataIndex: "",
+      key: "action",
+      render: (item) => (
+        <div className="flex items-center gap-6">
+          <EditCategory
+            open={openDialog}
+            handleOpen={setOpenDialog}
+            item={item} // Pass current category data to EditCategory
+          />
+
+          <FontAwesomeIcon
+            onClick={() => handleDeleteCategory(item._id)}
+            icon={faTrash}
+            style={{ color: "red" }}
+            className="cursor-pointer"
+            size="lg"
+          />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <>
-      {" "}
-      <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
-        All Categories Page
-      </h1>
-      <table className="w-[90%] mx-auto min-w-max table-auto text-center bg-white mt-3 overflow-visible">
-        <thead>
-          <tr className="border-2 border-blue-gray-200">
-            {["Name", ""].map((head, index) => (
-              <th key={index} className="text-secondary p-4">
-                <Typography variant="small" className="font-bold leading-none">
-                  {head}
-                </Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(categoriesData) &&
-            categoriesData.map((item, index) => {
-              const isLast = index === categoriesData.length - 1;
-              const classes = isLast
-                ? "p-4"
-                : "p-4 border-b border-blue-gray-50";
-
-              return (
-                <tr
-                  key={item.id}
-                  className="border-2 border-blue-gray-200 text-center"
-                >
-                  <td className={classes}>
-                    <Typography variant="small" className="font-normal">
-                      {item.name}
-                    </Typography>
-                  </td>
-                  {/* <td className={classes}>
-                    <Typography variant="small" className="font-normal">
-                      {item.image}
-                    </Typography>
-                  </td> */}
-                  {/* <td className="m-0">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-[2%] h-[2%]"
-                    />
-                  </td> */}
-                  <td className={classes}>
-                    <Typography variant="small" className="font-normal">
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        size="small"
-                        className="mr-4"
-                        onClick={() => handleDeleteCategory(item._id)}
-                      >
-                        Delete
-                      </Button>
-                      {/* <Button
-                        variant="outlined"
-                        color="primary"
-                        size="small"
-                        onClick={() => handleClickEdit(item)}
-                      > Edit </Button> */}
-                      <EditCategory
-                        open={openDialog}
-                        handleOpen={setOpenDialog}
-                        item={item}
-                      />
-                    </Typography>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      <div className="">
+        <h3 className="font-bold text-xl mb-3">All Categories Page</h3>
+        <div className="bg-white shadow-md p-3 overflow-auto">
+          <Table columns={columns} dataSource={categoriesData} />
+        </div>
+      </div>
     </>
   );
 }
+
+export default AllCategory;

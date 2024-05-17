@@ -33,6 +33,13 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
+import AdminMainLayout from "./components/AdminDashboard/AdminMainLayout";
+import AddBlog from "./pages/Admin/AddBlog";
+import AllBlogs from "./pages/Admin/AllBlogs";
+import Customers from "./pages/Admin/Customers";
+import Enquiries from "./pages/Admin/Enquiries";
+
+
 
 function App() {
   const ROLES = {
@@ -85,7 +92,7 @@ function App() {
           {/* ADMIN AND USER ROUTES */}
 
           {/* ADMIN ROUTES */}
-          <Route path="/" element={<AdminLayout />}>
+          {/* <Route path="/" element={<AdminLayout />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/add-product" element={<AddProduct />} />
@@ -93,6 +100,20 @@ function App() {
               <Route path="/admin/all-category" element={<AllCategory />} />
               <Route path="/admin/all-product" element={<AllProduct />} />
               <Route path="/admin/orders" element={<AdminOrders />} />
+            </Route>
+          </Route> */}
+          <Route path="/" element={<AdminMainLayout />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/add-product" element={<AddProduct />} />
+              <Route path="/admin/add-category" element={<AddCategory />} />
+              <Route path="/admin/all-category" element={<AllCategory />} />
+              <Route path="/admin/all-product" element={<AllProduct />} />
+              <Route path="/admin/orders" element={<AdminOrders />} />
+              <Route path="/admin/all-blogs" element={<AllBlogs />} />
+              <Route path="/admin/add-blog" element={<AddBlog />} />
+              <Route path="/admin/customers" element={<Customers />} />
+              <Route path="/admin/enquiries" element={<Enquiries />} />
             </Route>
           </Route>
         </Route>

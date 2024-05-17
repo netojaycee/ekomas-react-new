@@ -1,52 +1,113 @@
 import React from "react";
-
-
-
-
+import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
+import { Column } from "@ant-design/plots";
+import { Table } from "antd";
+import AdminOrders from "./AdminOrders";
 
 export default function AdminDashboard() {
+  const data = [
+    { month: "Jan", income: 5000 },
+    { month: "Feb", income: 6200 },
+    { month: "Mar", income: 4800 },
+    { month: "Apr", income: 7100 },
+    { month: "May", income: 5500 },
+    { month: "Jun", income: 4000 },
+    { month: "Jul", income: 6000 },
+    { month: "Aug", income: 4500 },
+    { month: "Sep", income: 7000 },
+    { month: "Oct", income: 5000 },
+    { month: "Nov", income: 4000 },
+    { month: "Dec", income: 6000 },
+  ];
+
   
 
-  // Function to handle opening the OrderConfirmCard modal and set the selected order
+  const config = {
+    data,
+    xField: "month",
+    yField: "income",
+    label: {
+      position: "middle",
+      style: {
+        opacity: 1,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      income: {
+        alias: "Income",
+      },
+      month: {
+        alias: "Month",
+      },
+    },
+  };
 
- 
   return (
-    <div className="flex flex-col w-full ">
-      <div className="flex lg:flex-row flex-col w-full gap-5 p-5">
-        <div className="flex flex-col gap-4 w-full lg:w-4/5 ">
-          {/* <div className="grid lg:grid-cols-3 grid-cols-2 md:grid-cols-2 w-full gap-4">
-            <div className="flex flex-col p-3 gap-3 overflow-hidden rounded-md shadow-lg">
-              <p className="font-bold">Top sale</p>
-              <p className="md:text-xl text-md lg:text-3xl">$19.637</p>
-              <div className="flex w-full">
-                <p>+2.00% this week</p>
-              </div>
-            </div>
-            <div className="flex flex-col p-3 gap-3 overflow-hidden rounded-md shadow-lg">
-              <p className="font-bold">Top sale</p>
-              <p className="md:text-xl text-md lg:text-3xl">$19.637</p>
-              <div className="flex w-full">
-                <p>+2.00% this week</p>
-              </div>
-            </div>
-            <div className="flex flex-col p-3 gap-3 overflow-hidden rounded-md shadow-lg">
-              <p className="font-bold">Top sale</p>
-              <p className="md:text-xl text-md lg:text-3xl">$19.637</p>
-              <div className="flex w-full">
-                <p>+2.00% this week</p>
-              </div>
-            </div>
-          </div> */}
-          {/* <div className="shadow-lg gap-4 rounded-lg border w-full overflow-auto h-96">
-            <Chartx />
-          </div> */}
+    <div>
+      <h3 className="mb-4 font-bold">Dashboard</h3>
+      <div className="flex overflow-auto justify-between items-center gap-3">
+        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+          <div className="flex flex-col gap-3">
+            <p className="">Total</p>
+            <h3 className="mb-0 font-semibold">$1040</h3>
+          </div>
+          <div className="flex flex-col items-end">
+            <h6 className="flex text-green-700 items-center gap-2 font-semibold">
+              <FaArrowTrendUp />
+              32%
+            </h6>
+            <p className="mb-0">Compared to april 2021</p>
+          </div>
         </div>
-        {/* <div className="flex w-full lg:w-2/5 rounded-lg p-5 shadow flex-col">
-          <p className="font-bold">Recent months</p>
-          <small>Vistors</small>
-        </div> */}
+
+        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+          <div className="flex flex-col gap-3">
+            <p className="">Total</p>
+            <h3 className="mb-0 font-semibold">$1040</h3>
+          </div>
+          <div className="flex flex-col items-end">
+            <h6 className="flex text-red-500 items-center gap-2 font-semibold">
+              <FaArrowTrendDown />
+              32%
+            </h6>
+            <p className="mb-0">Compared to april 2021</p>
+          </div>
+        </div>
+
+        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+          <div className="flex flex-col gap-3">
+            <p className="">Total</p>
+            <h3 className="mb-0 font-semibold">$1040</h3>
+          </div>
+          <div className="flex flex-col items-end">
+            <h6 className="flex text-green-700 items-center gap-2 font-semibold">
+              <FaArrowTrendUp />
+              32%
+            </h6>
+            <p className="mb-0">Compared to april 2021</p>
+          </div>
+        </div>
       </div>
-     {/* neww cards in div */}
+
+      {/* charts */}
+
+      <div className="mt-4">
+        <h3 className="mb-4 font-bold">Income Statistics</h3>
+        <div className="h-[220px] overflow-auto">
+          <Column {...config} />
+        </div>
+      </div>
+
+      {/* orders */}
+      <div className="mt-4">
+        <AdminOrders title={"Recent Orders"} fields={[]}  />
+      </div>
     </div>
   );
 }

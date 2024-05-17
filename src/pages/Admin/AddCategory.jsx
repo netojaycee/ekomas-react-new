@@ -94,7 +94,7 @@ export default function AddCategory() {
 
   return (
     <>
-      <div className="">
+      <div className="bg-white shadow-md p-5 rounded-md">
         <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
           Add New Category
         </h1>

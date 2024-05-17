@@ -129,7 +129,7 @@ export default function AddProduct() {
 
   return (
     <>
-      <div>
+      <div className="bg-white shadow-md p-5 rounded-md">
         <h1 className="text-2xl text-center text-secondary font-semibold mt-3">
           Upload New Product
         </h1>

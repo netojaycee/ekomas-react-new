@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
+import { Table } from "antd";
 
 const TABLE_HEAD = ["Order", "Email", "Amount", "Status", "Date", ""];
 
-function EditOrder({ data, fetchOrders }) {
+function EditOrder({ data }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -31,7 +32,7 @@ function EditOrder({ data, fetchOrders }) {
           },
         }
       );
-      // console.log(res);
+      console.log(res);
       handleOpen();
       toast.success("Order Status Updated");
       fetchOrders();
@@ -150,11 +151,120 @@ function EditOrder({ data, fetchOrders }) {
   );
 }
 
-export default function AdminOrders() {
+// export default function AdminOrders({title}) {
+//   const [orders, setOrders] = useState([]);
+//   const [selectedOrder, setSelectedOrder] = useState(null);
+//   const [openDialog, setOpenDialog] = useState(false);
+
+//   // Fetch orders data from the server
+
+//   let token = localStorage.getItem("user");
+//   token = token.replace(/['"]+/g, "");
+
+//   const headers = {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${token}`,
+//   };
+
+//   const fetchOrders = async () => {
+//     try {
+//       const response = await axios.get(`${apiUrl}/order/all/orders`, {
+//         headers,
+//       });
+//       // console.log(response);
+//       setOrders(response.data.allOrders);
+//       console.log(response);
+//     } catch (error) {
+//       console.error("Error fetching orders:", error);
+//       // Handle error
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchOrders();
+//   }, []);
+
+//   const handleOpenOrderConfirm = (order) => {
+//     setSelectedOrder(order);
+//   };
+
+//   const columns = [
+//     {
+//       title: "OrderId",
+//       dataIndex: "_id",
+//       key: "orderId",
+//       render: (text) => <Typography variant="small">{text}</Typography>,
+//     },
+//     {
+//       title: "Email",
+//       dataIndex: "email",
+//       key: "email",
+//       render: (text) => <Typography variant="small">{text}</Typography>,
+//     },
+//     {
+//       title: "Total",
+//       dataIndex: "total",
+//       key: "total",
+//       render: (text) => <Typography variant="small">{text}</Typography>,
+//     },
+//     {
+//       title: "Status",
+//       dataIndex: "orderStatus",
+//       key: "status",
+//       render: (text) => (
+//         <Typography
+//           variant="small"
+//           color="blue-gray"
+//           className={` font-normal w-full text-center p-1 rounded-lg ${
+//             text === "shipped"
+//               ? "bg-blue-300"
+//               : text === "completed"
+//               ? "bg-green-300"
+//               : "bg-red-300"
+//           }`}
+//         >
+//           {text}
+//         </Typography>
+//       ),
+//     },
+//     {
+//       title: "Date",
+//       dataIndex: "updatedAt",
+//       key: "date",
+//       render: (text) => (
+//         <Typography variant="small">
+//           {new Date(text).toLocaleString()}
+//         </Typography>
+//       ),
+//       // {new Date(order.updatedAt).toLocaleString()}
+//     },
+//     {
+//       title: "Action",
+//       dataIndex: "",
+//       key: "action",
+//       render: (item) => (
+//         <div>
+//           <EditOrder data={item} open={openDialog} handleOpen={setOpenDialog} />
+//         </div>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <div className="">
+//       <h3 className="font-bold text-xl mb-3">{title ? title : "All Orders Page"}</h3>
+//       <div className="bg-white shadow-md p-3">
+//         <Table columns={columns} dataSource={orders} />
+//       </div>
+//     </div>
+//   );
+// }
+
+function AdminOrders({ title, fields = ["_id","action",] }) {
+  // Define default empty fields prop
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-
-  // Fetch orders data from the server
+  const [openDialog, setOpenDialog] = useState(false);
 
   let token = localStorage.getItem("user");
   token = token.replace(/['"]+/g, "");
@@ -169,7 +279,6 @@ export default function AdminOrders() {
       const response = await axios.get(`${apiUrl}/order/all/orders`, {
         headers,
       });
-      // console.log(response.data.allOrders);
       setOrders(response.data.allOrders);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -185,111 +294,88 @@ export default function AdminOrders() {
     setSelectedOrder(order);
   };
 
+  const getColumns = () => {
+    return [
+      // {
+      //   title: "OrderId",
+      //   dataIndex: "_id",
+      //   key: "orderId",
+      //   render: (text) => <Typography variant="small">{text}</Typography>,
+      // },
+      {
+        title: "Email",
+        dataIndex: "email",
+        key: "email",
+        render: (text) => <Typography variant="small">{text}</Typography>,
+      },
+      {
+        title: "Status",
+        dataIndex: "orderStatus",
+        key: "status",
+        render: (text) => (
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className={` font-normal w-full text-center p-1 rounded-lg ${
+              text === "shipped"
+                ? "bg-blue-300"
+                : text === "completed"
+                ? "bg-green-300"
+                : "bg-red-300"
+            }`}
+          >
+            {text}
+          </Typography>
+        ),
+      },
+      {
+        title: "Total",
+        dataIndex: "total",
+        key: "total",
+        render: (text) => <Typography variant="small">{text}</Typography>,
+      },
+      {
+        title: "Date",
+        dataIndex: "updatedAt",
+        key: "date",
+        render: (text) => (
+          <Typography variant="small">
+            {new Date(text).toLocaleString()}
+          </Typography>
+        ),
+        // {new Date(order.updatedAt).toLocaleString()}
+      },
+    ].concat(
+      fields.map((field) => ({
+        title: field === "_id" ? "OrderId" : field, // Use prop value as column title
+        dataIndex: field === "action" ? "" : field, // Use prop value as data index
+        key: field,
+        render: (item) =>
+          field === "action" ? (
+            <EditOrder
+              data={item}
+              open={openDialog}
+              handleOpen={setOpenDialog}
+            />
+          ) : (
+            <Typography variant="small">{item}</Typography>
+          ),
+      }))
+    );
+  };
+
+  const columns = getColumns();
+
   return (
-    <div className="flex w-full rounded p-5">
-      <Card className="h-full w-full overflow-scroll">
-        <table className="w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-b border-blue-gray-100 bg-badge p-4"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order, index) => {
-              const isLast = index === orders.length - 1;
-              const classes = isLast
-                ? "p-4"
-                : "p-4 border-b border-blue-gray-50";
-
-              return (
-                <tr key={index}>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {index + 1}
-                    </Typography>
-                  </td>
-
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {order.email}
-                    </Typography>
-                  </td>
-
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {order.total}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className={` font-normal w-full text-center p-1 rounded-lg ${
-                        order.orderStatus === "shipped"
-                          ? "bg-blue-300"
-                          : order.orderStatus === "completed"
-                          ? "bg-green-300"
-                          : "bg-red-300"
-                      }`}
-                    >
-                      {order.orderStatus}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {new Date(order.updatedAt).toLocaleString()}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      as="a"
-                      href="#"
-                      variant="small"
-                      color="blue-gray"
-                      className="font-medium"
-                      onClick={() => handleOpenOrderConfirm(order)}
-                    >
-                      <EditOrder
-                        data={selectedOrder}
-                        fetchOrders={fetchOrders}
-                      />
-                    </Typography>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </Card>
+    <div className="">
+      <h3 className="font-bold text-xl mb-3">
+        {title ? title : "All Orders Page"}
+      </h3>
+      <div className="bg-white shadow-md p-3 overflow-auto">
+        <Table columns={columns} dataSource={orders} />
+      </div>
     </div>
   );
 }
+
+export default AdminOrders;
