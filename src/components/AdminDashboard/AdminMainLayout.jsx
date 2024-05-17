@@ -19,23 +19,12 @@ import AuthContext from "../Context/AuthContext";
 import { useContext } from "react";
 const { Header, Sider, Content } = Layout;
 const AdminMainLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true); // Initial state for collapsed menu
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
-      setCollapsed(isMobile);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup function to remove event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
 
 
