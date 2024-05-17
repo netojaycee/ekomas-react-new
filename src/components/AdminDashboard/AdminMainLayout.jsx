@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo.png";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {
@@ -25,7 +25,17 @@ const AdminMainLayout = () => {
   } = theme.useToken();
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+      setCollapsed(isMobile);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function to remove event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
 
 
