@@ -61,11 +61,12 @@ export default function Home() {
           const response = await axios.get(
             `${apiUrl}/payment/verify?reference=${reference}`
           );
-          console.log(response.data);
+          // console.log(response.data);
           // If payment verification is successful, open the PaymentComplete modal
           setPaymentCompleteOpen(true);
           // Set paymentInfo to the data from the response
           setPaymentInfo(response.data);
+          setSearchParams({});
         } catch (error) {
           console.error("Error verifying payment:", error);
         }
