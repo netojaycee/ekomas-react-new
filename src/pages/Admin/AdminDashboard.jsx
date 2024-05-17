@@ -51,8 +51,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <h3 className="mb-4 font-bold">Dashboard</h3>
-      <div className="flex overflow-auto justify-between items-center gap-3">
-        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+      <div className="flex md:flex-row flex-col w-full justify-between items-center gap-3">
+        <div className="flex bg-white w-full justify-between items-end flex-grow p-3 rounded-md shadow-md">
           <div className="flex flex-col gap-3">
             <p className="">Total</p>
             <h3 className="mb-0 font-semibold">$1040</h3>
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+        <div className="flex bg-white w-full justify-between items-end flex-grow p-3 rounded-md shadow-md">
           <div className="flex flex-col gap-3">
             <p className="">Total</p>
             <h3 className="mb-0 font-semibold">$1040</h3>
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="flex bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
+        <div className="flex w-full bg-white justify-between items-end flex-grow p-3 rounded-md shadow-md">
           <div className="flex flex-col gap-3">
             <p className="">Total</p>
             <h3 className="mb-0 font-semibold">$1040</h3>
