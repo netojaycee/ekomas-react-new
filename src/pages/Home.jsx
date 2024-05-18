@@ -82,8 +82,9 @@ export default function Home() {
 
   return (
     <>
+    
       <Hero />
-      {/* <Category /> */}
+      <Category />
       <Products />
       <Special />
       <Tsp />

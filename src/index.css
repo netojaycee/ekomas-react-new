@@ -7,54 +7,20 @@
   padding: 0;
   margin: 0;
 }
-
 body {
   font-family: "Rubik", sans-serif;
+  
+}
+
+body::-webkit-scrollbar {
+
+  width: 0px;
 }
 
 a {
   text-decoration: none;
   display: inline-block;
 }
-.kenburns-top {
-  -webkit-animation: kenburns-top 5s cubic-bezier(0.215, 0.61, 0.355, 1)
-    backwards;
-  animation: kenburns-top 5s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
-}
-
-@-webkit-keyframes kenburns-top {
-  0% {
-    -webkit-transform: scale(1) translateY(0);
-    transform: scale(1) translateY(0);
-    -webkit-transform-origin: 50% 16%;
-    transform-origin: 50% 16%;
-  }
-  100% {
-    -webkit-transform: scale(1.25) translateY(-15px);
-    transform: scale(1.25) translateY(-15px);
-    -webkit-transform-origin: top;
-    transform-origin: top;
-  }
-}
-@keyframes kenburns-top {
-  0% {
-    -webkit-transform: scale(1) translateY(0);
-    transform: scale(1) translateY(0);
-    -webkit-transform-origin: 50% 16%;
-    transform-origin: 50% 16%;
-  }
-  100% {
-    -webkit-transform: scale(1.25) translateY(-15px);
-    transform: scale(1.25) translateY(-15px);
-    -webkit-transform-origin: top;
-    transform-origin: top;
-  }
-}
-
-/* .ant-layout {
-  min-height: 100vh !important;
-  overflow-y: hidden !important;
-} */
 
 .demo-logo-vertical {
   height: 32px;
@@ -100,26 +66,4 @@ main::-webkit-scrollbar {
 .ant-layout-header p {
   line-height: 15px;
   font-size: 13px;
-}
-
-.add-to-cart-button {
-  background-color: #b32b2b;
-  color: white;
-  rounded: 5px;  /* Adjust border radius as needed */
-  font-weight: bold;
-  padding: 5px 10px;  /* Adjust padding as needed */
-  font-size: 0.8rem;  /* Adjust font size as needed */
-  cursor: pointer;
-  opacity: 0;  /* Initially hide the button */
-  transition: opacity 0.2s ease-in-out;  /* Smooth transition on hover */
-}
-
-.add-to-cart-button:hover {
-  opacity: 1;  /* Show the button on hover */
-}
-
-@media (min-width: 768px) { /* Adjust breakpoint as needed */
-  .add-to-cart-button {
-    display: none;  /* Hide the button on larger screens */
-  }
 }

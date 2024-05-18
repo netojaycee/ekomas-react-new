@@ -18,6 +18,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import AuthContext from "../Context/AuthContext";
 import { useContext } from "react";
 const { Header, Sider, Content } = Layout;
+
+
+
+
 const AdminMainLayout = () => {
   const [collapsed, setCollapsed] = useState(true); // Initial state for collapsed menu
   const {

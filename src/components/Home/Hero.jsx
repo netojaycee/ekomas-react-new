@@ -12,10 +12,10 @@ export default function Hero() {
 
   return (
     <>
-      <div className="relative">
+      <div className="">
         {/* <img src={hero} alt="hero" className="kenburns-top w-full object-cover" /> */}
-        <div className="bg-primary p-3 flex flex-row items-center justify-between gap-5">
-          <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full">
+        <div className="flex flex-row items-center justify-between gap-5 md:mx-2 mx-0 py-2">
+          <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full md:w-1/4">
             <div className="p-2 flex flex-col gap-2">
               {categoriesData.map((category) => (
                 <div className="flex items-center gap-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
@@ -32,10 +32,10 @@ export default function Hero() {
             </div>
             
           </div>
-          <div className=" bg-white h-[330px] w-[712px] ">
+          <div className="relative md:w-3/4 w-full">
           <Carousel showThumbs={false} autoPlay>
                 <div>
-                    <img src={hero2} />
+                    <img src={hero2} className="object-cover"/>
                 </div>
                 <div>
                     <img src={hero2} />
@@ -44,14 +44,15 @@ export default function Hero() {
                     <img src={hero2} />
                 </div>
             </Carousel>
-          </div>
-        </div>
-
-        <Link to="/products">
+            <Link to="/products">
           <button className="border border-r-0 border-primary absolute bottom-10 right-0 text-primary bg-white md:px-6 px-2 py-2 font-bold md:text-xl">
             Shop Now
           </button>
         </Link>
+          </div>
+        </div>
+
+       
       </div>
     </>
   );
