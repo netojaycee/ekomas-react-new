@@ -38,13 +38,11 @@ export default function Special() {
         </div>
       </div>
 
-      <div className="gap-4 grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
+      <div className="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
         {discount.map((product) => (
           <ProductItem
             key={product._id}
             {...product}
-            discount={`${product.discount}%`}
-            classx={`bg-gray-100 p-1`}
             discount-aos="flip-down"
           />
         ))}

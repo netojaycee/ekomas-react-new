@@ -99,7 +99,7 @@ export default function AdminDashboard() {
 
       <div className="mt-4">
         <h3 className="mb-4 font-bold">Income Statistics</h3>
-        <div className="">
+        <div className="md:h-[220px]">
           <Column {...config} />
         </div>
       </div>

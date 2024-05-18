@@ -9,6 +9,7 @@ import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
 import ReactStars from "react-rating-stars-component";
+import { CartContext } from "./Context/CartContext";
 
 const ProductItem = ({
   _id,
@@ -23,10 +24,16 @@ const ProductItem = ({
 
   const { addToWish, removeFromWish, wish, clearWish } =
     useContext(WishContext);
+    const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     Aos.init();
   }, []);
+
+  const cartAdd = () => {
+    addToCart( _id, 1);
+    toast.success(`${name} added to cart`);
+  };
 
   const isWish = wish.some((item) => item._id === _id);
 
@@ -51,13 +58,15 @@ const ProductItem = ({
     }
   };
 
+  const discountPrice = (price * discount) / 100;
+
   return (
     <div
       key={_id}
-      className={`flex flex-col gap-2 bg-gray-300 border border-gray-400 md:max-w-[200px] overflow-hidden  rounded-xl ${classx} xl:max-w-full h-[300px]`}
-    >
+      className={`flex flex-col bg-gray-300 border border-gray-400 md:max-w-[200px] overflow-hidden  rounded-xl ${classx="p-1"} xl:max-w-full h-[330px]`}
+    >         
       <div className="flex flex-row gap-4 rounded ">
-        <div className="bg-white flex flex-row rounded overflow-hidden h-[200px] relative w-full p-2 duration-300 transform hover:scale-105 transition ease-linear">
+        <div className="bg-white flex flex-row rounded overflow-hidden h-[200px] relative w-full duration-300 transform hover:scale-105 transition ease-linear">
           <Link to={productDetailPath}>
             <img
               src={image}
@@ -72,9 +81,9 @@ const ProductItem = ({
   </span> */}
           <div className="-right-2 rounded absolute " data-aos="fade-up">
             <div className="absolute -right-1">
-              {discount !== 0 && (
+              {discount > 0 && (
                 <div className="bg-badge text-center pl-2 px-3 relative right-3">
-                  ${discount}
+                  -{discount}%
                 </div>
               )}
             </div>
@@ -82,11 +91,11 @@ const ProductItem = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col px-2 gap-1">
-        <p className="text-sm text-gray-900 font-semibold h-8">{name}</p>
+      <div className="flex flex-col gap-1 mx-auto w-[97%] h-[100px]">
+        <p className="text-sm mt-1 text-gray-900 font-semibold max-h-[20%] w-[90%] overflow-hidden text-ellipsis whitespace-nowrap">{name}</p>
         <div className="flex flex-row justify-between rounded items-center">
           <div className="flex flex-col gap-1">
-            <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md">
+            <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md flex items-center gap-1">
               <ReactStars
                 count={5}
                 size={20}
@@ -94,9 +103,31 @@ const ProductItem = ({
                 edit={false}
                 activeColor="#ffd700"
               />
+              (2)
             </div>
-            <div className="text-black text-sm">
-              ${parseFloat(price).toFixed(2)}
+            <div className="text-black text-sm flex flex-col">
+              {discount > 0 ? (
+                <>
+                 
+                  <span className="flex items-center gap-1">
+                    <span>&#8358;</span>
+                    {parseFloat(discountPrice).toFixed(2)}
+                  </span>
+                </>
+              ) : (
+                <span className="flex items-center gap-1">
+                  <span>&#8358;</span>
+                  {parseFloat(price).toFixed(2)}
+                </span>
+              )}
+              {discount > 0 && (
+                <span className="text-xs text-gray-500 line-through">
+                  <span className="flex items-center gap-1">
+                    <span>&#8358;</span>
+                    {parseFloat(price).toFixed(2)}
+                  </span>
+                </span>
+              )}
             </div>
           </div>
           <div className="flex justify-end">
@@ -110,7 +141,13 @@ const ProductItem = ({
           </div>
         </div>
       </div>
-    </div>
+      <button
+        onClick={() => cartAdd()}
+        className="transition transform duration-300 ease-in-out focus:outline-none bg-[#b32b2b] hover:bg-secondary text-white rounded font-semibold py-1 text-sm  cursor-pointer"
+      >
+        ADD TO CART
+      </button>
+    </div> 
   );
 };
 

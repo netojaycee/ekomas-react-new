@@ -11,6 +11,7 @@ export default function ProductsList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState("Default sorting");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [pageTitle, setPageTitle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [selectedFilters, setSelectedFilters] = useState({});
@@ -29,26 +30,76 @@ export default function ProductsList() {
   const isTopSelling = searchParams.get("topSelling") === "true";
 
   useEffect(() => {
-    let filtered = data;
+    let filtered = data; // Start with all products
 
     if (isTopSelling) {
       filtered = topSelling;
-    }
-
-    if (isSpecialOffersPage) {
+    } else if (isSpecialOffersPage) {
       filtered = discount;
-    }
-    if (isFeaturedPage) {
+    } else if (isFeaturedPage) {
       filtered = featured;
     }
+
     if (categoryParam) {
       filtered = data.filter((product) => product.categoryId === categoryParam);
+      const categoryName = categoriesData.find(
+        (category) => category._id === categoryParam
+      )?.name;
+      setPageTitle(categoryName);
     }
 
-    setFilteredProducts(filtered);
+    // Apply in-stock filter if selected
+    if (selectedFilters.stock) {
+      filtered = filtered.filter((product) => {
+        if (selectedFilters.stock === "all") {
+          return true; // Keep all products if "all" is selected
+        } else return product.inStock === (selectedFilters.stock === "in-stock");
+      });
+    }
 
-    setCurrentPage(1); // Reset to the first page when filters change
-  }, [data]);
+    // Apply price range filter if selected
+    if (selectedFilters.priceRange) {
+      filtered = filtered.filter((product) => {
+        const price = parseFloat(product.price);
+        const range = selectedFilters.priceRange.split("-");
+        return (
+          !range || // No range selected, or
+          (price >= parseFloat(range[0]) && price <= parseFloat(range[1]))
+        );
+      });
+    }
+
+    // Set the filtered products based on all applied filters
+    setFilteredProducts(filtered);
+  }, [
+    data,
+    categoryParam,
+    isSpecialOffersPage,
+    isFeaturedPage,
+    isTopSelling,
+    selectedFilters, // Include selectedFilters in dependency array
+  ]);
+
+  // ... rest of the component logic for category filter, price filter, etc.
+
+  // Improved handleInStock function to consider selected category:
+  const handleInStock = (e) => {
+    const { name, value } = e.target;
+    setSelectedFilters({ ...selectedFilters, stock: value }); // Update stock filter
+
+    const filtered = data.filter((product) => {
+      if (categoryParam) { // If a category is selected
+        return (
+          product.categoryId === categoryParam && // Match category
+          (value === "all" || product.inStock === (value === "in-stock")) // Apply in-stock filter
+        );
+      } else { // If no category is selected, apply in-stock filter globally
+        return value === "all" || product.inStock === (value === "in-stock");
+      }
+    });
+
+    setFilteredProducts(filtered);
+  };
 
   // category filter start
 
@@ -89,25 +140,25 @@ export default function ProductsList() {
     setFilteredProducts(filtered);
   };
 
-  const handleInStock = (e) => {
-    const { name, value } = e.target;
-    setSelectedFilters({ ...selectedFilters, [name]: value });
+  // const handleInStock = (e) => {
+  //   const { name, value } = e.target;
+  //   setSelectedFilters({ ...selectedFilters, [name]: value });
 
-    const filtered = data.filter((product) => {
-      if (value === "all") {
-        // If "all" is selected, return all products
-        return true;
-      } else if (value === "in-stock") {
-        return product.inStock === true; // Return in-stock products
-      } else if (value === "out-of-stock") {
-        return product.inStock === false; // Return out-of-stock products
-      } else {
-        // Handle unexpected value (optional)
-        return false;
-      }
-    });
-    setFilteredProducts(filtered);
-  };
+  //   const filtered = data.filter((product) => {
+  //     if (value === "all") {
+  //       // If "all" is selected, return all products
+  //       return true;
+  //     } else if (value === "in-stock") {
+  //       return product.inStock === true; // Return in-stock products
+  //     } else if (value === "out-of-stock") {
+  //       return product.inStock === false; // Return out-of-stock products
+  //     } else {
+  //       // Handle unexpected value (optional)
+  //       return false;
+  //     }
+  //   });
+  //   setFilteredProducts(filtered);
+  // };
 
   // price filter end
   const isAnyFilterAll = (filters) => {
@@ -119,26 +170,26 @@ export default function ProductsList() {
     return false;
   };
 
-  useEffect(() => {
-    const filtered = data.filter((product) => {
-      const price = parseFloat(product.price);
-      const hasAllFilter = isAnyFilterAll(selectedFilters);
+  // useEffect(() => {
+  //   const filtered = data.filter((product) => {
+  //     const price = parseFloat(product.price);
+  //     const hasAllFilter = isAnyFilterAll(selectedFilters);
 
-      return (
-        (!selectedFilters.priceRange || // No price range selected, or
-          (price >= parseFloat(selectedFilters.priceRange.split("-")[0]) &&
-            price <= parseFloat(selectedFilters.priceRange.split("-")[1]))) &&
-        (hasAllFilter || // If any filter is "all", return all products
-          !selectedFilters.category ||
-          product.categoryId === selectedFilters.category) &&
-        (!selectedFilters.stock || // No price range selected, or
-          (product.inStock === true && selectedFilters.stock === "in-stock") ||
-          (product.inStock === false &&
-            selectedFilters.stock === "out-of-stock")) // Apply other selected filters here using similar logic
-      );
-    });
-    setFilteredProducts(filtered);
-  }, [data, selectedFilters]);
+  //     return (
+  //       (!selectedFilters.priceRange || // No price range selected, or
+  //         (price >= parseFloat(selectedFilters.priceRange.split("-")[0]) &&
+  //           price <= parseFloat(selectedFilters.priceRange.split("-")[1]))) &&
+  //       (hasAllFilter || // If any filter is "all", return all products
+  //         !selectedFilters.category ||
+  //         product.categoryId === selectedFilters.category) &&
+  //       (!selectedFilters.stock || // No price range selected, or
+  //         (product.inStock === true && selectedFilters.stock === "in-stock") ||
+  //         (product.inStock === false &&
+  //           selectedFilters.stock === "out-of-stock")) // Apply other selected filters here using similar logic
+  //     );
+  //   });
+  //   setFilteredProducts(filtered);
+  // }, [data, selectedFilters]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -203,18 +254,15 @@ export default function ProductsList() {
                 Shop by categories
               </h2>
               <div className="p-2 flex flex-col gap-2">
-                <Link to="/" className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
-                  Home
-                </Link>
-                <Link to={"/products"} className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
-                  Our Store
-                </Link>
-                <Link to={"/blogs"} className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
-                  Blog
-                </Link>
-                <Link to={"/contact"} className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
-                  Contact
-                </Link>
+                {categoriesData.map((category) => (
+                  <Link
+                    key={category._id}
+                    to={`/products?category=${category._id}`}
+                    className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear"
+                  >
+                    {category.name}
+                  </Link>
+                ))}
               </div>
             </div>
             <div className="bg-white p-4 rounded-md shadow-md mb-3 flex flex-col">
@@ -371,33 +419,46 @@ export default function ProductsList() {
             </div>
           </div>
           <div className="md:w-2/3 w-full flex-col flex gap-4 rounded-full mx-auto">
-            <div className="flex flex-row justify-between text-gray-700 bg-white p-2 rounded-md shadow-md">
-              <div className="font-semibold">
-                {/* Showing {indexOfFirstProduct + 1}-{indexOfLastProduct} of{" "}
-              {filteredProducts.length} results */}
-                Showing {paginationRange}
+            <div className="flex flex-col bg-white p-2 rounded-md shadow-md">
+              <div className="flex flex-row justify-between text-gray-700 ">
+                <div className="font-semibold">
+                  {pageTitle ? pageTitle : "All Products"}
+                </div>
+                <div className="flex items-center ">
+                  <p className="font-semibold text-sm">Sort By:</p>
+                  {/* Use the select dropdown for sorting options */}
+                  <select
+                    value={sortingOption}
+                    onChange={(e) => handleSortingChange(e.target.value)}
+                    className=" "
+                  >
+                    <option value="Default sorting">Default sorting</option>
+                    <option value="Price: Low to High">
+                      Price: Low to High
+                    </option>
+                    <option value="Price: High to Low">
+                      Price: High to Low
+                    </option>
+                    <option value="Alphabetical: A to Z">
+                      Alphabetical: A to Z
+                    </option>
+                    <option value="Alphabetical: Z to A">
+                      Alphabetical: Z to A
+                    </option>
+                  </select>
+                </div>
               </div>
-              <div className="flex items-center gap-2 font-semibold">
-                <p>Sort By:</p>
-                {/* Use the select dropdown for sorting options */}
-                <select
-                  value={sortingOption}
-                  onChange={(e) => handleSortingChange(e.target.value)}
-                  className="border border-gray-700 rounded px-4 py-1"
-                >
-                  <option value="Default sorting">Default sorting</option>
-                  <option value="Price: Low to High">Price: Low to High</option>
-                  <option value="Price: High to Low">Price: High to Low</option>
-                  <option value="Alphabetical: A to Z">
-                    Alphabetical: A to Z
-                  </option>
-                  <option value="Alphabetical: Z to A">
-                    Alphabetical: Z to A
-                  </option>
-                </select>
+              <hr />
+              <div className="flex flex-row justify-between p-1">
+                <div className="font-normal text-gray-600 text-sm">
+                  {filteredProducts.length} products found
+                </div>
+                <div className="flex items-center gap-2 font-semibold">
+                  {/* views gird or list */}
+                </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3  w-full gap-4">
               {filteredProducts.map((product) => (
                 <div key={product._id} className="flex flex-col">
                   <ProductItem key={product._id} {...product} />
