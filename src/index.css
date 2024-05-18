@@ -67,3 +67,29 @@ main::-webkit-scrollbar {
   line-height: 15px;
   font-size: 13px;
 }
+
+/* .slick-prev:after, .slick-prev:before, .slick-disabled{
+  color: #FF3E3E;
+  padding-left: 15px;
+  opacity: 100;
+
+}
+.slick-prev:after, .slick-prev:before{
+  color: #FF3E3E;
+  padding-left: 15px;
+  opacity: 100;
+
+}
+.slick-next:before, .slick-next:after, .slick-disabled{
+  color: #FF3E3E;
+  opacity: 100;
+  margin-right: 25px;
+}
+.slick-next:before, .slick-next:after{
+  color: #FF3E3E;
+  opacity: 100;
+  margin-right: 25px;
+} */
+
+
+

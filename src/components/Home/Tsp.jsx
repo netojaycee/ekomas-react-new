@@ -74,7 +74,7 @@ const Tsp = () => {
                   <div className="text-gray-600">${product.price}</div>
                 </div> */}
 
-                <ProductItem key={product._id} {...product} />
+                <ProductItem cartButton={true} key={product._id} {...product} />
 
               </div>
             ))}

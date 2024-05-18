@@ -36,7 +36,7 @@ const Products = () => {
       <div className="rounded-md py-2">
       <div className="gap-4 grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
           {displayedProducts.map((product) => (
-            <ProductItem key={product._id} {...product} />
+            <ProductItem cartButton={true}  key={product._id} {...product} />
           ))}
         </div>
       </div>

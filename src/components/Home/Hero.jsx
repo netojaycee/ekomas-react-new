@@ -33,7 +33,7 @@ export default function Hero() {
             
           </div>
           <div className="relative md:w-3/4 w-full">
-          <Carousel showThumbs={false} autoPlay>
+          <Carousel showThumbs={false} autoPlay emulateTouch swipeable showStatus={false}>
                 <div>
                     <img src={hero2} className="object-cover"/>
                 </div>

@@ -19,6 +19,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../config/env";
+import LimitedStock from "../components/Home/LimitedStock";
 
 function PaymentComplete({ open, handleOpen, paymentInfo }) {
   return (
@@ -85,6 +86,7 @@ export default function Home() {
     
       <Hero />
       <Category />
+      <LimitedStock />
       <Products />
       <Special />
       <Tsp />

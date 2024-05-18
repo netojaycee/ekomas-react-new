@@ -41,6 +41,7 @@ export default function Special() {
       <div className="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full rounded-sm">
         {discount.map((product) => (
           <ProductItem
+          cartButton={true} 
             key={product._id}
             {...product}
             discount-aos="flip-down"

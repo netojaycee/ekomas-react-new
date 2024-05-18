@@ -19,19 +19,20 @@ const ProductItem = ({
   discount,
   classx,
   category,
+  cartButton,
 }) => {
   const productDetailPath = `/product/${_id}`;
 
   const { addToWish, removeFromWish, wish, clearWish } =
     useContext(WishContext);
-    const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     Aos.init();
   }, []);
 
   const cartAdd = () => {
-    addToCart( _id, 1);
+    addToCart(_id, 1);
     toast.success(`${name} added to cart`);
   };
 
@@ -63,10 +64,13 @@ const ProductItem = ({
   return (
     <div
       key={_id}
-      className={`flex flex-col bg-gray-300 border border-gray-400 md:max-w-[200px] overflow-hidden  rounded-xl ${classx="p-1"} xl:max-w-full h-[330px]`}
-    >         
+      className={`flex flex-col bg-gray-300 border border-gray-400 md:max-w-[200px] overflow-hidden  rounded-xl ${(classx =
+        "p-1")} xl:max-w-full ${
+        cartButton === true ? "h-[330px]" : "h-[280px]"
+      }`}
+    >
       <div className="flex flex-row gap-4 rounded ">
-        <div className="bg-white flex flex-row rounded overflow-hidden h-[200px] relative w-full duration-300 transform hover:scale-105 transition ease-linear">
+        <div className="bg-white flex flex-row justify-center rounded overflow-hidden h-[200px] relative w-full duration-300 transform hover:scale-105 transition ease-linear">
           <Link to={productDetailPath}>
             <img
               src={image}
@@ -92,23 +96,26 @@ const ProductItem = ({
         </div>
       </div>
       <div className="flex flex-col gap-1 mx-auto w-[97%] h-[100px]">
-        <p className="text-sm mt-1 text-gray-900 font-semibold max-h-[20%] w-[90%] overflow-hidden text-ellipsis whitespace-nowrap">{name}</p>
+        <p className="text-sm mt-1 text-gray-900 font-semibold max-h-[25%] w-[90%] overflow-hidden text-ellipsis whitespace-nowrap">
+          {name}
+        </p>
         <div className="flex flex-row justify-between rounded items-center">
           <div className="flex flex-col gap-1">
-            <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md flex items-center gap-1">
-              <ReactStars
-                count={5}
-                size={20}
-                value={3}
-                edit={false}
-                activeColor="#ffd700"
-              />
-              (2)
-            </div>
+            {cartButton === true && (
+              <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md flex items-center gap-1">
+                <ReactStars
+                  count={5}
+                  size={20}
+                  value={3}
+                  edit={false}
+                  activeColor="#ffd700"
+                />
+                (2)
+              </div>
+            )}
             <div className="text-black text-sm flex flex-col">
               {discount > 0 ? (
                 <>
-                 
                   <span className="flex items-center gap-1">
                     <span>&#8358;</span>
                     {parseFloat(discountPrice).toFixed(2)}
@@ -141,13 +148,15 @@ const ProductItem = ({
           </div>
         </div>
       </div>
-      <button
-        onClick={() => cartAdd()}
-        className="transition transform duration-300 ease-in-out focus:outline-none bg-[#b32b2b] hover:bg-secondary text-white rounded font-semibold py-1 text-sm  cursor-pointer"
-      >
-        ADD TO CART
-      </button>
-    </div> 
+      {cartButton === true && (
+        <button
+          onClick={() => cartAdd()}
+          className="transition transform duration-300 ease-in-out focus:outline-none bg-[#b32b2b] hover:bg-secondary text-white rounded font-semibold py-1 text-sm  cursor-pointer"
+        >
+          ADD TO CART
+        </button>
+      )}
+    </div>
   );
 };
 
