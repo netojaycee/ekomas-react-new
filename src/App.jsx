@@ -103,7 +103,7 @@ function App() {
             </Route>
           </Route> */}
           <Route path="/" element={<AdminMainLayout />}>
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}> */}
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/add-product" element={<AddProduct />} />
               <Route path="/admin/add-category" element={<AddCategory />} />
@@ -114,7 +114,7 @@ function App() {
               <Route path="/admin/add-blog" element={<AddBlog />} />
               <Route path="/admin/customers" element={<Customers />} />
               <Route path="/admin/enquiries" element={<Enquiries />} />
-            </Route>
+            {/* </Route> */}
           </Route>
         </Route>
       </Routes>
