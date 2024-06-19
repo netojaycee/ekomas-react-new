@@ -18,7 +18,7 @@ export default function Explore() {
             Explore YOA-mat
           </h1>
         </div>
-        <div className="md:mt-[30px] mt-3 w-[90%] mx-auto flex flex-col md:flex-row gap-4">
+        <div className="md:mt-[30px] mt-3 w-[97%] lg:w-[90%] mx-auto flex flex-col md:flex-row gap-4">
           {blog.map((item) => (
           <BlogItem  item={item} />
         

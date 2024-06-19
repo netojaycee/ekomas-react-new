@@ -19,11 +19,11 @@ export default function LimitedStock() {
 
   var settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    initialSlide: 0,
+    // initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
