@@ -6,7 +6,7 @@ import { ProductContext } from "../Context/ProductContext";
 import { CategoryContext } from "../Context/CategoryContext";
 
 export default function ProductsList() {
-  const { data, discount, featured, topSelling } = useContext(ProductContext);
+  const { data, discount, featured, topSelling, searchResults } = useContext(ProductContext);
   const { categoriesData } = useContext(CategoryContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState("Default sorting");
@@ -28,6 +28,7 @@ export default function ProductsList() {
   const isFeaturedPage = searchParams.get("featured") === "true";
   const categoryParam = searchParams.get("category");
   const isTopSelling = searchParams.get("topSelling") === "true";
+  const isSearch = searchParams.get("search");
 
   useEffect(() => {
     let filtered = data; // Start with all products
@@ -38,6 +39,9 @@ export default function ProductsList() {
       filtered = discount;
     } else if (isFeaturedPage) {
       filtered = featured;
+    }
+    else if (isSearch) {
+      filtered = searchResults;
     }
 
     if (categoryParam) {
@@ -77,7 +81,8 @@ export default function ProductsList() {
     isSpecialOffersPage,
     isFeaturedPage,
     isTopSelling,
-    selectedFilters, // Include selectedFilters in dependency array
+    selectedFilters,
+    searchResults, // Include selectedFilters in dependency array
   ]);
 
   // ... rest of the component logic for category filter, price filter, etc.

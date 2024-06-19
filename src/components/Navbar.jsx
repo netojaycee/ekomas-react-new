@@ -35,8 +35,14 @@ function NavChild() {
     ? [...new Set(data.map((product) => product.category))]
     : [];
 
-  const [search, setSearch] = React.useState("");
   const onChange = ({ target }) => setSearch(target.value);
+  // const { searchProducts } = useContext(ProductContext);
+  // const [query, setQuery] = React.useState("");
+
+  // const handleSearch = (e) => {
+  //   setQuery(e.target.value);
+  //   searchProducts(e.target.value);
+  // };
   return (
     <>
       <div className="relative flex flex-col md:flex-row w-full items-left md:items-center gap-4 justify-between px-4">

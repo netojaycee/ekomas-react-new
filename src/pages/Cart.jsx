@@ -44,7 +44,7 @@ export default function Cart() {
   }, []);
 
   return (
-    <div className="flex md:flex-row flex-col w-full gap-6 p-4 bg-gray-200">
+    <div className="flex md:flex-row flex-col w-full gap-6 p-4">
       {cart && cart.length > 0 ? (
         <>
           <section className="md:w-[80%] w-full mx-auto flex flex-col gap-5 bg-white shadow-md shadow-gray-400  p-2 rounded-lg mt-3">

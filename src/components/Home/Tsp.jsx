@@ -38,14 +38,27 @@ const Tsp = () => {
   };
 
   return (
-    <div className=" mt-10 py-10 w-full bg-tsp_background">
-      <div className="flex-col flex gap-4 w-[90%] mx-auto">
+    // <div className=" mt-10 py-10 w-full bg-tsp_background">
+    //   <div className="flex-col flex gap-4 w-[90%] mx-auto">
+    //     <div>
+    //       <h1 className="text-[#B32b2b] py-4 md:mt-8 md:text-2xl mt-3 font-bold">
+    //         Top Selling Products
+    //       </h1>
+    //     </div>
+
+        <div className="md:px-2 px-0 pt-4">
+  
+  <div className="bg-primary h-10 flex justify-between items-center p-4">
         <div>
-          <h1 className="text-[#B32b2b] py-4 md:mt-8 md:text-2xl mt-3 font-bold">
-            Top Selling Products
+          <h1 className="text-white md:text-2xl font-semibold font-serif">
+                Top Selling Products
           </h1>
         </div>
-        <div className="pb-20">
+       
+      </div>
+
+      <div className="bg-white p-2 min-h-[240px] overflow-hidden rounded-b-md">
+        <div className="">
           <Slider {...settings}>
             {topSelling.map((product) => (
               <div key={product._id} className="flex flex-row pr-3">

@@ -91,5 +91,6 @@ main::-webkit-scrollbar {
   margin-right: 25px;
 } */
 
-
+.slick-list {margin: 0 -5px;}
+.slick-slide>div {padding: 0 10px;}
 

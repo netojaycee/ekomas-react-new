@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="">
         {/* <img src={hero} alt="hero" className="kenburns-top w-full object-cover" /> */}
         <div className="flex flex-row items-center justify-between gap-5 md:mx-2 mx-0 py-2">
-          <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full md:w-1/4">
+          <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full md:w-1/4 rounded-xl">
             <div className="p-2 flex flex-col gap-2">
               {categoriesData.map((category) => (
                 <div className="flex items-center gap-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">

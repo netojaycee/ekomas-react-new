@@ -16,7 +16,9 @@ const SiteLayout = () => {
       ) : (
         <div className="overflow-x-hidden font-serif bg-tsp_background">
           <Nav />
-          <Outlet />
+          <div className="min-h-screen">
+            <Outlet />
+          </div>
           <Footer fullFooter={true} />
         </div>
       )}

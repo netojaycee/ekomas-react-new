@@ -93,7 +93,7 @@ export default function Home() {
       <Featured />
       <Explore />
       {/* <Reviews /> */}
-      <About />
+      {/* <About /> */}
       {/* <Join /> */}
       {/* </div> */}
       <PaymentComplete

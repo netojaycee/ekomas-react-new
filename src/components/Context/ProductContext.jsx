@@ -12,6 +12,8 @@ const ProductProvider = ({ children }) => {
   const [featured, setFeatured] = useState([]);
   const [topSelling, setTopSelling] = useState([]);
   const { setIsLoading } = useLoading();
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchProducts = async () => {
     try {
@@ -20,7 +22,8 @@ const ProductProvider = ({ children }) => {
       if (response.status === 200) {
         const products = response.data.products;
         setData(products);
-        // console.log(products);
+        setSearchResults('');
+        console.log(products);
         // Filter featured products
         const featuredProducts = products.filter(
           (product) => product.featured === "yes"
@@ -76,9 +79,24 @@ const ProductProvider = ({ children }) => {
     }
   };
 
+  const searchProducts = (query) => {
+    setSearchQuery(query); 
+    if (!query) {
+      setSearchResults(data);
+      return;
+    }
+    const filteredProducts = data.filter(
+      (product) =>
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.categoryId.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filteredProducts);
+    console.log(filteredProducts);
+  };
+
   return (
     <ProductContext.Provider
-      value={{ data, discount, featured, topSelling, handleDeleteProduct, fetchProducts }}
+      value={{ data, discount, featured, topSelling, handleDeleteProduct, fetchProducts,  searchProducts, searchResults, searchQuery, }}
     >
       {children}
     </ProductContext.Provider>
