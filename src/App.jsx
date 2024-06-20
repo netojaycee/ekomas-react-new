@@ -39,8 +39,6 @@ import AllBlogs from "./pages/Admin/AllBlogs";
 import Customers from "./pages/Admin/Customers";
 import Enquiries from "./pages/Admin/Enquiries";
 
-
-
 function App() {
   const ROLES = {
     User: "user",
@@ -104,16 +102,16 @@ function App() {
           </Route> */}
           <Route path="/" element={<AdminMainLayout />}>
             {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}> */}
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/admin/add-product" element={<AddProduct />} />
-              <Route path="/admin/add-category" element={<AddCategory />} />
-              <Route path="/admin/all-category" element={<AllCategory />} />
-              <Route path="/admin/all-product" element={<AllProduct />} />
-              <Route path="/admin/orders" element={<AdminOrders />} />
-              <Route path="/admin/all-blogs" element={<AllBlogs />} />
-              <Route path="/admin/add-blog" element={<AddBlog />} />
-              <Route path="/admin/customers" element={<Customers />} />
-              <Route path="/admin/enquiries" element={<Enquiries />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/add-product" element={<AddProduct />} />
+            <Route path="/admin/add-category" element={<AddCategory />} />
+            <Route path="/admin/all-category" element={<AllCategory />} />
+            <Route path="/admin/all-product" element={<AllProduct />} />
+            <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/admin/all-blogs" element={<AllBlogs />} />
+            <Route path="/admin/add-blog" element={<AddBlog />} />
+            <Route path="/admin/customers" element={<Customers />} />
+            <Route path="/admin/enquiries" element={<Enquiries />} />
             {/* </Route> */}
           </Route>
         </Route>

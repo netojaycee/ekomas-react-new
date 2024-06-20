@@ -25,7 +25,7 @@ const UserLayout = () => {
               <UserSidebar />
             </div>
 
-            <div className="flex w-full h-full overflow-y-auto rounded-md mx-auto items-center bg-[#f8f8f8] gap-6">
+            <div className=" w-full overflow-y-auto rounded-md  bg-[#f8f8f8] gap-6 min-h-screen">
               <Outlet />
             </div>
           </div>
