@@ -21,9 +21,11 @@ const ProductProvider = ({ children }) => {
 
       if (response.status === 200) {
         const products = response.data.products;
+        // Save products to localStorage
+        localStorage.setItem("products", JSON.stringify(products));
         setData(products);
-        setSearchResults('');
-        console.log(products);
+        setSearchResults("");
+        // console.log(products);
         // Filter featured products
         const featuredProducts = products.filter(
           (product) => product.featured === "yes"
@@ -43,9 +45,59 @@ const ProductProvider = ({ children }) => {
         setTopSelling(sortedTopSelling);
       } else {
         console.error("Failed to fetch products from the backend");
+        const storedProducts = localStorage.getItem("products");
+        if (storedProducts) {
+          const products = JSON.parse(storedProducts);
+          setData(products);
+          setSearchResults('');
+          // console.log(products);
+
+          // Filter featured products
+          const featuredProducts = products.filter(
+            (product) => product.featured === "yes"
+          );
+          setFeatured(featuredProducts);
+
+          // Filter discounted products
+          const discountedProducts = products.filter(
+            (product) => product.discount > 0
+          );
+          setDiscount(discountedProducts);
+
+          // Sort products by topSelling in descending order and export only the first 5
+          const sortedTopSelling = products
+            .sort((a, b) => b.topSell - a.topSell)
+            .slice(0, 5);
+          setTopSelling(sortedTopSelling);
+        }
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      const storedProducts = localStorage.getItem("products");
+      if (storedProducts) {
+        const products = JSON.parse(storedProducts);
+        setData(products);
+        setSearchResults('');
+        // console.log(products);
+
+        // Filter featured products
+        const featuredProducts = products.filter(
+          (product) => product.featured === "yes"
+        );
+        setFeatured(featuredProducts);
+
+        // Filter discounted products
+        const discountedProducts = products.filter(
+          (product) => product.discount > 0
+        );
+        setDiscount(discountedProducts);
+
+        // Sort products by topSelling in descending order and export only the first 5
+        const sortedTopSelling = products
+          .sort((a, b) => b.topSell - a.topSell)
+          .slice(0, 5);
+        setTopSelling(sortedTopSelling);
+      }
     }
   };
   // Fetch products from the backend endpoint
@@ -80,7 +132,7 @@ const ProductProvider = ({ children }) => {
   };
 
   const searchProducts = (query) => {
-    setSearchQuery(query); 
+    setSearchQuery(query);
     if (!query) {
       setSearchResults(data);
       return;
@@ -96,7 +148,17 @@ const ProductProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ data, discount, featured, topSelling, handleDeleteProduct, fetchProducts,  searchProducts, searchResults, searchQuery, }}
+      value={{
+        data,
+        discount,
+        featured,
+        topSelling,
+        handleDeleteProduct,
+        fetchProducts,
+        searchProducts,
+        searchResults,
+        searchQuery,
+      }}
     >
       {children}
     </ProductContext.Provider>

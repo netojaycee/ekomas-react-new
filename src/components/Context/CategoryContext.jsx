@@ -16,13 +16,25 @@ const CategoryProvider = ({ children }) => {
 
       if (response.status === 200) {
         const categories = response.data.category;
+        localStorage.setItem("categories", JSON.stringify(categories));
+
         // console.log(categories);
         setCategoriesData(categories);
       } else {
         console.error("Error fetching categories:", response.statusText);
+        const storedCategories = localStorage.getItem("categories");
+        if (storedCategories) {
+          const categories = JSON.parse(storedCategories);
+          setCategoriesData(categories);
+        }
       }
     } catch (error) {
       console.error("Error:", error);
+      const storedCategories = localStorage.getItem("categories");
+      if (storedCategories) {
+        const categories = JSON.parse(storedCategories);
+        setCategoriesData(categories);
+      }
     }
   };
 
@@ -57,10 +69,12 @@ const CategoryProvider = ({ children }) => {
   };
 
   return (
-    <CategoryContext.Provider value={{ categoriesData, handleDeleteCategory, fetchData  }}>
+    <CategoryContext.Provider
+      value={{ categoriesData, handleDeleteCategory, fetchData }}
+    >
       {children}
     </CategoryContext.Provider>
   );
 };
 
-export { CategoryContext, CategoryProvider};
+export { CategoryContext, CategoryProvider };
