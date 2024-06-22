@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
-    <div className="flex flex-col w-full mx-auto items-center justify-center p-10 h-screen">
-      <div className="flex flex-col gap-3 bg-white md:w-[500px] w-[90%] mx-auto p-5 rounded-md shadow-md">
+    <div className="flex flex-col w-full mx-auto items-center justify-center p-5 h-screen">
+      <div className="flex flex-col gap-3 bg-white md:w-[500px] w-[97%] lg:w-[90%] mx-auto p-5 rounded-md shadow-md">
         <h2 className="text-center text-xl font-bold">Login</h2>
         <div className="flex flex-col gap-3">
           {/* <button className='flex flex-row py-3 px-4 md:px-10 bg-[#FC6767] rounded-sm items-center justify-center'>
