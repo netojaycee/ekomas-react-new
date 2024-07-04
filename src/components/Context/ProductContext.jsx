@@ -89,8 +89,9 @@ const ProductProvider = ({ children }) => {
     }
     const filteredProducts = data.filter(
       (product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()) ||
-        product.categoryId.toLowerCase().includes(query.toLowerCase())
+        product.name.toLowerCase().includes(query.toLowerCase())
+      //  ||
+        // product.categoryId.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(filteredProducts);
     console.log(filteredProducts);

@@ -22,11 +22,8 @@ const Searchbox = ({ placeholder }) => {
         placeholder={placeholder}
         value={query}
         onChange={(e) => {
-          if (e.target.value.length > 2) {
-            searchProducts(e.target.value);
-          } else if (e.target.value.length === 0) {
-            searchProducts("");
-          }
+          e.target.value.length > 2 && searchProducts(e.target.value);
+
           setQuery(e.target.value);
         }}
       />
