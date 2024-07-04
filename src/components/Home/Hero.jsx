@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="">
         {/* <img src={hero} alt="hero" className="kenburns-top w-full object-cover" /> */}
         <div className="flex flex-row items-center justify-between gap-5 md:mx-2 mx-0 py-2">
-          <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full md:w-1/4 rounded-xl">
+          {/* <div className="bg-white hidden flex-grow md:block  shadow-md p-2 h-full md:w-1/4 rounded-xl">
             <div className="p-2 flex flex-col gap-2">
               {categoriesData.map((category) => (
                 <div className="flex items-center gap-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear">
@@ -31,9 +31,9 @@ export default function Hero() {
               ))}
             </div>
             
-          </div>
-          <div className="relative md:w-3/4 w-full">
-          <Carousel showThumbs={false} autoPlay emulateTouch swipeable showStatus={false}>
+          </div> */}
+          <div className="relative w-full">
+          <Carousel autoPlay showThumbs={false} infiniteLoop emulateTouch swipeable showStatus={false}>
                 <div>
                     <img src={hero2} className="object-cover"/>
                 </div>

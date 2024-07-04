@@ -14,7 +14,7 @@ export default function Explore() {
     <div className="p-[30px] bg-gray-200 mt-5">
       <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-center text-[#bf2b2b] font-bold text-2xl">
+          <h1 className="text-center text-black font-bold text-2xl">
             Explore YOA-mat
           </h1>
         </div>

@@ -1,12 +1,150 @@
-import { React, useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ProductItem from "../ProductItem";
 import Pagination from "../Pagination";
 import { useLocation, Link } from "react-router-dom";
 import { ProductContext } from "../Context/ProductContext";
 import { CategoryContext } from "../Context/CategoryContext";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  Typography,
+  IconButton,
+  Button,
+  Drawer,
+} from "@material-tailwind/react";
+
+function Sidebar({
+  open,
+  closeDrawer,
+  categoriesData,
+  handleInStock,
+  handlePriceRangeChange,
+}) {
+  return (
+    <React.Fragment>
+      <Drawer open={open} onClose={closeDrawer} className="p-4">
+        <div className="mb-6 flex items-center justify-end">
+          {/* <Typography variant="h5" color="blue-gray">
+            l
+          </Typography> */}
+          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </IconButton>
+        </div>
+        <div className="bg-white p-2 rounded-md shadow-md mb-3">
+          <h2 className="font-semibold text-gray-700 text-[20px] mb-2">
+            Shop by categories
+          </h2>
+          <div className="p-2 flex flex-col gap-2">
+            {categoriesData.map((category) => (
+              <Link
+                key={category._id}
+                to={`/products?category=${category._id}`}
+                className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear"
+              >
+                {category.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Filters */}
+        {/* <div className="bg-white p-4 rounded-md shadow-md mb-3 flex flex-col">
+          <h2 className="font-semibold text-gray-700 text-xl mb-4">
+            Filter By
+          </h2>
+
+          <div className="mb-4">
+            <div className="flex items-center mb-2">
+              <input
+                type="radio"
+                id="in-stock"
+                name="stock"
+                value="in-stock"
+                className="mr-2"
+                onChange={handleInStock}
+              />
+              <label htmlFor="in-stock" className="text-gray-700">
+                In Stock (10)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="out-of-stock"
+                name="stock"
+                value="out-of-stock"
+                className="mr-2"
+                onChange={handleInStock}
+              />
+              <label htmlFor="out-of-stock" className="text-gray-700">
+                Out of Stock (5)
+              </label>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="price-range" className="text-gray-700 mb-2 block">
+              Price Range
+            </label>
+            <div className="flex flex-col gap-2">
+              <label>
+                <input
+                  type="radio"
+                  name="priceRange"
+                  value="0-10000"
+                  onChange={handlePriceRangeChange}
+                  className="mr-2"
+                />
+                0 - 10,000
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="priceRange"
+                  value="10000-20000"
+                  onChange={handlePriceRangeChange}
+                  className="mr-2"
+                />
+                10,000 - 20,000
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="priceRange"
+                  value="20000-30000"
+                  onChange={handlePriceRangeChange}
+                  className="mr-2"
+                />
+                20,000 - 30,000
+              </label>
+            </div>
+          </div>
+        </div> */}
+      </Drawer>
+    </React.Fragment>
+  );
+}
 
 export default function ProductsList() {
-  const { data, discount, featured, topSelling, searchResults } = useContext(ProductContext);
+  const { data, discount, featured, topSelling, searchResults } =
+    useContext(ProductContext);
+  const [open, setOpen] = useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
   const { categoriesData } = useContext(CategoryContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingOption, setSortingOption] = useState("Default sorting");
@@ -39,8 +177,7 @@ export default function ProductsList() {
       filtered = discount;
     } else if (isFeaturedPage) {
       filtered = featured;
-    }
-    else if (isSearch) {
+    } else if (isSearch) {
       filtered = searchResults;
     }
 
@@ -57,7 +194,8 @@ export default function ProductsList() {
       filtered = filtered.filter((product) => {
         if (selectedFilters.stock === "all") {
           return true; // Keep all products if "all" is selected
-        } else return product.inStock === (selectedFilters.stock === "in-stock");
+        } else
+          return product.inStock === (selectedFilters.stock === "in-stock");
       });
     }
 
@@ -93,12 +231,14 @@ export default function ProductsList() {
     setSelectedFilters({ ...selectedFilters, stock: value }); // Update stock filter
 
     const filtered = data.filter((product) => {
-      if (categoryParam) { // If a category is selected
+      if (categoryParam) {
+        // If a category is selected
         return (
           product.categoryId === categoryParam && // Match category
           (value === "all" || product.inStock === (value === "in-stock")) // Apply in-stock filter
         );
-      } else { // If no category is selected, apply in-stock filter globally
+      } else {
+        // If no category is selected, apply in-stock filter globally
         return value === "all" || product.inStock === (value === "in-stock");
       }
     });
@@ -145,26 +285,6 @@ export default function ProductsList() {
     setFilteredProducts(filtered);
   };
 
-  // const handleInStock = (e) => {
-  //   const { name, value } = e.target;
-  //   setSelectedFilters({ ...selectedFilters, [name]: value });
-
-  //   const filtered = data.filter((product) => {
-  //     if (value === "all") {
-  //       // If "all" is selected, return all products
-  //       return true;
-  //     } else if (value === "in-stock") {
-  //       return product.inStock === true; // Return in-stock products
-  //     } else if (value === "out-of-stock") {
-  //       return product.inStock === false; // Return out-of-stock products
-  //     } else {
-  //       // Handle unexpected value (optional)
-  //       return false;
-  //     }
-  //   });
-  //   setFilteredProducts(filtered);
-  // };
-
   // price filter end
   const isAnyFilterAll = (filters) => {
     for (const value in filters) {
@@ -174,27 +294,6 @@ export default function ProductsList() {
     }
     return false;
   };
-
-  // useEffect(() => {
-  //   const filtered = data.filter((product) => {
-  //     const price = parseFloat(product.price);
-  //     const hasAllFilter = isAnyFilterAll(selectedFilters);
-
-  //     return (
-  //       (!selectedFilters.priceRange || // No price range selected, or
-  //         (price >= parseFloat(selectedFilters.priceRange.split("-")[0]) &&
-  //           price <= parseFloat(selectedFilters.priceRange.split("-")[1]))) &&
-  //       (hasAllFilter || // If any filter is "all", return all products
-  //         !selectedFilters.category ||
-  //         product.categoryId === selectedFilters.category) &&
-  //       (!selectedFilters.stock || // No price range selected, or
-  //         (product.inStock === true && selectedFilters.stock === "in-stock") ||
-  //         (product.inStock === false &&
-  //           selectedFilters.stock === "out-of-stock")) // Apply other selected filters here using similar logic
-  //     );
-  //   });
-  //   setFilteredProducts(filtered);
-  // }, [data, selectedFilters]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -251,8 +350,10 @@ export default function ProductsList() {
 
   return (
     <>
-      <div className="pt-[60px] bg-gray-200 ">
+      <div className="pt-[60px] bg-gray-200">
+        {/* Main content */}
         <div className="w-[95%] mx-auto flex md:flex-row justify-between gap-3">
+          {/* Sidebar toggle button (only visible on small devices) */}
           <div className="flex-col items-center md:block hidden w-1/3">
             <div className="bg-white p-2 rounded-md shadow-md mb-3">
               <h2 className="font-semibold text-gray-700 text-[20px] mb-2">
@@ -270,159 +371,8 @@ export default function ProductsList() {
                 ))}
               </div>
             </div>
-            <div className="bg-white p-4 rounded-md shadow-md mb-3 flex flex-col">
-              <h2 className="font-semibold text-gray-700 text-xl mb-4">
-                Filter By
-              </h2>
-
-              {/* In Stock / Out of Stock Filter */}
-              <div className="mb-4">
-                <div className="flex items-center mb-2">
-                  <input
-                    type="radio"
-                    id="in-stock"
-                    name="stock"
-                    value="in-stock"
-                    className="mr-2"
-                    onChange={handleInStock}
-                  />
-                  <label htmlFor="in-stock" className="text-gray-700">
-                    In Stock (10) {/* Example quantity */}
-                  </label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="out-of-stock"
-                    name="stock"
-                    value="out-of-stock"
-                    className="mr-2"
-                    onChange={handleInStock}
-                  />
-                  <label htmlFor="out-of-stock" className="text-gray-700">
-                    Out of Stock (5) {/* Example quantity */}
-                  </label>
-                </div>
-              </div>
-
-              {/* Price Range Filter */}
-              <div className="mb-4">
-                <label
-                  htmlFor="price-range"
-                  className="text-gray-700 mb-2 block"
-                >
-                  Price Range
-                </label>
-                <div className="flex flex-col gap-2">
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="0-10000"
-                      // checked={priceRange === "0-10000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    0 - 10,000
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="10000-20000"
-                      // checked={priceRange === "10000-20000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    10,000 - 20,000
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="20000-30000"
-                      // checked={priceRange === "20000-30000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    20,000 - 30,000
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="30000-40000"
-                      // checked={priceRange === "30000-40000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    30,000 - 40,000
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="40000-50000"
-                      // checked={priceRange === "40000-50000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    40,000 - 50,000
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      value="50000-100000"
-                      // checked={priceRange === "50000-100000"}
-                      onChange={handlePriceRangeChange}
-                      className="mr-2"
-                    />
-                    50,000 - 100,000
-                  </label>
-                </div>
-              </div>
-
-              {/* Additional Filters Placeholder */}
-              <div className="mb-4">
-                <label htmlFor="category" className="text-gray-700 mb-2 block">
-                  Category
-                </label>
-                <select
-                  name="category"
-                  onChange={handleChange}
-                  value={selectedCategory}
-                  id="category"
-                  className="border p-2 rounded-md w-full"
-                >
-                  <option value="" disabled>
-                    Select category
-                  </option>
-                  <option value="all">All categories</option>
-                  {Array.isArray(categoriesData) &&
-                    categoriesData.map((category) => (
-                      <option key={category._id} value={category._id}>
-                        {category.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="rating" className="text-gray-700 mb-2 block">
-                  Rating
-                </label>
-                <select className="border p-2 rounded-md w-full">
-                  <option value="">All Ratings</option>
-                  <option value="4">& Up (4 stars)</option>
-                  <option value="3">& Up (3 stars)</option>
-                  <option value="2">& Up (2 stars)</option>
-                  <option value="1">& Up (1 star)</option>
-                  {/* Add more rating options as needed */}
-                </select>
-              </div>
-            </div>
           </div>
+          {/* Main product list and sorting */}
           <div className="md:w-2/3 w-full flex-col flex gap-4 rounded-full mx-auto">
             <div className="flex flex-col bg-white p-2 rounded-md shadow-md">
               <div className="flex flex-row justify-between text-gray-700 ">
@@ -458,28 +408,34 @@ export default function ProductsList() {
                 <div className="font-normal text-gray-600 text-sm">
                   {filteredProducts.length} products found
                 </div>
-                <div className="flex items-center gap-2 font-semibold">
-                  {/* views gird or list */}
+                <div className="flex items-center gap-2 font-normal md:hidden">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={openDrawer}
+                  >
+                    Filters <ChevronDownIcon className="text-black w-3 h-3" />
+                  </button>
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3  w-full gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  w-full gap-3">
               {filteredProducts.map((product) => (
                 <div key={product._id} className="flex flex-col">
                   <ProductItem key={product._id} {...product} />
                 </div>
               ))}
             </div>
-
-            {/* Replace Previous and Next buttons with Pagination component */}
+{filteredProducts.length > 10 && (
+              
             <Pagination
               currentPage={currentPage}
               totalPages={Math.ceil(filteredProducts.length / itemsPerPage)}
               onPageChange={handlePageChange}
-            />
+            />)}
           </div>
         </div>
       </div>
+      <Sidebar openDrawer={openDrawer} closeDrawer={closeDrawer} open={open} categoriesData={categoriesData} handleInStock={handleInStock} handlePriceRangeChange={handlePriceRangeChange} />
     </>
   );
 }

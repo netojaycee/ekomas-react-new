@@ -1,88 +1,75 @@
 import React, { useContext } from "react";
 import Slider from "react-slick";
-import "../../../node_modules/slick-carousel/slick/slick.css";
-import "../../../node_modules/slick-carousel/slick/slick-theme.css";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { ProductContext } from "../Context/ProductContext";
 import ProductItem from "../ProductItem";
 
 const Tsp = () => {
   const { topSelling } = useContext(ProductContext);
-  // const tsP = data ? data.filter((product) => product.topSelling === true): [];
 
-  const settings = {
+  var settings = {
     dots: true,
     infinite: true,
+    speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: false,
-    speed: 1000,
-    autoplaySpeed: 3000,
-    cssEase: "linear",
+    initialSlide: 0,
     responsive: [
       {
-        breakpoint: 768, // Medium screen size
+        breakpoint: 1280,
         settings: {
-          slidesToShow: 3, // Display 3 items on medium screens
+          slidesToShow: 4,
           slidesToScroll: 1,
+          infinite: true,
+          dots: true,
         },
       },
       {
-        breakpoint: 560, // Large screen size
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 2, // Display 5 items on large screens
+          slidesToShow: 4,
           slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
         },
       },
     ],
   };
 
   return (
-   
-
-        <div className="md:px-2 px-0 pt-4">
-  
-  <div className="bg-primary h-10 flex justify-between items-center p-4">
+    <div className="md:px-2 px-0 pt-4">
+      <div className="flex flex-col gap-2 justify-between items-center p-4">
         <div>
-          <h1 className="text-white md:text-2xl font-semibold font-serif">
-                Top Selling Products
+          <h1 className="text-black lg:text-3xl font-semibold font-serif">
+            Top Selling Products
           </h1>
         </div>
-       
       </div>
-
       <div className="bg-white p-2 min-h-[240px] overflow-hidden rounded-b-md">
-        <div className="">
+        <div className="slider-container p-5">
           <Slider {...settings}>
             {topSelling.map((product) => (
               <div key={product._id} className="flex flex-row pr-3">
-                {/* <div className="bg-white flex flex-row p-2 pr-0 relative">
-                  <div className="mt-4 absolute">
-                    <HeartIcon className="w-5 text-secondary" />
-                  </div>
-                  <div className="my-2">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col mt-4 justify-between">
-                    {product.discount !== 0 && (
-                      <div className="bg-badge text-center pl-2 relative right-0">
-                        ${product.discount}
-                      </div>
-                    )}
-                    <div className="bg-badge h-5 w-3 rounded-l-md relative ml-[30px]"></div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1 mb-6">
-                  <div className="mt-1 text-[#b32b2b]">{product.name}</div>
-                  <div className="text-gray-600">${product.price}</div>
-                </div> */}
-
-                <ProductItem cartButton={true} key={product._id} {...product} />
-
+                <ProductItem cartButton={true} {...product} />
               </div>
             ))}
           </Slider>

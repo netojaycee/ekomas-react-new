@@ -19,22 +19,22 @@ export default function Special() {
 
   return (
     <div className="md:px-2 px-0 pt-4">
-  
-  <div className="bg-primary h-10 flex justify-between items-center p-4">
+      <div className=" flex flex-col gap-2 justify-between items-center p-4">
         <div>
-          <h1 className="text-white md:text-2xl font-semibold font-serif">
+          <h1 className="text-black lg:text-3xl font-semibold font-serif">
           Special Offers
           </h1>
         </div>
         <div>
         <Link to="/products?specialOffers=true">
-        <button className="text-white rounded py-1 px-2 text-sm border-none flex items-center uppercase font-semibold gap-1">
+            <button className="text-black hover:bg-primary rounded py-1 px-2 text-sm border-none flex items-center  font-semibold gap-1">
               view more
-              <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              <FontAwesomeIcon icon={faArrowRight} size="lg" />{" "}
             </button>
           </Link>
         </div>
       </div>
+ 
 
       <div className="bg-white p-2 min-h-[240px] overflow-hidden rounded-b-md">
 
@@ -49,6 +49,7 @@ export default function Special() {
         ))}
       </div>
       </div>
+      
     </div>
   );
 }

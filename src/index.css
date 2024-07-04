@@ -68,28 +68,29 @@ main::-webkit-scrollbar {
   font-size: 13px;
 }
 
-/* .slick-prev:after, .slick-prev:before, .slick-disabled{
+.slick-prev:after, .slick-prev:before, .slick-disabled{
   color: #FF3E3E;
-  padding-left: 15px;
+  /* padding-left: 15px; */
   opacity: 100;
 
 }
 .slick-prev:after, .slick-prev:before{
   color: #FF3E3E;
-  padding-left: 15px;
+  /* padding-left: 15px; */
   opacity: 100;
 
 }
 .slick-next:before, .slick-next:after, .slick-disabled{
   color: #FF3E3E;
   opacity: 100;
-  margin-right: 25px;
+  /* margin-right: 25px; */
 }
 .slick-next:before, .slick-next:after{
   color: #FF3E3E;
   opacity: 100;
-  margin-right: 25px;
-} */
+  
+  /* margin-right: 25px; */
+}
 
 .slick-list {margin: 0 -5px;}
 .slick-slide>div {padding: 0 10px;}

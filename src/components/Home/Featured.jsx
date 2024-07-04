@@ -35,16 +35,17 @@ export default function Featured() {
 
      
 
-      <div className="bg-primary h-10 flex justify-between items-center p-4">
+<div className=" flex flex-col gap-2 justify-between items-center p-4">
         <div>
-          <h1 className="text-white md:text-2xl font-semibold font-serif">
-          Featured Products          </h1>
+          <h1 className="text-black lg:text-3xl font-semibold font-serif">
+            Featured Products
+          </h1>
         </div>
         <div>
-             <Link to="/products?featured=true">
-        <button className="text-white rounded py-1 px-2 text-sm border-none flex items-center uppercase font-semibold gap-1">
+          <Link to="/products?featured=true">
+            <button className="text-black hover:bg-primary rounded py-1 px-2 text-sm border-none flex items-center font-semibold gap-1">
               view more
-              <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              <FontAwesomeIcon icon={faArrowRight} size="lg" />{" "}
             </button>
           </Link>
         </div>

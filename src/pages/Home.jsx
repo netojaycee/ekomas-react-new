@@ -85,6 +85,7 @@ export default function Home() {
     <>
     
       <Hero />
+      <div className="w-full lg:w-[60%] mx-auto">
       <Category />
       <LimitedStock />
       <Products />
@@ -92,6 +93,7 @@ export default function Home() {
       <Tsp />
       <Featured />
       <Explore />
+      </div>
       {/* <Reviews /> */}
       {/* <About /> */}
       {/* <Join /> */}

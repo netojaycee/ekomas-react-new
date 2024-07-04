@@ -89,7 +89,7 @@ export default function Footer({ fullFooter = true }) {
       <div className="w-full">
         {fullFooter ? (
           <>
-            <div className="mx-auto grid grid-cols-2 gap-[60px] py-5 md:grid-cols-2 lg:grid-cols-4 w-[80%]  text-secondary">
+            <div className="mx-auto grid grid-cols-2 gap-[60px] py-5 md:grid-cols-2 lg:grid-cols-4 w-[80%]  text-black">
               {SITEMAP.map(({ title, links }, key) => (
                 <div key={key} className="w-full">
                   <Typography

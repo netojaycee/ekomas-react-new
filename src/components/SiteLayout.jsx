@@ -14,7 +14,7 @@ const SiteLayout = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-x-hidden font-serif bg-tsp_background">
+        <div className="overflow-x-hidden font-serif bg-white">
           <Nav />
           <div className="min-h-screen">
             <Outlet />

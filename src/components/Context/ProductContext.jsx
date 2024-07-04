@@ -24,7 +24,7 @@ const ProductProvider = ({ children }) => {
         // Save products to localStorage
         setData(products);
         setSearchResults("");
-        console.log(products);
+        // console.log("ggg", products);
         // Filter featured products
         const featuredProducts = products.filter(
           (product) => product.featured === "yes"
