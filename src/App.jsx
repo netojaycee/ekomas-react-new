@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -39,12 +39,14 @@ import AllBlogs from "./pages/Admin/AllBlogs";
 import Customers from "./pages/Admin/Customers";
 import Enquiries from "./pages/Admin/Enquiries";
 
+
 function App() {
   const ROLES = {
     User: "user",
     Admin: "admin",
   };
 
+ 
   return (
     <>
       <Routes>

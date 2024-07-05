@@ -8,6 +8,7 @@ import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { Card, Table } from "antd";
 import { BlogContext } from "../../components/Context/BlogContext";
+import getToken from "../../components/hook/getToken";
 
 function EditBlog({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +44,7 @@ function EditBlog({ item }) {
         imageUrl = await uploadFile(formData.newImage);
       }
 
-      const token = JSON.parse(localStorage.getItem("user"));
+      const token = getToken();
       const response = await axios.patch(
         `${apiUrl}/blog/${item._id}`, // Assuming the endpoint for editing exists
         {

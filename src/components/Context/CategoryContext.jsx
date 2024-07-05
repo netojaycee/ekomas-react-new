@@ -3,6 +3,7 @@ import axios from "axios";
 import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "./LoadingContext";
+import getToken from "../hook/getToken";
 
 const CategoryContext = createContext();
 
@@ -43,7 +44,7 @@ const CategoryProvider = ({ children }) => {
   }, []); // Empty dependency array to run the effect only once
 
   const handleDeleteCategory = async (categoryId) => {
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = getToken();
     setIsLoading(true);
 
     try {

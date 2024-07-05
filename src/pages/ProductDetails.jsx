@@ -138,10 +138,10 @@ export default function ProductDetails() {
     <>
       {detail && (
         <div className="flex flex-col gap-6 bg-gray-200">
-          <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] mx-auto mt-9 ">
-            <div className="flex flex-row p-2 pr-0 relative  border-r-2  rounded-md md:w-1/2 w-full justify-center items-center">
+          <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] lg:w-[55%] mx-auto mt-9 ">
+            <div className="flex flex-row p-2 pr-0 relative  border-r-2  rounded-md md:w-1/2 w-full justify-center items-center min-h-[250px]">
               {/* <div className="flex flex-row gap-3 relative "> */}
-              {/* <div className=" rounded-xl object-cover "> */}
+              {/* <div className=" rounded-lg object-cover "> */}
               <img
                 src={detail.image}
                 alt={detail.name}
@@ -157,7 +157,7 @@ export default function ProductDetails() {
               </div>
               <hr className=" border-2 border-[#b32b2b] w-full" />
 
-              <div className="text-[#b32b2b] text-xl font-semibold">
+              <div className="text-[#b32b2b] text-lg font-semibold">
                 {detail.price}
               </div>
               <ReactStars
@@ -225,18 +225,18 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-1 w-[90%] mx-auto">
-                      <div className="text-black text-xl font-bold">Description</div>
+          <div className="flex flex-col gap-1 w-[90%] lg:w-[55%] mx-auto">
+                      <div className="text-black text-lg font-bold">Description</div>
 
-          <div className="bg-white shadow-md shadow-gray-400 p-6">
+          <div className="bg-white shadow-md shadow-gray-400 p-6 xl:min-h-[240px]">
             <p className="text-sm text-gray-500">{detail.description}</p>
           </div></div>
-          <div className="flex flex-col gap-5 text-xl text-[#b32b2b]">
-            <div className="w-[90%] mx-auto">
+          <div className="flex flex-col gap-5 text-lg text-[#b32b2b]">
+            <div className="w-[90%] lg:w-[55%] mx-auto">
               <h1>Related Products</h1>
-              <hr className=" border-2 border-[#b32b2b] w-full" />
+              <hr className=" border-2 border-[#b32b2b] w-full " />
             </div>
-            <div>
+            <div className="lg:w-[55%] w-full mx-auto">
               <RelatedProducts category={detail.category} itemsPerPage={5} />
             </div>
           </div>

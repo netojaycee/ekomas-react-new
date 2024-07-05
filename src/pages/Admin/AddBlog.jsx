@@ -4,6 +4,7 @@ import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { BlogContext } from "../../components/Context/BlogContext";
+import getToken from "../../components/hook/getToken";
 
 export default function AddBlogs() {
   const {fetchBlog} = useContext(BlogContext);
@@ -56,8 +57,7 @@ export default function AddBlogs() {
       }
 
       // Send data to backend endpoint
-      const token = JSON.parse(localStorage.getItem("user"));
-
+const token = getToken();
       const response = await axios.post(
         `${apiUrl}/blog/create`,
         {

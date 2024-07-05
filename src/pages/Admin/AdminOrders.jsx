@@ -8,6 +8,7 @@ import { faInfoCircle, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
 import { Table } from "antd";
+import getToken from "../../components/hook/getToken";
 
 
 function EditOrder({ data, fetchOrders }) {
@@ -16,8 +17,8 @@ function EditOrder({ data, fetchOrders }) {
   const handleOpen = () => setOpen(!open);
 
   const confirmOrderStatus = async (orderId) => {
-    const token = JSON.parse(localStorage.getItem("user"));
-    console.log(orderId);
+    const token = getToken();
+
 
     try {
       const res = await axios.post(
@@ -150,114 +151,7 @@ function EditOrder({ data, fetchOrders }) {
   );
 }
 
-// export default function AdminOrders({title}) {
-//   const [orders, setOrders] = useState([]);
-//   const [selectedOrder, setSelectedOrder] = useState(null);
-//   const [openDialog, setOpenDialog] = useState(false);
 
-//   // Fetch orders data from the server
-
-//   let token = localStorage.getItem("user");
-//   token = token.replace(/['"]+/g, "");
-
-//   const headers = {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${token}`,
-//   };
-
-//   const fetchOrders = async () => {
-//     try {
-//       const response = await axios.get(`${apiUrl}/order/all/orders`, {
-//         headers,
-//       });
-//       // console.log(response);
-//       setOrders(response.data.allOrders);
-//       console.log(response);
-//     } catch (error) {
-//       console.error("Error fetching orders:", error);
-//       // Handle error
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchOrders();
-//   }, []);
-
-//   const handleOpenOrderConfirm = (order) => {
-//     setSelectedOrder(order);
-//   };
-
-//   const columns = [
-//     {
-//       title: "OrderId",
-//       dataIndex: "_id",
-//       key: "orderId",
-//       render: (text) => <Typography variant="small">{text}</Typography>,
-//     },
-//     {
-//       title: "Email",
-//       dataIndex: "email",
-//       key: "email",
-//       render: (text) => <Typography variant="small">{text}</Typography>,
-//     },
-//     {
-//       title: "Total",
-//       dataIndex: "total",
-//       key: "total",
-//       render: (text) => <Typography variant="small">{text}</Typography>,
-//     },
-//     {
-//       title: "Status",
-//       dataIndex: "orderStatus",
-//       key: "status",
-//       render: (text) => (
-//         <Typography
-//           variant="small"
-//           color="blue-gray"
-//           className={` font-normal w-full text-center p-1 rounded-lg ${
-//             text === "shipped"
-//               ? "bg-blue-300"
-//               : text === "completed"
-//               ? "bg-green-300"
-//               : "bg-red-300"
-//           }`}
-//         >
-//           {text}
-//         </Typography>
-//       ),
-//     },
-//     {
-//       title: "Date",
-//       dataIndex: "updatedAt",
-//       key: "date",
-//       render: (text) => (
-//         <Typography variant="small">
-//           {new Date(text).toLocaleString()}
-//         </Typography>
-//       ),
-//       // {new Date(order.updatedAt).toLocaleString()}
-//     },
-//     {
-//       title: "Action",
-//       dataIndex: "",
-//       key: "action",
-//       render: (item) => (
-//         <div>
-//           <EditOrder data={item} open={openDialog} handleOpen={setOpenDialog} />
-//         </div>
-//       ),
-//     },
-//   ];
-
-//   return (
-//     <div className="">
-//       <h3 className="font-bold text-xl mb-3">{title ? title : "All Orders Page"}</h3>
-//       <div className="bg-white shadow-md p-3">
-//         <Table columns={columns} dataSource={orders} />
-//       </div>
-//     </div>
-//   );
-// }
 
 function AdminOrders({ title, fields = ["_id","action",] }) {
   // Define default empty fields prop
@@ -265,9 +159,7 @@ function AdminOrders({ title, fields = ["_id","action",] }) {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-  let token = localStorage.getItem("user");
-  token = token.replace(/['"]+/g, "");
-
+const token = getToken();
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,

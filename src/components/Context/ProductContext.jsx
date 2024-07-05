@@ -3,6 +3,7 @@ import { apiUrl } from "../../config/env";
 import axios from "axios";
 import { useLoading } from "./LoadingContext";
 import { toast } from "react-toastify";
+import getToken from "../hook/getToken";
 
 const ProductContext = createContext();
 
@@ -56,7 +57,7 @@ const ProductProvider = ({ children }) => {
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
 
   const handleDeleteProduct = async (productId) => {
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = getToken();
     setIsLoading(true);
 
     try {

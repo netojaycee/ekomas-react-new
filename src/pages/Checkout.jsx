@@ -14,6 +14,7 @@ import { CartContext } from "../components/Context/CartContext";
 import { useLoading } from "../components/Context/LoadingContext";
 import axios from "axios";
 import { apiUrl } from "../config/env";
+import getToken from "../components/hook/getToken";
 
 export default function Checkout() {
   const location = useLocation();
@@ -70,8 +71,7 @@ export default function Checkout() {
       };
 
       // Send payment request to backend
-      let token = localStorage.getItem("user");
-      token = token.replace(/['"]+/g, "");
+      const token = getToken();
 
       const headers = {
         "Content-Type": "application/json",

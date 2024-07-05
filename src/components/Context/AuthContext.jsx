@@ -24,9 +24,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUsers = async () => {
     try {
-      let token = localStorage.getItem("user");
-      token = token.replace(/['"]+/g, "");
-
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser.token;
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

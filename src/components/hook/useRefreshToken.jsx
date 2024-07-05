@@ -14,7 +14,7 @@ const useRefreshToken = () => {
       setAuth({});
       return <Navigate to="/login" state={{ from: location }} replace />;
     }
-    const decodedToken = jwtDecode(storedUser);
+    const decodedToken = jwtDecode(storedUser.token);
     const { email, userId, role, name } = decodedToken;
 
     setAuth((prev) => ({

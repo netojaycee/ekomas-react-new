@@ -7,6 +7,7 @@ import { Spinner } from "@material-tailwind/react";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { ProductContext } from "../../components/Context/ProductContext";
+import getToken from "../../components/hook/getToken";
 
 export default function AddProduct() {
   const { categoriesData } = useContext(CategoryContext);
@@ -77,7 +78,7 @@ export default function AddProduct() {
       featured: formData.featured, // Include featured in requestData
       discount: parseInt(formData.discount), // Parse discount to int
     };
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = getToken();
 
     try {
       console.log(requestData);

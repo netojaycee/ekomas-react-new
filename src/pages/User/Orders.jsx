@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
 import { apiUrl } from "../../config/env";
 import OrderImage from "../../assets/images/order.png";
 import {
@@ -10,26 +9,40 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import AuthContext from "../../components/Context/AuthContext";
 
 export default function Orders() {
   const [errors, setErrors] = useState({});
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
+  const { auth } = useContext(AuthContext);
+
+
+  const fetchOrders = async () => {
+    try {
+      if (auth?.user?.name) {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser.token;
+
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        const response = await axios.get(`${apiUrl}/order/userOrder`, {
+          headers,
+        });
+        console.log(response);
+        setOrders(response.data.orders); // Populate userDetails from API
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
 
   useEffect(() => {
-    // Fetch orders data from the server
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/v1/orders`);
-        setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-        // Handle error
-      }
-    };
-
     fetchOrders();
-  }, []);
+  }, [auth?.user?.name]);
 
   const handleTabChange = (value) => {
     setActiveTab(value);
@@ -90,9 +103,7 @@ export default function Orders() {
                       <img src={OrderImage} className="h-20 w-30" alt="image" />
                     </div>
                     <div className="flex flex-col">
-                      <h2 className="text-black font-bold">
-                        {order.name}
-                      </h2>
+                      <h2 className="text-black font-bold">{order.name}</h2>
                       <p>Quantity: {order.quantity}</p>
                       <p className="font-bold text-lg">{order.price}</p>
                     </div>

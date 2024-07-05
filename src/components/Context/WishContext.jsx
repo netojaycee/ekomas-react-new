@@ -19,9 +19,9 @@ const WishProvider = ({ children }) => {
     const fetchWishItems = async () => {
       try {
         // Check if the user is logged in
-        if (auth?.user) {
-          let token = localStorage.getItem("user");
-          token = token.replace(/['"]+/g, "");
+        if (auth?.user?.name) {
+          const storedUser = JSON.parse(localStorage.getItem("user"));
+          const token = storedUser.token;
 
           const headers = {
             "Content-Type": "application/json",
@@ -30,16 +30,14 @@ const WishProvider = ({ children }) => {
 
           const response = await axios.get(`${apiUrl}/product/user-fav`, {
             headers,
-          }); // Replace with your API endpoint
+          });
 
-          console.log("initial", response.data.favorites);
           localStorage.setItem(
             "wishEkomas",
             JSON.stringify(response.data.favorites)
-          ); // Save cart data to local storage
+          );
 
           setWish(response.data.favorites);
-
           setIsLoading(false);
         }
       } catch (error) {
@@ -48,7 +46,7 @@ const WishProvider = ({ children }) => {
     };
 
     fetchWishItems();
-  }, [auth?.user]); // Include auth.user in the dependency array
+  }, [auth?.user?.name]);
 
   useEffect(() => {
     localStorage.setItem("wishEkomas", JSON.stringify(wish)); // Save cart data to local storage
@@ -88,7 +86,7 @@ const WishProvider = ({ children }) => {
 
   useEffect(() => {
     // Synchronize with backend after a certain delay or on pending changes
-    if (auth?.user) {
+    if (auth?.user?.name) {
       const timer = setTimeout(() => {
         if (pendingChanges) {
           syncWithBackend();
@@ -98,14 +96,15 @@ const WishProvider = ({ children }) => {
 
       return () => clearTimeout(timer); // Cleanup timer on component unmount
     }
-  }, [auth?.user, wish, pendingChanges]);
+  }, [auth?.user?.name, wish, pendingChanges]);
 
   const syncWithBackend = async () => {
     try {
       // Check if wish array is empty
       if (wish.length === 0) {
         // If wish array is empty, send an empty array to the backend
-        const token = localStorage.getItem("user").replace(/['"]+/g, "");
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser.token;
         const headers = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -121,8 +120,8 @@ const WishProvider = ({ children }) => {
       } else {
         // If wish array is not empty, map the wish array to extract IDs
         const wishIds = wish.map((item) => item._id);
-
-        const token = localStorage.getItem("user").replace(/['"]+/g, "");
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser.token;
         const headers = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

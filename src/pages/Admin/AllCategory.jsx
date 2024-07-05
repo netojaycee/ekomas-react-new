@@ -15,6 +15,7 @@ import { useLoading } from "../../components/Context/LoadingContext";
 import { Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+import getToken from "../../components/hook/getToken";
 
 function EditCategory({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -51,7 +52,7 @@ function EditCategory({ item }) {
       }
 
       // Send data to backend endpoint
-      const token = JSON.parse(localStorage.getItem("user"));
+      const token = getToken();
       const response = await axios.patch(
         `${apiUrl}/category/${item._id}`, // Assuming the endpoint for editing exists
         {

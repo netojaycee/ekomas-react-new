@@ -19,6 +19,7 @@ import { CategoryContext } from "../../components/Context/CategoryContext";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { Table } from "antd";
+import getToken from "../../components/hook/getToken";
 
 function EditProduct({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -73,7 +74,7 @@ function EditProduct({ item }) {
       // console.log(requestData)
 
       // Send data to backend endpoint
-      const token = JSON.parse(localStorage.getItem("user"));
+      const token = getToken();
       const response = await axios.patch(
         `${apiUrl}/product/${item._id}`, // Assuming the endpoint for editing exists
         {

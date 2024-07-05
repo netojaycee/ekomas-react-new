@@ -3,34 +3,35 @@ import { apiUrl } from "../../config/env";
 import axios from "axios";
 import { useLoading } from "./LoadingContext";
 import { toast } from "react-toastify";
+import getToken from "../hook/getToken";
+import { useNavigate } from "react-router-dom";
 
 const BlogContext = createContext();
 
 const BlogProvider = ({ children }) => {
-  const [blog, setblog] = useState([]);
+  const [blog, setBlog] = useState([]);
   const { setIsLoading } = useLoading();
+  const navigate = useNavigate();
 
   const fetchBlog = async () => {
     try {
       const response = await axios.get(`${apiUrl}/blog/all-blogs`);
-// console.log(response.data.blogs)
+
       if (response.status === 200) {
         const blogs = response.data.blogs;
-        setblog(blogs);
-        // console.log(blogs);
-       
-      } 
+        setBlog(blogs);
+      }
     } catch (error) {
       console.error("Error fetching blogs:", error);
     }
   };
-  // Fetch blogs from the backend endpoint
+
   useEffect(() => {
     fetchBlog();
-  }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
+  }, []);
 
   const handleDeleteBlog = async (blogId) => {
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = getToken(); // Get token from localStorage
     setIsLoading(true);
 
     try {
@@ -43,22 +44,19 @@ const BlogProvider = ({ children }) => {
       });
       setIsLoading(false);
 
-      toast.success("blog deleted successfully!");
-      console.log(response);
-      fetchBlog();
-      //   if (response.message === true) {
-      //     toast.success("Category deleted successfully!");
-      //   }
+      if (response.status === 200) {
+        toast.success("Blog deleted successfully!");
+        fetchBlog();
+      }
     } catch (error) {
       console.error("Error deleting blog:", error);
       toast.error("Failed to delete blog. Please try again.");
     }
   };
 
+ 
   return (
-    <BlogContext.Provider
-      value={{ blog, handleDeleteBlog, fetchBlog }}
-    >
+    <BlogContext.Provider value={{ blog, handleDeleteBlog, fetchBlog }}>
       {children}
     </BlogContext.Provider>
   );

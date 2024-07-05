@@ -8,34 +8,41 @@ import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    confirm_password: "",
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "email" ? value.toLowerCase() : value,
+    });
   };
 
   // ... (previous code)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Submitting:', formData);
 
-    // Clear previous errors
     setIsLoading(true);
-    setErrors({});
+    setErrors("");
+    if (formData.password !== formData.confirm_password) {
+      setErrors("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       // Perform Axios request here
       const response = await axios.post(`${apiUrl}/auth/create`, formData);
-      // console.log(response.data);
-      console.log(response);
+    
       if (response.statusText === "OK") {
         // Redirect or handle success as needed
         setIsLoading(false);
@@ -49,13 +56,15 @@ export default function Register() {
       }
     } catch (error) {
       setIsLoading(false);
-      setErrors(error.response.data.errors);
+      setErrors(error.response.data.error || error.response.data.message);
     }
   };
 
   return (
     <div className="flex flex-col gap-3">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        {errors && <p className="text-red-500 text-sm">{errors}</p>}
+
         <div>
           <Input
             size="md"
@@ -67,20 +76,8 @@ export default function Register() {
             onChange={handleChange}
             required
           />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </div>
-        {/* <div>
-          <Input
-            size="md"
-            label="Last name"
-            className='rounded-none'
-            name="last_name"
-            type='text'
-            value={formData.last_name}
-            onChange={handleChange}
-          />
-          {errors.last_name && <p className='text-red-500 text-sm'>{errors.last_name}</p>}
-        </div> */}
+
         <div>
           <Input
             size="md"
@@ -91,11 +88,7 @@ export default function Register() {
             value={formData.email}
             onChange={handleChange}
             required
-
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
         </div>
         <div>
           <Input
@@ -107,24 +100,19 @@ export default function Register() {
             value={formData.password}
             onChange={handleChange}
             required
-
           />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password}</p>
-          )}
         </div>
-        {/* <div>
+        <div>
           <Input
             size="md"
             label="Confirm Password"
-            className='rounded-none'
+            className="rounded-none"
             name="confirm_password"
-            type='password'
+            type="password"
             value={formData.confirm_password}
             onChange={handleChange}
           />
-          {errors.confirm_password && <p className='text-red-500 text-sm'>{errors.confirm_password}</p>}
-        </div> */}
+        </div>
 
         <div>
           {isLoading && (

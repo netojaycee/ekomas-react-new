@@ -16,11 +16,11 @@ import { useContext } from "react";
 import { CartContext } from "./Context/CartContext";
 import Searchbox from "./seachbox";
 import AuthContext from "./Context/AuthContext";
-
+import { BiHeart } from "react-icons/bi";
+import { WishContext } from "./Context/WishContext";
 
 export default function Nav() {
   const [openNav, setOpenNav] = React.useState(false);
- 
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
@@ -34,6 +34,7 @@ export default function Nav() {
   }, []);
   const { itemAmount } = useContext(CartContext);
   const { auth } = useContext(AuthContext);
+  const { wish } = useContext(WishContext);
 
   return (
     <>
@@ -54,7 +55,15 @@ export default function Nav() {
             <div className="hidden md:flex w-full justify-center items-center gap-4">
               <Searchbox placeholder="Search for all items here..." />
             </div>
-            <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-end items-center">
+            <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-between  w-[25%] items-center">
+              <Link to="/user/saved-items">
+                <div className="relative">
+                  <BiHeart className="w-6 h-6 duration-300 transform hover:scale-125 transition ease-linear" />
+                  <span className="bg-secondary text-white text-[10px] rounded absolute top-[-3px] right-[-3px] px-[4px] py-0">
+                    {wish && wish.length > 0 ? wish.length : 0}
+                  </span>
+                </div>
+              </Link>
               <Link to="/cart">
                 <div className="relative">
                   <ShoppingCartIcon className="w-6 duration-300 transform hover:scale-125 transition ease-linear" />

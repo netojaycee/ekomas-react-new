@@ -11,7 +11,7 @@ import AuthContext from "../Context/AuthContext";
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -20,7 +20,11 @@ const LoginForm = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "email" ? value.toLowerCase() : value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -28,7 +32,7 @@ const LoginForm = () => {
     setIsLoading(true); // Set loading to true when form is submitted
 
     // Clear previous errors
-    // setErrors({});
+    setErrors("");
 
     try {
       const response = await axios.post(`${apiUrl}/auth/sign-in`, formData);
@@ -38,9 +42,11 @@ const LoginForm = () => {
         const { token } = response.data;
         setIsLoading(false);
 
-        localStorage.setItem("user", JSON.stringify(token));
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        const decodedToken = jwtDecode(storedUser);
+        const currentTime = new Date().getTime();
+        const tokenData = { token, timestamp: currentTime };
+        localStorage.setItem("user", JSON.stringify(tokenData));
+
+        const decodedToken = jwtDecode(token);
         const { email, name, userId, role } = decodedToken;
 
         setAuth({
@@ -62,26 +68,28 @@ const LoginForm = () => {
         if (role === "admin") {
           // If user is an admin, navigate to admin/dashboard
           setIsLoading(false);
-          navigate("/admin/dashboard");
+          const redirectPath =
+            location.state?.from?.pathname || "/admin/dashboard";
+          navigate(redirectPath);
         } else {
           // If user is a regular user, navigate to user/dashboard
           setIsLoading(false);
-          navigate("/user/dashboard");
+          const redirectPath =
+            location.state?.from?.pathname || "/user/dashboard";
+          navigate(redirectPath);
         }
-      } else {
-        // Handle unsuccessful sign-in
-        console.error("Sign-in failed:", response.data.message);
       }
     } catch (error) {
-      // Handle the error
-      // setErrors(error); // Assuming your backend returns errors in this format
+      setErrors(error.response.data.error || error.response.data.message);
       setIsLoading(false);
-      console.error("Error:", error);
+      // console.error("Error:", error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      {errors && <p className="text-red-500 text-sm">{errors}</p>}
+
       <div>
         <Input
           size="md"
@@ -92,9 +100,7 @@ const LoginForm = () => {
           className="rounded-none"
           name="email"
           required
-
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
       <div>
         <Input
@@ -106,18 +112,16 @@ const LoginForm = () => {
           className="rounded-none"
           name="password"
           required
-
         />
-        {errors.password && (
-          <p className="text-red-500 text-sm">{errors.password}</p>
-        )}
       </div>
       <div className="flex flex-row justify-between">
         <label>
           <input type="checkbox" className="m-1" />
           Remember me
         </label>
-        <Link to="/forgot-password" className="text-secondary">forgot password?</Link>
+        <Link to="/forgot-password" className="text-secondary">
+          forgot password?
+        </Link>
       </div>
       <div>
         {isLoading ? (
