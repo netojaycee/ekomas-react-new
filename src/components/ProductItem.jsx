@@ -64,7 +64,7 @@ const ProductItem = ({
   return (
     <div
       key={_id}
-      className={`flex flex-col bg-gray-300 border border-gray-400 md:w-[160px] md:max-w-[200px] overflow-hidden  rounded-xl ${(classx =
+      className={`flex flex-col bg-gray-300 border border-gray-400 md:w-[160px] md:max-w-[200px] 2xl:w-[250px] 2xl:max-w-[250px] overflow-hidden  rounded-xl ${(classx =
         "p-1")} xl:max-w-full ${
         cartButton === true ? "h-[330px]" : "h-[280px]"
       }`}

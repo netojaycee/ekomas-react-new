@@ -57,7 +57,7 @@ const Products = () => {
       </div>
       <div className="bg-white p-2 min-h-[240px] overflow-hidden rounded-b-md">
         <div className="rounded-md py-2">
-          <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 w-full rounded-sm">
+          <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 w-full rounded-sm">
             {limitedDisplayedProducts.map((product) => (
               <ProductItem cartButton={true} key={product._id} {...product} />
             ))}

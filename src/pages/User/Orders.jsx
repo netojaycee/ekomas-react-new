@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { apiUrl } from "../../config/env";
 import OrderImage from "../../assets/images/order.png";
 import {
   Tabs,
@@ -10,6 +8,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import AuthContext from "../../components/Context/AuthContext";
+import axiosInstance from "../../config/axiosInstance";
 
 export default function Orders() {
   const [errors, setErrors] = useState({});
@@ -17,26 +16,15 @@ export default function Orders() {
   const [activeTab, setActiveTab] = useState("all");
   const { auth } = useContext(AuthContext);
 
-
   const fetchOrders = async () => {
     try {
       if (auth?.user?.name) {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        const token = storedUser.token;
-
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        };
-
-        const response = await axios.get(`${apiUrl}/order/userOrder`, {
-          headers,
-        });
-        console.log(response);
-        setOrders(response.data.orders); // Populate userDetails from API
+        const response = await axiosInstance.get("/order/user-orders");
+        setOrders(response.data.orders);
       }
     } catch (error) {
       console.error("Error fetching user details:", error);
+      setErrors({ fetch: "Failed to fetch orders. Please try again later." });
     }
   };
 
@@ -48,15 +36,52 @@ export default function Orders() {
     setActiveTab(value);
   };
 
+  const renderOrders = (filteredOrders) => {
+    if (filteredOrders.length === 0) {
+      return <p>No orders found.</p>;
+    }
+
+    return filteredOrders.map((order) => (
+      <React.Fragment key={order._id}>
+        <div className="lg:flex-row flex flex-col lg:justify-between h-[200px] md:h-[100px] my-2 p-4 border-2 border-gray-400 gap-3 lg:gap-x-10 items-center">
+          <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
+            <div className="object-contain p-3 border rounded flex-3">
+              <img
+                src={OrderImage}
+                className="md:h-20 h-10 w-[60px] md:w-30"
+                alt="order"
+              />
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <div className="flex flex-col w-[70%]">
+                <h2 className="text-black font-bold line-clamp-1 overflow-hidden">
+                  {order.cart.map((item) => item.name).join(", ")}
+                </h2>
+                <p>Products: {order.cart.length}</p>
+                <p className="font-bold text-lg">&#8358; {order.total}</p>
+              </div>
+              <button className="md:hidden bg-red-500 text-white px-4 py-2 rounded-md">
+                {order.orderStatus}
+              </button>
+            </div>
+          </div>
+          <div className="btn hidden w-full lg:w-1/3 md:flex justify-center md:justify-end items-center gap-4">
+            <button className={` ${order.orderStatus === "pending" ? "bg-red-500" : "bg-green-500"} text-white px-4 py-2 rounded-md`}>
+              {order.orderStatus}
+            </button>
+          </div>
+        </div>
+        <hr />
+      </React.Fragment>
+    ));
+  };
+
   return (
-    <div className="flex-col flex w-full h-[90%] px-4 overflow-y-auto">
+    <div className="flex-col flex w-full px-4 overflow-y-auto">
       <div>
         <h2 className="text-2xl">Orders</h2>
       </div>
       <hr className="w-full mt-2" />
-      <div className="grid grid-cols-2 my-4 gap-4">
-        {/* Render order details here */}
-      </div>
       <Tabs value={activeTab} className="w-full overflow-y-auto">
         <TabsHeader
           className="bg-transparent space-x-6"
@@ -71,7 +96,6 @@ export default function Orders() {
           >
             All
           </Tab>
-          {/* Add other tabs here */}
           <Tab
             value="pending"
             className="border rounded-md"
@@ -86,107 +110,16 @@ export default function Orders() {
           >
             Completed
           </Tab>
-          {/* <Tab value="cancelled" className='border rounded-md' onClick={() => handleTabChange('completed')}>
-            Cancelled
-          </Tab> */}
         </TabsHeader>
         <TabsBody>
           <TabPanel value="all">
-            {orders.map((order) => (
-              <>
-                <div
-                  key={order._id}
-                  className="lg:flex-row flex flex-col lg:justify-between h-[400px] overflow-auto md:h-[200px] my-8 p-4 border gap-3 lg:gap-x-10 items-center"
-                >
-                  <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
-                    <div className="object-contain p-3 border rounded flex-3 ">
-                      <img src={OrderImage} className="h-20 w-30" alt="image" />
-                    </div>
-                    <div className="flex flex-col">
-                      <h2 className="text-black font-bold">{order.name}</h2>
-                      <p>Quantity: {order.quantity}</p>
-                      <p className="font-bold text-lg">{order.price}</p>
-                    </div>
-                  </div>
-                  {/* <div className="btn w-full lg:w-1/3 flex justify-center md:justify-end items-center gap-4">
-                <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
-                <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
-              </div> */}
-                </div>
-                <hr />
-              </>
-            ))}
+            {renderOrders(orders)}
           </TabPanel>
           <TabPanel value="pending">
-            {orders
-              .filter((order) => order.status === "pending")
-              .map((order) => (
-                <>
-                  <div
-                    key={order._id}
-                    className="lg:flex-row flex flex-col lg:justify-between h-[400px] overflow-auto md:h-[200px] my-8 p-4 border gap-3 lg:gap-x-10 items-center"
-                  >
-                    <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
-                      <div className="object-contain p-3 border rounded flex-3 ">
-                        <img
-                          src={OrderImage}
-                          className="h-20 w-30"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <h2 className="text-black font-bold">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Impedit dolorem facilis{" "}
-                        </h2>
-                        <p>Quantity: 1</p>
-                        <p className="font-bold text-lg">$200</p>
-                      </div>
-                    </div>
-                    {/* <div className="btn w-full lg:w-1/3 flex justify-center md:justify-end items-center gap-4">
-             <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
-             <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
-           </div> */}
-                  </div>
-                  <hr />
-                </>
-              ))}
+            {renderOrders(orders.filter((order) => order.orderStatus === "pending"))}
           </TabPanel>
-
           <TabPanel value="completed">
-            {orders
-              .filter((order) => order.status === "completed")
-              .map((order) => (
-                <>
-                  <div
-                    key={order._id}
-                    className="lg:flex-row flex flex-col lg:justify-between h-[400px] overflow-auto md:h-[200px] my-8 p-4 border gap-3 lg:gap-x-10 items-center"
-                  >
-                    <div className="md:flex-row flex flex-col gap-4 w-full lg:w-2/3">
-                      <div className="object-contain p-3 border rounded flex-3 ">
-                        <img
-                          src={OrderImage}
-                          className="h-20 w-30"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <h2 className="text-black font-bold">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Impedit dolorem facilis{" "}
-                        </h2>
-                        <p>Quantity: 1</p>
-                        <p className="font-bold text-lg">$200</p>
-                      </div>
-                    </div>
-                    {/* <div className="btn w-full lg:w-1/3 flex justify-center md:justify-end items-center gap-4">
-                 <button className='bg-black font-bold text-white px-4 py-2 rounded-md'>Buy now</button>
-                 <button className='bg-red-500 text-white px-4 py-2 rounded-md'>Del</button>
-               </div> */}
-                  </div>
-                  <hr />
-                </>
-              ))}
+            {renderOrders(orders.filter((order) => order.orderStatus === "completed"))}
           </TabPanel>
         </TabsBody>
       </Tabs>

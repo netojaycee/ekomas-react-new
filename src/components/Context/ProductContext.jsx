@@ -1,9 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
-import { apiUrl } from "../../config/env";
-import axios from "axios";
 import { useLoading } from "./LoadingContext";
 import { toast } from "react-toastify";
-import getToken from "../hook/getToken";
+import axiosInstance from "../../config/axiosInstance";
 
 const ProductContext = createContext();
 
@@ -18,7 +16,8 @@ const ProductProvider = ({ children }) => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/product/products`);
+      const response = await axiosInstance.get('/product/products');
+
 
       if (response.status === 200) {
         const products = response.data.products;
@@ -57,17 +56,11 @@ const ProductProvider = ({ children }) => {
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
 
   const handleDeleteProduct = async (productId) => {
-    const token = getToken();
     setIsLoading(true);
 
     try {
-      const response = await axios.delete(`${apiUrl}/product/${productId}`, {
-        headers: {
-          accept: "*/*",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axiosInstance.delete(`/product/${productId}`);
+
       setIsLoading(false);
 
       toast.success("Product deleted successfully!");

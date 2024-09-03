@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { Card, Spinner } from "@material-tailwind/react";
-import { apiUrl } from "../../config/env";
 import AuthContext from "../../components/Context/AuthContext";
+import axiosInstance from "../../config/axiosInstance";
 
 export default function UserDashboard() {
   const { auth } = useContext(AuthContext);
@@ -22,17 +21,7 @@ export default function UserDashboard() {
   const fetchUser = async () => {
     try {
       if (auth?.user?.name) {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        const token = storedUser.token;
-
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        };
-
-        const response = await axios.get(`${apiUrl}/auth/profile`, {
-          headers,
-        });
+        const response = await axiosInstance.get("/auth/profile");
 
         setUserDetails(response.data.profile); // Populate userDetails from API
         setEditedDetails(response.data.profile); // Populate editedDetails for form editing
@@ -50,21 +39,11 @@ export default function UserDashboard() {
       e.preventDefault();
       setIsLoading(true);
 
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      const token = storedUser.token;
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await axios.patch(
-        `${apiUrl}/auth/update-profile`,
-        editedDetails,
-        {
-          headers,
-        }
+      const response = await axiosInstance.patch(
+        `/auth/update-profile`,
+        editedDetails
       );
+
       setIsLoading(false);
 
       console.log("Updated profile:", response.data);

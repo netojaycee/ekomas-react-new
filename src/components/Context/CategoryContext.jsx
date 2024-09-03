@@ -1,9 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "./LoadingContext";
-import getToken from "../hook/getToken";
+import axiosInstance from "../../config/axiosInstance";
 
 const CategoryContext = createContext();
 
@@ -13,7 +11,7 @@ const CategoryProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/category/all-category`);
+      const response = await axiosInstance.get("/category/all-category");
 
       if (response.status === 200) {
         const categories = response.data.category;
@@ -44,17 +42,11 @@ const CategoryProvider = ({ children }) => {
   }, []); // Empty dependency array to run the effect only once
 
   const handleDeleteCategory = async (categoryId) => {
-    const token = getToken();
     setIsLoading(true);
 
     try {
-      const response = await axios.delete(`${apiUrl}/category/${categoryId}`, {
-        headers: {
-          accept: "*/*",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axiosInstance.delete(`/category/${categoryId}`);
+
       setIsLoading(false);
 
       toast.success("Category deleted successfully!");

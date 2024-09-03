@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card, Typography } from "@material-tailwind/react";
-import { apiUrl } from "../../config/env";
-import axios from "axios";
 import { Dialog, DialogBody } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
 import { Table } from "antd";
-import getToken from "../../components/hook/getToken";
-
+import axiosInstance from "../../config/axiosInstance";
 
 function EditOrder({ data, fetchOrders }) {
   const [open, setOpen] = React.useState(false);
@@ -17,27 +14,16 @@ function EditOrder({ data, fetchOrders }) {
   const handleOpen = () => setOpen(!open);
 
   const confirmOrderStatus = async (orderId) => {
-    const token = getToken();
-
 
     try {
-      const res = await axios.post(
-        `${apiUrl}/order/${orderId}`,
-        {},
-        {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axiosInstance.post(`/order/${orderId}`, {});
+
       // console.log(res);
       handleOpen();
       toast.success("Order Status Updated");
       fetchOrders();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Order Status Not Updated");
     }
   };
@@ -151,28 +137,19 @@ function EditOrder({ data, fetchOrders }) {
   );
 }
 
-
-
-function AdminOrders({ title, fields = ["_id","action",] }) {
+function AdminOrders({ title, fields = ["_id", "action"] }) {
   // Define default empty fields prop
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-const token = getToken();
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/order/all/orders`, {
-        headers,
-      });
+      const response = await axiosInstance.get(`/order/all/orders`);
+
       setOrders(response.data.allOrders);
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      // console.error("Error fetching orders:", error);
       // Handle error
     }
   };

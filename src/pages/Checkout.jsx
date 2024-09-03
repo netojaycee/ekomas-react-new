@@ -12,9 +12,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import AuthContext from "../components/Context/AuthContext";
 import { CartContext } from "../components/Context/CartContext";
 import { useLoading } from "../components/Context/LoadingContext";
-import axios from "axios";
-import { apiUrl } from "../config/env";
-import getToken from "../components/hook/getToken";
+import axiosInstance from "../config/axiosInstance";
 
 export default function Checkout() {
   const location = useLocation();
@@ -70,19 +68,14 @@ export default function Checkout() {
         totalPrice: amount / 100,
       };
 
-      // Send payment request to backend
-      const token = getToken();
+     
+      const response = await axiosInstance.post("/payment/payment", {
+        amount,
+        email: customerEmail,
+        metadata,
+      });
 
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await axios.post(
-        `${apiUrl}/payment/payment`,
-        { amount, email: customerEmail, metadata },
-        { headers }
-      );
+      // console.log(response)
 
       const { authorization_url } = response.data.data;
 
@@ -248,7 +241,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex flex-row justify-between text-sm">
                   <p>SubTotal</p>
-                  <p>N {parseFloat(total).toFixed(2)}</p> 
+                  <p>N {parseFloat(total).toFixed(2)}</p>
                 </div>
                 <div className="flex flex-row justify-between font-semibold my-5">
                   <p>Total</p>

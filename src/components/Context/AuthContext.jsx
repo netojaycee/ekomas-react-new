@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiUrl } from "../../config/env";
+import axiosInstance from "../../config/axiosInstance";
 
 const AuthContext = createContext({});
 
@@ -24,14 +24,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUsers = async () => {
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-        const token = storedUser.token;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-      const response = await axios.get(`${apiUrl}/auth/all-user`, { headers });
-      // console.log(response);
+      
+      const response = await axiosInstance.get("/auth/all-user");
       if (response.status === 200) {
         const users = response.data.user;
         setUsers(users);

@@ -7,7 +7,6 @@ import {
   Spinner,
   Typography,
 } from "@material-tailwind/react";
-import { apiUrl } from "../../config/env";
 import { ProductContext } from "../../components/Context/ProductContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +18,7 @@ import { CategoryContext } from "../../components/Context/CategoryContext";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { Table } from "antd";
-import getToken from "../../components/hook/getToken";
+import axiosInstance from "../../config/axiosInstance";
 
 function EditProduct({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -74,27 +73,16 @@ function EditProduct({ item }) {
       // console.log(requestData)
 
       // Send data to backend endpoint
-      const token = getToken();
-      const response = await axios.patch(
-        `${apiUrl}/product/${item._id}`, // Assuming the endpoint for editing exists
-        {
-          name: formData.name,
-          categoryId: formData.category,
-          description: formData.description,
-          price: formData.price,
-          quantity: formData.quantity,
-          featured: formData.featured,
-          discount: formData.discount,
-          image: imageUrl,
-        },
-        {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axiosInstance.patch(`/product/${item._id}`, {
+        name: formData.name,
+        categoryId: formData.category,
+        description: formData.description,
+        price: formData.price,
+        quantity: formData.quantity,
+        featured: formData.featured,
+        discount: formData.discount,
+        image: imageUrl,
+      });
 
       setIsLoading(false);
       if (response.status === 200) {
@@ -329,6 +317,8 @@ export default function AllProduct() {
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
+  console.log(data)
+
   const columns = [
     {
       title: "Image",
@@ -379,7 +369,7 @@ export default function AllProduct() {
           <FontAwesomeIcon
             onClick={() => handleDeleteProduct(item._id)}
             icon={faTrash}
-            style={{ color: "red"}}
+            style={{ color: "red" }}
             className="cursor-pointer"
             size="lg"
           />
@@ -393,7 +383,7 @@ export default function AllProduct() {
       <div className="">
         <h3 className="font-bold text-xl mb-3">All Products Page</h3>
         <div className="bg-white shadow-md p-3 overflow-auto">
-          <Table  size="small" x={true}  columns={columns} dataSource={data} />
+          <Table size="small" x={true} columns={columns} dataSource={data} />
         </div>
       </div>
 

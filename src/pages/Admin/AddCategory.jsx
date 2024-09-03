@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { CategoryContext } from "../../components/Context/CategoryContext";
-import getToken from "../../components/hook/getToken";
 
 export default function AddCategory() {
   const [formData, setFormData] = useState({
@@ -56,22 +54,10 @@ export default function AddCategory() {
       }
 
       // Send data to backend endpoint
-      const token = getToken();
-
-      const response = await axios.post(
-        `${apiUrl}/category/create-category`,
-        {
-          name: formData.name,
-          image: imageUrl, // Send image URL to backend
-        },
-        {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axiosInstance.post("/category/create-category", {
+        name: formData.name,
+        image: imageUrl, // Send image URL to backend
+      });
 
       console.log(response);
       setIsLoading(false);

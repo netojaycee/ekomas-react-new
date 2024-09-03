@@ -1,14 +1,18 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { CardBody, CardFooter, Dialog, DialogBody, Typography } from "@material-tailwind/react";
-import { apiUrl } from "../../config/env";
+import {
+  CardBody,
+  CardFooter,
+  Dialog,
+  DialogBody,
+  Typography,
+} from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { Card, Table } from "antd";
 import { BlogContext } from "../../components/Context/BlogContext";
-import getToken from "../../components/hook/getToken";
 
 function EditBlog({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -44,23 +48,12 @@ function EditBlog({ item }) {
         imageUrl = await uploadFile(formData.newImage);
       }
 
-      const token = getToken();
-      const response = await axios.patch(
-        `${apiUrl}/blog/${item._id}`, // Assuming the endpoint for editing exists
-        {
-          title: formData.title,
-          description: formData.description,
+      const response = await axiosInstance.patch(`/blog/${item._id}`, {
+        title: formData.title,
+        description: formData.description,
 
-          image: imageUrl,
-        },
-        {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        image: imageUrl,
+      });
 
       setIsLoading(false);
       if (response.status === 200) {

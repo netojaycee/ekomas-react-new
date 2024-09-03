@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { apiUrl } from "../../config/env";
 import { toast } from "react-toastify";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { BlogContext } from "../../components/Context/BlogContext";
-import getToken from "../../components/hook/getToken";
+import axiosInstance from "../../config/axiosInstance";
 
 export default function AddBlogs() {
-  const {fetchBlog} = useContext(BlogContext);
+  const { fetchBlog } = useContext(BlogContext);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -57,27 +56,15 @@ export default function AddBlogs() {
       }
 
       // Send data to backend endpoint
-const token = getToken();
-      const response = await axios.post(
-        `${apiUrl}/blog/create`,
-        {
-          title: formData.title,
-          description: formData.description,
-          image: imageUrl, // Send image URL to backend
-        },
-        {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axiosInstance.post("/blog/create", {
+        title: formData.title,
+        description: formData.description,
+        image: imageUrl, // Send image URL to backend
+      });
 
-      console.log(response);
       setIsLoading(false);
       if (response.status === 200) {
-        console.log("Blog uploaded successfully!");
+        // console.log("Blog uploaded successfully!");
         // Reset form
         setFormData({
           title: "",
@@ -87,65 +74,66 @@ const token = getToken();
         toast.success("Blog uploaded successfully!");
         fetchBlog();
       } else {
-        console.error("Error uploading blog:", response.statusText);
+        // console.error("Error uploading blog:", response.statusText);
       }
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
       toast.error("Failed to upload blog!");
     }
   };
 
   return (
     <>
-      <div className=''>
-      <h3 className='font-bold text-xl mb-3'>Create Blog</h3>
-      <div className="bg-white shadow-md p-3 overflow-auto">
-        <div className="flex flex-col gap-3 w-[65%] mx-auto mt-9">
-          <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-            <div className="flex flex-col flex-1">
-              <label htmlFor="name">Blog Title</label>
-              <input
-                onChange={handleChange}
-                type="text"
-                name="title"
-                id="title"
-                placeholder="Enter blog title"
-                className="p-2 border border-gray-400 rounded-md"
-              />
-            </div>
+      <div className="">
+        <h3 className="font-bold text-xl mb-3">Create Blog</h3>
+        <div className="bg-white shadow-md p-3 overflow-auto">
+          <div className="flex flex-col gap-3 w-[65%] mx-auto mt-9">
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+              <div className="flex flex-col flex-1">
+                <label htmlFor="name">Blog Title</label>
+                <input
+                  onChange={handleChange}
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Enter blog title"
+                  className="p-2 border border-gray-400 rounded-md"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="description">Blog Description</label>
-              <textarea
-                name="description"
-                onChange={handleChange}
-                value={formData.description}
-                id="description"
-                placeholder="Enter Blog description"
-                className="p-2 border border-gray-400 rounded-md"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label htmlFor="description">Blog Description</label>
+                <textarea
+                  name="description"
+                  onChange={handleChange}
+                  value={formData.description}
+                  id="description"
+                  placeholder="Enter Blog description"
+                  className="p-2 border border-gray-400 rounded-md"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="image">Blog Image</label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                accept="image/png"
-                onChange={handleImageChange}
-                className="p-2 border border-gray-400 rounded-md"
-              />
-            </div>
+              <div className="flex flex-col">
+                <label htmlFor="image">Blog Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  accept="image/png"
+                  onChange={handleImageChange}
+                  className="p-2 border border-gray-400 rounded-md"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <button className="p-2 bg-secondary text-white rounded-md">
-                Create Blog
-              </button>
-            </div>
-          </form>
+              <div className="flex flex-col">
+                <button className="p-2 bg-secondary text-white rounded-md">
+                  Create Blog
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div></div>
+      </div>
     </>
   );
 }

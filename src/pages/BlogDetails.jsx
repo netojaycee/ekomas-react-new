@@ -2,10 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleArrowLeft,
-  faEnvelope,
-  faHome,
-  faInfo,
-  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Products/Breadcrumb";

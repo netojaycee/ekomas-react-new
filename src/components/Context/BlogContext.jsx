@@ -1,10 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
-import { apiUrl } from "../../config/env";
-import axios from "axios";
 import { useLoading } from "./LoadingContext";
 import { toast } from "react-toastify";
-import getToken from "../hook/getToken";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../config/axiosInstance";
 
 const BlogContext = createContext();
 
@@ -15,7 +13,7 @@ const BlogProvider = ({ children }) => {
 
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/blog/all-blogs`);
+      const response = await axiosInstance.get("/blog/all-blogs");
 
       if (response.status === 200) {
         const blogs = response.data.blogs;
@@ -31,17 +29,11 @@ const BlogProvider = ({ children }) => {
   }, []);
 
   const handleDeleteBlog = async (blogId) => {
-    const token = getToken(); // Get token from localStorage
     setIsLoading(true);
 
     try {
-      const response = await axios.delete(`${apiUrl}/blog/${blogId}`, {
-        headers: {
-          accept: "*/*",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axiosInstance.delete(`/blog/${blogId}`);
+
       setIsLoading(false);
 
       if (response.status === 200) {
@@ -54,7 +46,6 @@ const BlogProvider = ({ children }) => {
     }
   };
 
- 
   return (
     <BlogContext.Provider value={{ blog, handleDeleteBlog, fetchBlog }}>
       {children}

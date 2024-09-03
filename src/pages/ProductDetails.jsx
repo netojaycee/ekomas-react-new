@@ -177,7 +177,7 @@ export default function ProductDetails() {
                 <h2 className="text-black text-[16px] font-semibold ">
                   Availability:{" "}
                 </h2>
-                <p className="">300 In stock</p>
+                <p className="">{detail.quantity} In stock</p>
               </span>
 
               <div className="flex flex-row items-center justify-center gap-3 mt-3">

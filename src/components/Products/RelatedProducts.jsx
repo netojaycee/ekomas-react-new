@@ -27,7 +27,7 @@ export const RelatedProducts = ({ category }) => {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1280,
+        breakpoint: 1520,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
@@ -36,7 +36,7 @@ export const RelatedProducts = ({ category }) => {
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 960,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
@@ -67,7 +67,7 @@ export const RelatedProducts = ({ category }) => {
 
   return (
     <div className="my-3">
-          <div className="slider-container p-2">
+          <div className="slider-container lg:p-2 p-5 mx-2 lg:mx-0">
             <Slider {...settings}>
               {filteredProducts.map((product) => (
                 // <div key={product.id} className="flex flex-col">

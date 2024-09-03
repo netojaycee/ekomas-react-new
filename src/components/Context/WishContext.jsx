@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { apiUrl } from "../../config/env";
+
 import { useLoading } from "./LoadingContext";
 import AuthContext from "./AuthContext";
+import axiosInstance from "../../config/axiosInstance";
 
 const storedWish = JSON.parse(localStorage.getItem("wishEkomas")) || [];
 
@@ -20,17 +20,7 @@ const WishProvider = ({ children }) => {
       try {
         // Check if the user is logged in
         if (auth?.user?.name) {
-          const storedUser = JSON.parse(localStorage.getItem("user"));
-          const token = storedUser.token;
-
-          const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          };
-
-          const response = await axios.get(`${apiUrl}/product/user-fav`, {
-            headers,
-          });
+          const response = await axiosInstance.get("/product/user-fav");
 
           localStorage.setItem(
             "wishEkomas",
@@ -110,11 +100,9 @@ const WishProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         };
 
-        const response = await axios.post(
-          `${apiUrl}/product/add-to-fav`,
-          { favourites: [] },
-          { headers }
-        );
+        const response = await axiosInstance.post("/product/add-to-fav", {
+          favourites: [],
+        });
 
         setWish(response.data.favorites);
       } else {
@@ -127,11 +115,9 @@ const WishProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         };
 
-        const response = await axios.post(
-          `${apiUrl}/product/add-to-fav`,
-          { favourites: wishIds },
-          { headers }
-        );
+        const response = await axiosInstance.post("/product/add-to-fav", {
+          favourites: wishIds,
+        });
 
         setWish(response.data.favorites);
       }

@@ -16,31 +16,27 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { apiUrl } from "../config/env";
+import { Link, useSearchParams } from "react-router-dom";
 import LimitedStock from "../components/Home/LimitedStock";
+import axiosInstance from "../config/axiosInstance";
 
 function PaymentComplete({ open, handleOpen, paymentInfo }) {
   return (
     <Dialog open={open} handler={handleOpen}>
       {paymentInfo && (
         <>
-          <DialogHeader>Payment {paymentInfo.data.status}</DialogHeader>
-          {/* Display payment information */}
-          <DialogBody>
-            {paymentInfo.message}
-            <ul>
-              <li>Transaction ID: {paymentInfo.data.id}</li>
-              <li>name: {paymentInfo.data.metadata.customerName}</li>
-
-              <li>email: {paymentInfo.data.customer.email}</li>
-            </ul>
+          <DialogHeader>Payment {paymentInfo.status}</DialogHeader>
+          <DialogBody className="text-center">
+            <p>Your order has been placed successfully!</p>
+            <p>
+              <strong>Amount Paid:</strong> &#8358; {paymentInfo.totalPrice}
+            </p>
           </DialogBody>
           <DialogFooter>
             <Button variant="gradient" color="green" onClick={handleOpen}>
               <span>Close</span>
             </Button>
+            <Link className="ml-5 mr-5" to="/user/orders">My Orders </Link>
           </DialogFooter>
         </>
       )}
@@ -59,15 +55,22 @@ export default function Home() {
 
       async function verifyPayment() {
         try {
-          const response = await axios.get(
-            `${apiUrl}/payment/verify?reference=${reference}`
+          const response = await axiosInstance.post(
+            `/payment/verify?reference=${reference}`
           );
-          // console.log(response.data);
+          // console.log(response);
+          // console.log(response.data.paymentData);
           // If payment verification is successful, open the PaymentComplete modal
-          setPaymentCompleteOpen(true);
+          if (
+            response &&
+            response.status === 200 &&
+            response.statusText === "OK"
+          ) {
+            setPaymentCompleteOpen(true);
+            setPaymentInfo(response.data.paymentData);
+            setSearchParams({});
+          }
           // Set paymentInfo to the data from the response
-          setPaymentInfo(response.data);
-          setSearchParams({});
         } catch (error) {
           console.error("Error verifying payment:", error);
         }
@@ -83,16 +86,15 @@ export default function Home() {
 
   return (
     <>
-    
       <Hero />
       <div className="w-full lg:w-[60%] mx-auto">
-      <Category />
-      <LimitedStock />
-      <Products />
-      <Special />
-      <Tsp />
-      <Featured />
-      <Explore />
+        <Category />
+        <LimitedStock />
+        <Products />
+        <Special />
+        <Tsp />
+        <Featured />
+        <Explore />
       </div>
       {/* <Reviews /> */}
       {/* <About /> */}

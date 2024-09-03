@@ -352,7 +352,7 @@ export default function ProductsList() {
     <>
       <div className="pt-[60px]">
         {/* Main content */}
-        <div className="w-[95%] lg:w-[55%] mx-auto flex md:flex-row justify-between gap-3">
+        <div className="w-[95%] mx-auto flex md:flex-row justify-between gap-3">
           {/* Sidebar toggle button (only visible on small devices) */}
           <div className="flex-col items-center md:block hidden w-1/3">
             <div className="bg-white p-2 rounded-md shadow-md mb-3">

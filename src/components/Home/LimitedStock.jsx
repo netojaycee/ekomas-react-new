@@ -25,7 +25,7 @@ export default function LimitedStock() {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1280,
+        breakpoint: 1520,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
@@ -34,7 +34,7 @@ export default function LimitedStock() {
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 960,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
