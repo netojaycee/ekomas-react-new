@@ -350,11 +350,11 @@ export default function ProductsList() {
 
   return (
     <>
-      <div className="pt-[60px]">
+      <div className="pt-[20px]">
         {/* Main content */}
-        <div className="w-[95%] mx-auto flex md:flex-row justify-between gap-3">
+        <div className="w-[95%] md:w-[85%] mx-auto flex md:flex-row justify-between gap-3">
           {/* Sidebar toggle button (only visible on small devices) */}
-          <div className="flex-col items-center md:block hidden w-1/3">
+          {/* <div className="flex-col items-center hidden w-1/3">
             <div className="bg-white p-2 rounded-md shadow-md mb-3">
               <h2 className="font-semibold text-gray-700 text-[20px] mb-2">
                 Shop by categories
@@ -371,9 +371,9 @@ export default function ProductsList() {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
           {/* Main product list and sorting */}
-          <div className="md:w-2/3 w-full flex-col flex gap-4 rounded-full mx-auto">
+          <div className=" w-full flex-col flex gap-4 rounded-full mx-auto">
             <div className="flex flex-col bg-white p-2 rounded-md shadow-md">
               <div className="flex flex-row justify-between text-gray-700 ">
                 <div className="font-semibold">
@@ -408,12 +408,13 @@ export default function ProductsList() {
                 <div className="font-normal text-gray-600 text-sm">
                   {filteredProducts.length} products found
                 </div>
-                <div className="flex items-center gap-2 font-normal md:hidden">
+                <div className="flex items-center gap-2 font-normal">
                   <button
                     className="flex items-center gap-2"
                     onClick={openDrawer}
                   >
-                    Filters <ChevronDownIcon className="text-black w-3 h-3" />
+                    Categories{" "}
+                    <ChevronDownIcon className="text-black w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -425,17 +426,24 @@ export default function ProductsList() {
                 </div>
               ))}
             </div>
-{filteredProducts.length > 10 && (
-              
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(filteredProducts.length / itemsPerPage)}
-              onPageChange={handlePageChange}
-            />)}
+            {filteredProducts.length > 10 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(filteredProducts.length / itemsPerPage)}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         </div>
       </div>
-      <Sidebar openDrawer={openDrawer} closeDrawer={closeDrawer} open={open} categoriesData={categoriesData} handleInStock={handleInStock} handlePriceRangeChange={handlePriceRangeChange} />
+      <Sidebar
+        openDrawer={openDrawer}
+        closeDrawer={closeDrawer}
+        open={open}
+        categoriesData={categoriesData}
+        handleInStock={handleInStock}
+        handlePriceRangeChange={handlePriceRangeChange}
+      />
     </>
   );
 }

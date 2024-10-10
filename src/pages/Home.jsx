@@ -78,7 +78,7 @@ export default function Home() {
 
       verifyPayment();
     }
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   const handlePaymentCompleteClose = () => {
     setPaymentCompleteOpen(false);
@@ -87,14 +87,14 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <div className="w-full lg:w-[60%] mx-auto">
+      <div className="w-full">
         <Category />
-        <LimitedStock />
+        {/* <LimitedStock />
         <Products />
         <Special />
         <Tsp />
         <Featured />
-        <Explore />
+        <Explore /> */}
       </div>
       {/* <Reviews /> */}
       {/* <About /> */}

@@ -3,8 +3,9 @@ import {
   HeartIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
+  ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ProductContext } from "../components/Context/ProductContext";
 import { RelatedProducts } from "../components/Products/RelatedProducts";
 import { CartContext } from "../components/Context/CartContext";
@@ -133,52 +134,60 @@ export default function ProductDetails() {
       }
     }
   };
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
+      <div className="bg-white rounded-md shadow-md p-2 mt-3 w-[90%] mx-auto lg:w-[85%]">
+        <ArrowLeftIcon onClick={handleBack} className="w-5 h-5 cursor-pointer" />
+      </div>
       {detail && (
         <div className="flex flex-col gap-6 bg-gray-200">
-          <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] lg:w-[55%] mx-auto mt-9 ">
+          <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] lg:w-[85%] mx-auto mt-5 ">
             <div className="flex flex-row p-2 pr-0 relative  border-r-2  rounded-md md:w-1/2 w-full justify-center items-center min-h-[250px]">
               {/* <div className="flex flex-row gap-3 relative "> */}
               {/* <div className=" rounded-lg object-cover "> */}
               <img
                 src={detail.image}
                 alt={detail.name}
-                className="md:w-[250px] md:h-[250px] object-cover rounded-md"
+                className="w-[150px] h-[150px] object-cover rounded-md"
               />
               {/* </div> */}
               {/* </div> */}
             </div>
 
             <div className="flex md:w-1/2 w-full flex-col gap-1">
-              <div className="flex w-full items-center justify-between">
-                <h1>{detail.name}</h1>
+              <div className="flex w-full items-center justify-between ">
+                <h1 className="font-bold text-2xl">{detail.name}</h1>
               </div>
               <hr className=" border-2 border-[#b32b2b] w-full" />
 
-              <div className="text-[#b32b2b] text-lg font-semibold">
+              <div className="text-[#b32b2b] text-lg font-semibold flex items-center gap-1 ">
+                <span>&#8358;</span>
                 {detail.price}
               </div>
-              <ReactStars
+              {/* <ReactStars
                 count={5}
                 size={20}
                 value={3}
                 edit={false}
                 activeColor="#ffd700"
-              />
-              <span className="text-gray-500 text-sm">
+              /> */}
+              {/* <span className="text-gray-500 text-sm">
                 <h2 className="text-black text-[16px] font-semibold ">
                   Category:{" "}
                 </h2>{" "}
                 {detail.category}
-              </span>
-              <span className="text-gray-500 text-sm flex items-center gap-2">
+              </span> */}
+              {/* <span className="text-gray-500 text-sm flex items-center gap-2">
                 <h2 className="text-black text-[16px] font-semibold ">
                   Availability:{" "}
                 </h2>
                 <p className="">{detail.quantity} In stock</p>
-              </span>
+              </span> */}
 
               <div className="flex flex-row items-center justify-center gap-3 mt-3">
                 <div className="flex flex-row gap-2">
@@ -209,7 +218,7 @@ export default function ProductDetails() {
                   Add to cart
                 </button>
               </div>
-              <div
+              {/* <div
                 onClick={toggleWish}
                 className="flex items-center gap-1 cursor-pointer"
               >
@@ -220,12 +229,12 @@ export default function ProductDetails() {
                   className=""
                 />
                 <p className="text-sm">Add to wishlist</p>
-              </div>
+              </div> */}
               <InstructionAccordion />
             </div>
           </div>
 
-          <div className="flex flex-col gap-1 w-[90%] lg:w-[55%] mx-auto">
+          {/* <div className="flex flex-col gap-1 w-[90%] lg:w-[55%] mx-auto">
                       <div className="text-black text-lg font-bold">Description</div>
 
           <div className="bg-white shadow-md shadow-gray-400 p-6 xl:min-h-[240px]">
@@ -239,7 +248,7 @@ export default function ProductDetails() {
             <div className="lg:w-[55%] w-full mx-auto">
               <RelatedProducts category={detail.category} itemsPerPage={5} />
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>

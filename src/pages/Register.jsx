@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function Register() {
   return (
-      <div className='flex flex-col h-screen w-full mx-auto justify-center p-5'>
+      <div className='flex flex-col w-full mx-auto justify-center p-5'>
       <div className="flex flex-col gap-3 bg-white w-[97%] lg:w-[35%] mx-auto p-5 rounded-md shadow-md">
       <h2 className="text-center text-xl font-bold">Create Account</h2>
 

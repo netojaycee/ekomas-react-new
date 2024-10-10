@@ -57,12 +57,12 @@ export default function Nav() {
             </div>
             <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-between  w-[25%] items-center">
               <Link to="/user/saved-items">
-                <div className="relative">
+                {/* <div className="relative">
                   <BiHeart className="w-6 h-6 duration-300 transform hover:scale-125 transition ease-linear" />
                   <span className="bg-secondary text-white text-[10px] rounded absolute top-[-3px] right-[-3px] px-[4px] py-0">
                     {wish && wish.length > 0 ? wish.length : 0}
                   </span>
-                </div>
+                </div> */}
               </Link>
               <Link to="/cart">
                 <div className="relative">

@@ -64,18 +64,16 @@ const ProductItem = ({
   return (
     <div
       key={_id}
-      className={`flex flex-col bg-gray-300 border border-gray-400 md:w-[160px] md:max-w-[200px] 2xl:w-[250px] 2xl:max-w-[250px] overflow-hidden  rounded-xl ${(classx =
-        "p-1")} xl:max-w-full ${
-        cartButton === true ? "h-[330px]" : "h-[280px]"
-      }`}
+      className={`flex flex-col bg-white  overflow-hidden  rounded-xl p-1
+       `}
     >
       <div className="flex flex-row gap-4 rounded ">
-        <div className="bg-white flex flex-row justify-center rounded overflow-hidden h-[200px] relative w-full duration-300 transform hover:scale-105 transition ease-linear">
+        <div className="bg-white flex flex-row justify-center rounded overflow-hidden relative w-full duration-300 transform hover:scale-105 transition ease-linear">
           <Link to={productDetailPath}>
             <img
               src={image}
               alt={name}
-              className="w-full object-cover rounded-t-lg h-full"
+              className="w-[100px] h-[100px] object-cover rounded-t-lg"
             />
           </Link>
           {/* <span
@@ -84,24 +82,24 @@ const ProductItem = ({
     Shop Now
   </span> */}
           <div className="-right-2 rounded absolute " data-aos="fade-up">
-            <div className="absolute -right-1">
+            {/* <div className="absolute -right-1">
               {discount > 0 && (
                 <div className="bg-badge text-center pl-2 px-3 relative right-3">
                   -{discount}%
                 </div>
               )}
-            </div>
+            </div> */}
             <div className="bg-badge h-5 w-5 rounded-l-md relative ml-[30px] mt-28"></div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-1 mx-auto w-[97%] h-[100px]">
-        <p className="text-sm mt-1 text-gray-900 font-semibold max-h-[25%] w-[90%] overflow-hidden text-ellipsis whitespace-nowrap">
+      <div className="flex flex-col mx-auto w-[97%] gap-3">
+        <p className="text-sm text-center text-gray-900  w-[90%] overflow-hidden line-clamp-1 mt-1">
           {name}
         </p>
-        <div className="flex flex-row justify-between rounded items-center">
-          <div className="flex flex-col gap-1">
-            {cartButton === true && (
+        <div className="flex flex-row justify-center rounded items-center">
+          <div className="flex flex-col gap-1 ">
+            {/* {cartButton === true && (
               <div className="mt-1 text-[#b32b2b] text-sm lg-text-lg md:text-md flex items-center gap-1">
                 <ReactStars
                   count={5}
@@ -112,9 +110,9 @@ const ProductItem = ({
                 />
                 (2)
               </div>
-            )}
-            <div className="text-black text-sm flex flex-col">
-              {discount > 0 ? (
+            )} */}
+            <div className="text-black text-sm justify-center flex flex-col w-full">
+              {/* {discount > 0 ? (
                 <>
                   <span className="flex items-center gap-1">
                     <span>&#8358;</span>
@@ -134,10 +132,15 @@ const ProductItem = ({
                     {parseFloat(price).toFixed(2)}
                   </span>
                 </span>
-              )}
+              )} */}
+
+              <span className="flex justify-center items-center gap-1 font-semibold">
+                <span>&#8358;</span>
+                {parseFloat(price).toFixed(2)}
+              </span>
             </div>
           </div>
-          <div className="flex justify-end">
+          {/* <div className="flex justify-end">
             <FontAwesomeIcon
               icon={isWish ? faHeart : faHeartOutline}
               style={{ color: isWish ? "red" : "red" }}
@@ -145,17 +148,17 @@ const ProductItem = ({
               className="cursor-pointer"
               onClick={toggleWish}
             />
-          </div>
+          </div> */}
         </div>
       </div>
-      {cartButton === true && (
-        <button
-          onClick={() => cartAdd()}
-          className="transition transform duration-300 ease-in-out focus:outline-none bg-[#b32b2b] hover:bg-secondary text-white rounded font-semibold py-1 text-sm  cursor-pointer"
-        >
-          ADD TO CART
-        </button>
-      )}
+      {/* {cartButton === true && ( */}
+      <button
+        onClick={() => cartAdd()}
+        className="mt-2 transition transform duration-300 ease-in-out focus:outline-none bg-[#b32b2b] hover:bg-secondary text-white rounded font-semibold py-1 text-sm  cursor-pointer"
+      >
+        ADD TO CART
+      </button>
+      {/* // )} */}
     </div>
   );
 };

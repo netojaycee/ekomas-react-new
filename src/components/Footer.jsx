@@ -51,7 +51,7 @@ export default function Footer({ fullFooter = true }) {
 
   return (
     <footer className="relative bottom-0 w-full mt-2">
-      <div className="bg-gradient-to-r from-primary to-badge flex md:flex-row flex-col items-center  md:gap-5 gap-3 text-white justify-center py-2">
+      {/* <div className="bg-gradient-to-r from-primary to-badge flex md:flex-row flex-col items-center  md:gap-5 gap-3 text-white justify-center py-2">
         <h2 className="text-xl font-bold">
           {" "}
           <FontAwesomeIcon
@@ -84,7 +84,7 @@ export default function Footer({ fullFooter = true }) {
             Subscribe
           </Button>
         </div>
-      </div>
+      </div> */}
       <hr className="w-full border-t border-black" />
       <div className="w-full">
         {fullFooter ? (
