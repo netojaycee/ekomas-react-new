@@ -1,6 +1,6 @@
 // export const apiUrl = "https://commerce-vujf.onrender.com";
 export const apiUrl = "https://yoamart.com/api";
-// export const apiUrl = "http://localhost:5004";
+// export const apiUrl = "http://localhost:5004/api";
 
 // centralize the topic, remove reg bg, use reed text, put view more under product
 // justrite.com, shoprite.com

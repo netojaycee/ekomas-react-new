@@ -19,11 +19,15 @@ const Category = () => {
 
   return (
     <div className="mx-2 overflow-hidden rounded-md mb-5 p-5">
-      {/* <div className="h-10 flex items-center p-4 justify-center">
-        <h1 className="text-black md:text-3xl font-semibold font-serif mb-3">
-          Category
-        </h1>
-      </div> */}
+     <div className="flex items-center p-6 justify-center my-6 bg-green-100 rounded-lg shadow-md">
+  <h1 className="text-black text-4xl font-bold font-serif mb-3 text-center leading-tight">
+    Your Grocery Shopping Made Simple!
+  </h1>
+  {/* <p className="text-gray-600 text-lg md:text-xl text-center mt-2">
+    Discover a world of fresh produce, essentials, and local favorites delivered right to your door.
+  </p> */}
+</div>
+
 
       {/* {isDesktop ? (
         <div className="grid grid-cols-5 gap-2 justify-items-center">
@@ -70,14 +74,16 @@ const Category = () => {
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1">
-            <img
-              src={category.image}
-              alt={category.name}
-              className="w-[80px] h-[100px] overflow-hidden rounded-md object-cover object-center"
-            />
-            <h1 className="text-black text-sm line-clamp-2 font-semibold">{category.name}</h1>
-            </div>
-            <ArrowRightIcon className="w-6 h-6"/>
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="w-[80px] h-[100px] overflow-hidden rounded-md object-cover object-center"
+                />
+                <h1 className="text-black text-sm line-clamp-2 font-semibold">
+                  {category.name}
+                </h1>
+              </div>
+              <ArrowRightIcon className="w-6 h-6" />
             </div>
           </Link>
         ))}

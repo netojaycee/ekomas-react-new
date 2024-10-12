@@ -8,24 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import logo from "../assets/images/logo.png";
 import { Input } from "@material-tailwind/react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../components/Context/AuthContext";
 import { CartContext } from "../components/Context/CartContext";
 import { useLoading } from "../components/Context/LoadingContext";
 import axiosInstance from "../config/axiosInstance";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Checkout() {
   const location = useLocation();
-  // Check if the user has come from the cart page
   const fromCart = location.state?.fromCart;
-  // console.log(location)
-
-  // If the user has not come from the cart page, redirect back
-
-  // If the user has not come from the cart page, redirect to the home page
-  if (!fromCart) {
-    return <Navigate to="/cart" />;
-  }
+  const navigate = useNavigate();
 
   const { auth } = useContext(AuthContext);
   const { total, cart } = useContext(CartContext);
@@ -34,9 +28,12 @@ export default function Checkout() {
   const [deliveryAddress, setDeliveryAddress] = useState(auth?.user?.address);
   const [phone, setPhone] = useState(auth?.user?.phone);
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [proofOfPayment, setProofOfPayment] = useState(null);
   const [isEditableAd, setIsEditableAd] = useState(false);
   const [isEditablePh, setIsEditablePh] = useState(false);
+  if (!fromCart) {
+    return <Navigate to="/cart" />;
+  }
   const deliveryFee = 500;
   const PackagingFee = 700;
   const amount = parseInt((deliveryFee + PackagingFee + total) * 100);
@@ -44,9 +41,42 @@ export default function Checkout() {
   const customerId = auth?.user?.userId;
   const customerName = auth?.user?.name;
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProofOfPayment(file);
+  };
+
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "db0zguvf");
+    formData.append("folder", "ProofOfPayment");
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dgz5bgdzc/auto/upload",
+        formData
+      );
+      return response.data.secure_url;
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      throw new Error("Failed to upload file to Cloudinary");
+    }
+  };
+
   const handleConfirmOrder = async () => {
     try {
+      if (!proofOfPayment || !deliveryAddress || !phone) {
+        toast.error("please enter all required fields");
+        return;
+      }
       setIsLoading(true);
+
+      // Check if a file is uploaded
+      let imageUrl = null;
+      if (proofOfPayment) {
+        imageUrl = await uploadFile(proofOfPayment);
+      }
 
       // Prepare cart items data for metadata
       const cartData = cart.map((item) => ({
@@ -58,49 +88,45 @@ export default function Checkout() {
         quantity: item.amount,
       }));
 
-      // Prepare metadata object
-      const metadata = {
-        customerId,
-        customerName,
-        deliveryAddress,
-        phone,
-        cart: cartData,
-        totalPrice: amount / 100,
-      };
+      // Prepare form data for submission (including image)
+      const formData = new FormData();
+      formData.append("userId", customerId);
+      formData.append("name", customerName);
+      formData.append("email", customerEmail);
+      formData.append("address", deliveryAddress);
+      formData.append("phone", phone);
+      formData.append("totalPrice", amount / 100);
+      formData.append("cart", JSON.stringify(cartData));
+      formData.append("proofOfPayment", imageUrl); // Image uploaded by user
 
-     
-      const response = await axiosInstance.post("/payment/payment", {
-        amount,
-        email: customerEmail,
-        metadata,
-      });
-
-      // console.log(response)
-
-      const { authorization_url } = response.data.data;
-
+      const response = await axiosInstance.post(
+        "/order/create-order",
+        formData
+      );
+      // console.log(response);
       setIsLoading(false);
-
-      // Redirect user to the payment page
-      window.location.href = authorization_url;
+      if (response.status === 201) {
+        toast.success(
+          "Order placed successfully. Awaiting confirmation upon proof of payment."
+        );
+        navigate("/user/orders");
+      } else {
+        toast.error("Failed to place order.");
+      }
     } catch (error) {
-      console.error("Error processing payment:", error);
+      console.error("Error processing order:", error);
       setIsLoading(false);
-      // Handle error - display an error message to the user
     }
-  };
-
-  const handleOpen = () => {
-    setOpen(!open);
   };
 
   const handleEditClick = (field) => {
     if (field === "address") {
-      setIsEditableAd(!isEditableAd); // Toggle editable mode for address
+      setIsEditableAd(!isEditableAd);
     } else if (field === "phone") {
-      setIsEditablePh(!isEditablePh); // Toggle editable mode for phone
+      setIsEditablePh(!isEditablePh);
     }
   };
+
   return (
     <>
       <section className="flex flex-col gap-2 w-[95%] mx-auto font-serif h-screen">
@@ -129,7 +155,7 @@ export default function Checkout() {
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon
                     icon={faLocationDot}
-                    style={{ color: "#FF3E3E  " }}
+                    style={{ color: "#FF3E3E" }}
                     size="lg"
                   />
                   {isEditableAd ? (
@@ -151,14 +177,10 @@ export default function Checkout() {
                   >
                     <FontAwesomeIcon
                       icon={faPencilAlt}
-                      style={{ color: "#FF3E3E  " }}
+                      style={{ color: "#FF3E3E" }}
                       size="lg"
                     />
                   </button>
-                </div>
-                <div className="flex flex-col gap-2 bg-[#FFdd60] p-2 w-[40%] text-sm">
-                  <p className="font-semibold">15-25 min</p>
-                  <p>As soon as possible</p>
                 </div>
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon
@@ -191,41 +213,39 @@ export default function Checkout() {
                   </button>
                 </div>
               </div>
-              {/* <p className="flex flex-row justify-between font-semibold my-5">
-                Payment Method
+            </div>
+
+            {/* Bank Details and Payment Proof Card */}
+            <div className="flex flex-col w-[90%] mx-auto p-5 mt-5 border border-gray-300 rounded-md shadow-md">
+              <h3 className="font-bold text-lg">Payment Instructions</h3>
+              <p className="text-sm my-2">
+                Please make a bank transfer to the account below and upload the
+                proof of payment.
               </p>
-              <div className="flex flex-row gap-2 items-center">
-                <FontAwesomeIcon
-                  icon={faMoneyBill}
-                  style={{ color: "#A9CA4E" }}
-                  size="lg"
+              <div className="my-3">
+                <p>
+                  <strong>Bank Name:</strong> First Bank of Nigeria
+                </p>
+                <p>
+                  <strong>Account Name:</strong> XYZ Delivery Services
+                </p>
+                <p>
+                  <strong>Account Number:</strong> 1234567890
+                </p>
+              </div>
+              <div className="my-3">
+                <Input
+                  type="file"
+                  label="Upload proof of payment"
+                  onChange={handleImageChange}
+                  required
                 />
-                <Select
-                  variant="standard"
-                  label="Select Payment method"
-                  value={paymentMethod}
-                  onChange={(val) => setPaymentMethod(val)}
-                >
-                  <Option
-                    value="card"
-                    className="flex flex-row items-center gap-1"
-                  >
-                    <FontAwesomeIcon icon={faMoneyCheck} />
-                    <span>Pay with Card</span>
-                  </Option>
-                  <Option
-                    value="cash"
-                    className="flex flex-row items-center gap-1"
-                  >
-                    <FontAwesomeIcon icon={faMoneyBill1} />
-                    <span>Pay with Cash</span>
-                  </Option>
-                </Select>
-              </div> */}
+              </div>
             </div>
           </div>
+
           <div className="md:flex-[30%] md:mx-auto">
-            <div className="flex flex-col mx-auto p-3 shadow-lg w-[80%] md:w-[60%] gap-5 ">
+            <div className="flex flex-col mx-auto p-3 shadow-lg w-[80%] md:w-[60%] gap-5">
               <div className="flex flex-row items-start font-semibold">
                 <p>Summary</p>
               </div>
@@ -239,19 +259,19 @@ export default function Checkout() {
                   <p>Packaging</p>
                   <p>N {PackagingFee}</p>
                 </div>
-                <div className="flex flex-row justify-between text-sm">
-                  <p>SubTotal</p>
-                  <p>N {parseFloat(total).toFixed(2)}</p>
-                </div>
-                <div className="flex flex-row justify-between font-semibold my-5">
-                  <p>Total</p>
-                  <p>N {parseFloat(amount / 100).toFixed(2)}</p>
+                <div className="flex flex-row justify-between text-sm ">
+                  <p>Subtotal</p>
+                  <p>N {total}</p>
                 </div>
               </div>
+              <div className="font-bold flex flex-row justify-between">
+                <p>Total</p>
+                <p>N {deliveryFee + PackagingFee + total}</p>
+              </div>
               <button
-                className="bg-secondary hover:bg-primary transition duration-200 text-white font-semibold p-2 rounded-md"
-                onClick={() => handleConfirmOrder()}
-                disabled={!phone || !deliveryAddress}
+                // disabled={!proofOfPayment || !deliveryAddress || !phone}
+                onClick={handleConfirmOrder}
+                className="bg-primary my-2 p-2 rounded-md text-white"
               >
                 Confirm Order
               </button>
@@ -259,8 +279,6 @@ export default function Checkout() {
           </div>
         </div>
       </section>
-
-      {/* <CardDetails handleOpen={handleOpen} open={open} /> */}
     </>
   );
 }

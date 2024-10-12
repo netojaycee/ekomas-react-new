@@ -14,19 +14,38 @@ function EditOrder({ data, fetchOrders }) {
   const handleOpen = () => setOpen(!open);
 
   const confirmOrderStatus = async (orderId) => {
-
     try {
       const res = await axiosInstance.post(`/order/${orderId}`, {});
 
-      // console.log(res);
       handleOpen();
       toast.success("Order Status Updated");
       fetchOrders();
     } catch (err) {
-      // console.log(err);
       toast.error("Order Status Not Updated");
     }
   };
+
+  const confirmPaymentStatus = async (orderId) => {
+    try {
+      const res = await axiosInstance.post(`/order/verify-payment/${orderId}`, {});
+
+      handleOpen();
+      toast.success("Payment Status Updated");
+      fetchOrders();
+    } catch (err) {
+      toast.error("Payment Status Not Updated");
+    }
+  };
+
+  const downloadReceipt = () => {
+    const link = document.createElement('a');
+    link.href = data.proofOfPayment;
+    link.download = 'receipt.jpg';  // You can change the file name and extension
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       <FontAwesomeIcon
@@ -55,6 +74,7 @@ function EditOrder({ data, fetchOrders }) {
             </div>
             <div className="flex flex-col md:flex-row gap-4 mt-5">
               <div className="grid grid-cols-2 md:grid-cols-1 gap-4 w-full lg:w-4/5 ">
+                {/* Order Details */}
                 <div className="flex flex-col gap-2 w-full ">
                   <label className="text-sm font-medium text-gray-700 flex justify-between">
                     <span>Order Id</span>
@@ -92,6 +112,8 @@ function EditOrder({ data, fetchOrders }) {
                   </p>
                 </div>
               </div>
+
+              {/* Order Items */}
               <div className="flex flex-col gap-4 w-full lg:w-4/5 ">
                 <Card className="p-4">
                   <h2>Order Items</h2>
@@ -108,27 +130,48 @@ function EditOrder({ data, fetchOrders }) {
                     ))}
                   </ul>
                 </Card>
-                <Card></Card>
               </div>
             </div>
+
+            {/* Buttons Section */}
             <div className="flex flex-col md:flex-row gap-2 mt-5 items-center justify-center">
+              {/* Download Receipt Button */}
               <button
-                disabled={data.orderStatus === "completed"}
-                onClick={() => confirmOrderStatus(data._id)}
-                className={`text-white font-serif font-semibold py-2 px-5 rounded-md ${
-                  data.orderStatus === "shipped"
-                    ? "bg-blue-300"
-                    : data.orderStatus === "completed"
-                    ? "bg-green-300"
-                    : "bg-red-300"
-                }`}
+                onClick={downloadReceipt}
+                className="bg-blue-500 text-white font-serif font-semibold py-2 px-5 rounded-md"
               >
-                {data.orderStatus === "shipped"
-                  ? "Mark as delivered"
-                  : data.orderStatus === "completed"
-                  ? "Delivered"
-                  : "Mark as Shipped"}
+                Download Receipt
               </button>
+
+              {/* Conditional Payment and Order Status Buttons */}
+              {!data.isPaid && (
+                <button
+                  onClick={() => confirmPaymentStatus(data._id)}
+                  className="bg-yellow-500 text-white font-serif font-semibold py-2 px-5 rounded-md"
+                >
+                  Confirm Payment
+                </button>
+              )}
+
+              {data.isPaid && (
+                <button
+                  disabled={data.orderStatus === "completed"}
+                  onClick={() => confirmOrderStatus(data._id)}
+                  className={`text-white font-serif font-semibold py-2 px-5 rounded-md ${
+                    data.orderStatus === "shipped"
+                      ? "bg-blue-300"
+                      : data.orderStatus === "completed"
+                      ? "bg-green-300"
+                      : "bg-red-300"
+                  }`}
+                >
+                  {data.orderStatus === "shipped"
+                    ? "Mark as delivered"
+                    : data.orderStatus === "completed"
+                    ? "Delivered"
+                    : "Mark as Shipped"}
+                </button>
+              )}
             </div>
           </DialogBody>
         </Dialog>
@@ -177,14 +220,14 @@ function AdminOrders({ title, fields = ["_id", "action"] }) {
         render: (text) => <Typography variant="small">{text}</Typography>,
       },
       {
-        title: "Status",
+        title: "Order Status",
         dataIndex: "orderStatus",
         key: "status",
         render: (text) => (
           <Typography
             variant="small"
             color="blue-gray"
-            className={` font-normal w-full text-center p-1 rounded-lg ${
+            className={` text-white font-semibold w-full text-center p-1 rounded-lg ${
               text === "shipped"
                 ? "bg-blue-300"
                 : text === "completed"
@@ -197,10 +240,26 @@ function AdminOrders({ title, fields = ["_id", "action"] }) {
         ),
       },
       {
+        title: "Payment Status",
+        dataIndex: "isPaid",
+        key: "isPaid",
+        render: (text) => (
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className={`text-white font-semibold w-full text-center p-1 rounded-lg ${
+              text === true ? "bg-blue-300" : "bg-red-300"
+            }`}
+          >
+            {text === true ? "Paid" : "Pending"}
+          </Typography>
+        ),
+      },
+      {
         title: "Total",
         dataIndex: "total",
         key: "total",
-        render: (text) => <Typography variant="small">{text}</Typography>,
+        render: (text) => <Typography variant="small">&#8358; {text}</Typography>,
       },
       {
         title: "Date",

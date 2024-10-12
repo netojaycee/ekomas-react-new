@@ -77,7 +77,7 @@ export default function AddProduct() {
     };
 
     try {
-      const response = await axiosInstance.post("/product/create", {
+      const response = await axiosInstance.post("/product/create-product", {
         name: formData.name,
         categoryId: selectedCategory,
         description: formData.description,

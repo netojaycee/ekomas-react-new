@@ -182,10 +182,11 @@ export default function ProductsList() {
     }
 
     if (categoryParam) {
-      filtered = data.filter((product) => product.categoryId === categoryParam);
+      filtered = data.filter((product) => product?.categoryId?._id === categoryParam);
       const categoryName = categoriesData.find(
         (category) => category._id === categoryParam
       )?.name;
+      console.log(filtered);
       setPageTitle(categoryName);
     }
 
@@ -214,6 +215,11 @@ export default function ProductsList() {
     // Set the filtered products based on all applied filters
     setFilteredProducts(filtered);
   }, [
+    categoriesData,
+    discount,
+    featured,
+    isSearch,
+    topSelling,
     data,
     categoryParam,
     isSpecialOffersPage,

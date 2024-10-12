@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useLoading } from "../../components/Context/LoadingContext";
 import { CategoryContext } from "../../components/Context/CategoryContext";
+import axiosInstance from "../../config/axiosInstance";
 
 export default function AddCategory() {
   const [formData, setFormData] = useState({
