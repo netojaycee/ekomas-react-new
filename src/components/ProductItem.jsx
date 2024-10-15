@@ -68,7 +68,7 @@ const ProductItem = ({
        `}
     >
       <div className="flex flex-row gap-4 rounded ">
-        <div className="bg-white flex flex-row justify-center rounded overflow-hidden relative w-full duration-300 transform hover:scale-105 transition ease-linear">
+        <div className="bg-white flex flex-row justify-center rounded overflow-hidden relative w-full duration-300 transform hover:-scale-x-105 transition ease-linear">
           <Link to={productDetailPath}>
             <img
               src={image}

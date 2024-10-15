@@ -21,7 +21,7 @@ export default function Special() {
     <div className="md:px-2 px-0 pt-4">
       <div className=" flex flex-col gap-2 justify-between items-center p-4">
         <div>
-          <h1 className="text-black lg:text-3xl font-semibold font-serif">
+          <h1 className="text-black lg:text-3xl font-semibold font-inter">
           Special Offers
           </h1>
         </div>

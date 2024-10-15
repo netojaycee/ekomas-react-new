@@ -52,7 +52,16 @@ export default function Nav() {
                 <img src={logo} alt="logo" className="mr-[40px]" />
               </Link>
             </div>
-            <div className="hidden md:flex w-full justify-center items-center gap-4">
+
+            <div className="flex items-center justify-between gap-10  ml-[70px]">
+              <Link to="/products" className="duration-300 transform hover:scale-125 transition ease-linear hover:underline">
+                Products{" "}
+              </Link>
+              <Link to="/categories" className="duration-300 transform hover:scale-125 transition ease-linear hover:underline">
+                Categories{" "}
+              </Link>
+            </div>
+            <div className="hidden md:flex w-[70%] justify-center items-center gap-4">
               <Searchbox placeholder="Search for all items here..." />
             </div>
             <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-between  w-[25%] items-center">

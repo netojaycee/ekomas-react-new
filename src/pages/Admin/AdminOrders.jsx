@@ -60,7 +60,7 @@ function EditOrder({ data, fetchOrders }) {
             <div className="flex justify-between items-center">
               <Typography
                 variant="h5"
-                className="font-semibold font-serif"
+                className="font-semibold font-inter"
                 color="blue-gray"
               >
                 Order Management
@@ -138,7 +138,7 @@ function EditOrder({ data, fetchOrders }) {
               {/* Download Receipt Button */}
               <button
                 onClick={downloadReceipt}
-                className="bg-blue-500 text-white font-serif font-semibold py-2 px-5 rounded-md"
+                className="bg-blue-500 text-white font-interfont-semibold py-2 px-5 rounded-md"
               >
                 Download Receipt
               </button>
@@ -147,7 +147,7 @@ function EditOrder({ data, fetchOrders }) {
               {!data.isPaid && (
                 <button
                   onClick={() => confirmPaymentStatus(data._id)}
-                  className="bg-yellow-500 text-white font-serif font-semibold py-2 px-5 rounded-md"
+                  className="bg-yellow-500 text-white font-interfont-semibold py-2 px-5 rounded-md"
                 >
                   Confirm Payment
                 </button>
@@ -157,7 +157,7 @@ function EditOrder({ data, fetchOrders }) {
                 <button
                   disabled={data.orderStatus === "completed"}
                   onClick={() => confirmOrderStatus(data._id)}
-                  className={`text-white font-serif font-semibold py-2 px-5 rounded-md ${
+                  className={`text-white font-interfont-semibold py-2 px-5 rounded-md ${
                     data.orderStatus === "shipped"
                       ? "bg-blue-300"
                       : data.orderStatus === "completed"

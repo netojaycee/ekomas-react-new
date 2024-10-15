@@ -61,7 +61,7 @@ export default function Cart() {
             </div>
             {/* <hr className="w-full" /> */}
             {cart.map((item, index) => (
-              <div className="flex flex-col gap-2">
+              <div key={index} className="flex flex-col gap-2">
                 <hr className="w-full " />
 
                 <div className="flex flex-row justify-between">
@@ -82,7 +82,7 @@ export default function Cart() {
                   </div>
                   {/* add discount  */}
                   <div className="flex font-semibold">
-                    ${parseFloat(item.price).toFixed(2)}
+                    &#8358;{parseFloat(item.price).toFixed(2)}
                   </div>
                   {/* add discount  */}
                 </div>
@@ -135,7 +135,7 @@ export default function Cart() {
               <div className="flex flex-row justify-between p-2 bg-white h-9">
                 <h3 className="font-semibold ">Subtotal</h3>
                 <h3 className="font-semibold ">
-                  $ {parseFloat(total).toFixed(2)}
+                  &#8358; {parseFloat(total).toFixed(2)}
                 </h3>
               </div>
               <div className="flex flex-row p-2 justify-between bg-white h-9">
@@ -146,7 +146,7 @@ export default function Cart() {
                 <h3 className="font-semibold">Total</h3>
                 <h3 className="font-semibold">
                   {/* {cart.reduce((total, item) => total + item.amount * item.price, 0)} */}
-                  $ {parseFloat(total).toFixed(2)}
+                  &#8358; {parseFloat(total).toFixed(2)}
                 </h3>
               </div>
             </div>

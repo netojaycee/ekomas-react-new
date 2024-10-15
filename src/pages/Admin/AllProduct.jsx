@@ -131,7 +131,7 @@ function EditProduct({ item }) {
           {/* <div className="flex justify-between items-center">
             <Typography
               variant="h5"
-              className="font-semibold font-serif"
+              className="font-semibold font-inter"
               color="blue-gray"
             >
               Order Management

@@ -182,7 +182,9 @@ export default function ProductsList() {
     }
 
     if (categoryParam) {
-      filtered = data.filter((product) => product?.categoryId?._id === categoryParam);
+      filtered = data.filter(
+        (product) => product?.categoryId?._id === categoryParam
+      );
       const categoryName = categoriesData.find(
         (category) => category._id === categoryParam
       )?.name;
@@ -353,6 +355,10 @@ export default function ProductsList() {
       indexOfLastProduct
     )}-${filteredProducts.length} of ${filteredProducts.length} results`;
   }
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   return (
     <>
@@ -426,17 +432,17 @@ export default function ProductsList() {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  w-full gap-3">
-              {filteredProducts.map((product) => (
+              {currentProducts.map((product) => (
                 <div key={product._id} className="flex flex-col">
                   <ProductItem key={product._id} {...product} />
                 </div>
               ))}
             </div>
-            {filteredProducts.length > 10 && (
+            {filteredProducts.length > 20 && (
               <Pagination
                 currentPage={currentPage}
                 totalPages={Math.ceil(filteredProducts.length / itemsPerPage)}
-                onPageChange={handlePageChange}
+                onPageChange={(page) => setCurrentPage(page)}
               />
             )}
           </div>

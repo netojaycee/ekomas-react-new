@@ -5,9 +5,8 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        // 'nunito': ['Nunito', 'cursive'],
-        sans: ["Nunito", "sans-serif"],
-        },
+        inter: ['"Inter"', 'sans-serif'],
+      },
       colors: {
         primary: "#FF3E3E",
         secondary: "#9C2626",

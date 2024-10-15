@@ -34,7 +34,7 @@ export default function Wishlist() {
         className="p-4 bg-secondary"
       >
         <div className="mb-6 flex items-center justify-between bg-white p-2">
-          <Typography variant="h5" color="blue-gray" className="font-serif font-semibold ">
+          <Typography variant="h5" color="blue-gray" className="font-inter font-semibold ">
             WishList
           </Typography>
           <IconButton

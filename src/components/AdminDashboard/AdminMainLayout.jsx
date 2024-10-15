@@ -36,7 +36,7 @@ const AdminMainLayout = () => {
     <Layout className="h-screen overflow-hidden w-full"> 
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical py-5">
-          <h2 className="text-yellow-300 text-center text-xl font-bold font-sans">
+          <h2 className="text-yellow-300 text-center text-xl font-bold font-inter">
             ADMIN
           </h2>
           {/* <img src={logo} alt="" className="absolute top-3 left-5" /> */}
