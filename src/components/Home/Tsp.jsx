@@ -69,7 +69,7 @@ const Tsp = () => {
           <Slider {...settings}>
             {topSelling.map((product) => (
               <div key={product._id} className="flex flex-row pr-3">
-                <ProductItem cartButton={true} {...product} />
+                <ProductItem cartButton={true} item={product} />
               </div>
             ))}
           </Slider>

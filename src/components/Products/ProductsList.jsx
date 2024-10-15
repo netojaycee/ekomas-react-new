@@ -434,7 +434,7 @@ export default function ProductsList() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  w-full gap-3">
               {currentProducts.map((product) => (
                 <div key={product._id} className="flex flex-col">
-                  <ProductItem key={product._id} {...product} />
+                  <ProductItem key={product._id} item={product} />
                 </div>
               ))}
             </div>

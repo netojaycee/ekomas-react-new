@@ -86,9 +86,6 @@ export default function ProductDetails() {
   const { data } = useContext(ProductContext);
   const detail = data && data.find((p) => p._id === productId);
 
-  useEffect(() => {
-    console.log("test", detail);
-  }, [detail]);
 
   const { addToCart } = useContext(CartContext);
   const { addToWish, removeFromWish, wish, clearWish } =
@@ -100,7 +97,7 @@ export default function ProductDetails() {
 
   const cartAdd = () => {
     addToCart(detail, productId, quantity);
-    toast.success(`${detail.name} added to cart`);
+    // toast.success(`${detail.name} added to cart`);
   };
 
   const handleQuantityChange = (change) => {
@@ -198,17 +195,22 @@ export default function ProductDetails() {
                     <ChevronLeftIcon className="w-4" />
                   </button>
                   <input
+                  disabled={detail.quantity <= quantity}
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                     className="w-16 text-center border border-gray-300 rounded-md"
                   />
-                  <button
-                    className="py-2 px-3 border border-[#b32b2b]  rounded flex items-center justify-center"
-                    onClick={() => handleQuantityChange(1)}
-                  >
-                    <ChevronRightIcon className="w-4" />
-                  </button>
+                <button
+  disabled={detail.quantity <= quantity}
+  className={`py-2 px-3 border border-[#b32b2b] rounded flex items-center justify-center ${
+    detail.quantity <= quantity ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#b32b2b] text-white hover:bg-[#b32b2b]/80'
+  }`}
+  onClick={() => handleQuantityChange(1)}
+>
+  <ChevronRightIcon className="w-4" />
+</button>
+
                 </div>
 
                 <button

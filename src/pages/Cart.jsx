@@ -76,8 +76,13 @@ export default function Cart() {
                         {item.name}
                       </p>
                       <p className="text-gray-400 font-semibold">
-                        {item.inStock === true ? "in stock" : "out of stock"}
-                      </p>
+  {item.inStock === true ? 
+    (item.quantity < 5 ? 
+      `Low stock: ${item.quantity}` : 
+      "In stock") : 
+    "Out of stock"}
+</p>
+
                     </div>
                   </div>
                   {/* add discount  */}
@@ -115,15 +120,17 @@ export default function Cart() {
                     </button>
                     {item.amount}
                     <button
-                      className="w-5 h-5"
-                      onClick={() => handleQuantityIncrease(item._id)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPlusCircle}
-                        size="lg"
-                        style={{ color: "green" }}
-                      />
-                    </button>
+  disabled={item.quantity <= item.amount}
+  className={`w-5 h-5 ${item.quantity <= item.amount ? 'text-gray-400 cursor-not-allowed' : 'text-green-600'}`}
+  onClick={() => handleQuantityIncrease(item._id)}
+>
+  <FontAwesomeIcon
+    icon={faPlusCircle}
+    size="lg"
+    style={{ color: item.quantity <= item.amount ? 'gray' : 'green' }}
+  />
+</button>
+
                   </div>
                 </div>
               </div>

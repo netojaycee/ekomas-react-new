@@ -12,28 +12,30 @@ import ReactStars from "react-rating-stars-component";
 import { CartContext } from "./Context/CartContext";
 
 const ProductItem = ({
-  _id,
+ item, cartButton
+}) => {
+
+const { _id,
   name,
   price,
   image,
   discount,
-  classx,
   category,
-  cartButton,
-}) => {
+  } = item;
+
   const productDetailPath = `/product/${_id}`;
 
   const { addToWish, removeFromWish, wish, clearWish } =
     useContext(WishContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, itemAmount } = useContext(CartContext);
 
   useEffect(() => {
     Aos.init();
   }, []);
 
   const cartAdd = () => {
-    addToCart(_id, 1);
-    toast.success(`${name} added to cart`);
+    addToCart(item, _id, 1);
+    // toast.success(`${name} added to cart`);
   };
 
   const isWish = wish.some((item) => item._id === _id);

@@ -71,7 +71,7 @@ export const RelatedProducts = ({ category }) => {
             <Slider {...settings}>
               {filteredProducts.map((product) => (
                 // <div key={product.id} className="flex flex-col">
-                  <ProductItem key={product.id} {...product} />
+                  <ProductItem key={product.id} item={product} />
                 // {/* </div> */}
               ))}
             </Slider>

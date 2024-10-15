@@ -68,7 +68,7 @@ export default function Wishlist() {
           <div className="grid grid-cols-1 gap-3">
             {wish.map((item) => (
               <div key={item._id} className="flex flex-col">
-                <ProductItem key={item._id} {...item} />
+                <ProductItem key={item._id} item={item} />
               </div>
             ))}
           </div>

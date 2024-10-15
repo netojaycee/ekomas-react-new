@@ -86,7 +86,7 @@ export default function LimitedStock() {
         <div className="slider-container p-5">
           <Slider {...settings}>
             {displayedProducts.map((product) => (
-              <ProductItem cartButton={false} key={product._id} {...product} />
+              <ProductItem cartButton={false} key={product._id} item={product} />
             ))}{" "}
           </Slider>
         </div>

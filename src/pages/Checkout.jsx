@@ -131,13 +131,13 @@ export default function Checkout() {
     <>
       <section className="flex flex-col gap-2 w-[95%] mx-auto font-inter h-screen">
         <div className="flex flex-col gap-2 items-start">
-          <Link to="/">
+          {/* <Link to="/">
             <img
               src={logo}
               className="object-cover w-full cursor-pointer"
               alt="logo"
             />
-          </Link>
+          </Link> */}
           <Link to="/">
             <div className="flex flex-row gap-2 items-center justify-start mt-5">
               <FontAwesomeIcon icon={faArrowLeft} className="" />
@@ -271,7 +271,7 @@ export default function Checkout() {
               <button
                 // disabled={!proofOfPayment || !deliveryAddress || !phone}
                 onClick={handleConfirmOrder}
-                className="bg-primary my-2 p-2 rounded-md text-white"
+                className="bg-secondary my-2 p-2 rounded-md text-white"
               >
                 Confirm Order
               </button>

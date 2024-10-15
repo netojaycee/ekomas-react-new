@@ -43,8 +43,7 @@ export default function Special() {
           <ProductItem
           cartButton={true} 
             key={product._id}
-            {...product}
-            discount-aos="flip-down"
+            item={product}            discount-aos="flip-down"
           />
         ))}
       </div>
