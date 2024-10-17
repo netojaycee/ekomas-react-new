@@ -25,8 +25,8 @@ const Category = () => {
 
   return (
     <div className="mx-2 overflow-hidden rounded-md mb-5 p-5">
-      <div className="flex items-center justify-start my-6 rounded-lg w-full lg:w-[85%] mx-auto">
-        <h1 className="text-black text-2xl font-bold font-inter mb-3 text-center leading-tight">
+      <div className="flex items-center justify-center my-6 rounded-lg w-full lg:w-[85%] mx-auto">
+        <h1 className="text-black text-2xl font-bold font-inter mb-3 text-left leading-tight">
           Category
         </h1>
       </div>

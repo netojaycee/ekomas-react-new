@@ -14,6 +14,7 @@ import { useLoading } from "../../components/Context/LoadingContext";
 import { Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+import axiosInstance from "../../config/axiosInstance";
 
 function EditCategory({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -90,7 +91,7 @@ function EditCategory({ item }) {
   return (
     <>
       <FontAwesomeIcon
-        onClick={() => handleOpen}
+        onClick={handleOpen}
         icon={faPencilAlt}
         // style={{ color: "red"}}
         className="cursor-pointer"
