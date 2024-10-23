@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProductItem from "../ProductItem";
 import Pagination from "../Pagination";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import { ProductContext } from "../Context/ProductContext";
 import { CategoryContext } from "../Context/CategoryContext";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
@@ -11,17 +11,25 @@ import {
   Button,
   Drawer,
 } from "@material-tailwind/react";
+import { BiLoader } from "react-icons/bi";
 
-function Sidebar({
+export function Sidebar({
   open,
   closeDrawer,
   categoriesData,
-  handleInStock,
-  handlePriceRangeChange,
+  // handleInStock,
+  // handlePriceRangeChange,
 }) {
+
+  const searchParams = new URLSearchParams(location.search);
+
+  
+  const isActive = searchParams.get("category");
+  
+  
   return (
     <React.Fragment>
-      <Drawer open={open} onClose={closeDrawer} className="p-4">
+      <Drawer open={open} onClose={closeDrawer} className="">
         <div className="mb-6 flex items-center justify-end">
           {/* <Typography variant="h5" color="blue-gray">
             l
@@ -43,18 +51,28 @@ function Sidebar({
             </svg>
           </IconButton>
         </div>
-        <div className="bg-white p-2 rounded-md shadow-md mb-3">
-          <h2 className="font-semibold text-gray-700 text-[20px] mb-2">
+        <div className="  rounded-md  mb-3">
+          <h2 className="font-semibold text-gray-700 text-[20px] mb-2 p-5">
             Shop by categories
           </h2>
-          <div className="p-2 flex flex-col gap-2">
+          <div className=" flex flex-col gap-3 h-[90vh] overflow-y-auto">
             {categoriesData.map((category) => (
               <Link
+                onClick={closeDrawer}
                 key={category._id}
                 to={`/products?category=${category._id}`}
-                className="list-none text-gray-700 mb-2 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear"
+                className={` ${isActive === category._id ? "bg-[#ffe1e1]" : ""} ${isActive !== category._id && "hover:bg-badge"} } p-2 list-none text-gray-700 cursor-pointer duration-300 transform hover:scale-95 transition ease-linear`}
               >
-                {category.name}
+                <div className="flex items-center px-6">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-[20px] h-[20px] mr-2"
+                  />
+                  <span className="font-semibold line-clamp-1">
+                    {category.name}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -151,6 +169,7 @@ export default function ProductsList() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [pageTitle, setPageTitle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const [selectedFilters, setSelectedFilters] = useState({});
 
@@ -169,6 +188,7 @@ export default function ProductsList() {
   const isSearch = searchParams.get("search");
 
   useEffect(() => {
+    setLoading(true);
     let filtered = data; // Start with all products
 
     if (isTopSelling) {
@@ -213,7 +233,7 @@ export default function ProductsList() {
         );
       });
     }
-
+    setLoading(false);
     // Set the filtered products based on all applied filters
     setFilteredProducts(filtered);
   }, [
@@ -236,6 +256,7 @@ export default function ProductsList() {
   // Improved handleInStock function to consider selected category:
   const handleInStock = (e) => {
     const { name, value } = e.target;
+    setLoading(true);
     setSelectedFilters({ ...selectedFilters, stock: value }); // Update stock filter
 
     const filtered = data.filter((product) => {
@@ -252,13 +273,14 @@ export default function ProductsList() {
     });
 
     setFilteredProducts(filtered);
+    setLoading(false);
   };
 
   // category filter start
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+    setLoading(true);
     if (name === "category") {
       setSelectedCategory(value);
       setSelectedFilters({ ...selectedFilters, [name]: value });
@@ -271,6 +293,7 @@ export default function ProductsList() {
       });
       setFilteredProducts(filtered);
     }
+    setLoading(false);
   };
 
   // category filter end
@@ -278,6 +301,8 @@ export default function ProductsList() {
   // price filter start
   const handlePriceRangeChange = (e) => {
     const { name, value } = e.target;
+    setLoading(true);
+
     setSelectedFilters({ ...selectedFilters, [name]: value });
 
     const filtered = data.filter((product) => {
@@ -291,6 +316,7 @@ export default function ProductsList() {
       );
     });
     setFilteredProducts(filtered);
+    setLoading(false);
   };
 
   // price filter end
@@ -314,6 +340,8 @@ export default function ProductsList() {
   };
 
   const sortProducts = (option) => {
+    setLoading(true);
+
     let sortedProducts = [...filteredProducts]; // Use filteredProducts here
 
     switch (option) {
@@ -340,6 +368,7 @@ export default function ProductsList() {
 
     // Update the state with the sorted products
     setFilteredProducts(sortedProducts); // Update filteredProducts, not products
+    setLoading(false);
   };
   let paginationRange;
   if (filteredProducts.length > 20) {
@@ -431,13 +460,21 @@ export default function ProductsList() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  w-full gap-3">
-              {currentProducts.map((product) => (
-                <div key={product._id} className="flex flex-col">
-                  <ProductItem key={product._id} item={product} />
+            {loading ? (
+              <div className="flex justify-center items-center h-screen w-full">
+                <BiLoader className="animate-spin w-8 h-8" />{" "}
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  w-full gap-3">
+                  {currentProducts.map((product) => (
+                    <div key={product._id} className="flex flex-col">
+                      <ProductItem key={product._id} item={product} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
             {filteredProducts.length > 20 && (
               <Pagination
                 currentPage={currentPage}
@@ -453,8 +490,8 @@ export default function ProductsList() {
         closeDrawer={closeDrawer}
         open={open}
         categoriesData={categoriesData}
-        handleInStock={handleInStock}
-        handlePriceRangeChange={handlePriceRangeChange}
+        // handleInStock={handleInStock}
+        // handlePriceRangeChange={handlePriceRangeChange}
       />
     </>
   );

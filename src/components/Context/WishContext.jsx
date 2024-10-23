@@ -36,7 +36,7 @@ const WishProvider = ({ children }) => {
     };
 
     fetchWishItems();
-  }, [auth?.user?.name]);
+  }, [auth?.user?.name, setIsLoading]);
 
   useEffect(() => {
     localStorage.setItem("wishEkomas", JSON.stringify(wish)); // Save cart data to local storage

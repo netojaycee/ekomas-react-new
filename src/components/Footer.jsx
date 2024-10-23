@@ -312,9 +312,19 @@
 
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-
+import { BiLogoFacebookCircle, BiLogoInstagram } from "react-icons/bi";
+import { BsTwitterX } from "react-icons/bs";
+import { Sidebar } from "./Products/ProductsList";
+import { useContext, useState } from "react";
+import { CategoryContext } from "./Context/CategoryContext";
 
 export default function Footer() {
+  const { categoriesData } = useContext(CategoryContext);
+
+  const [open, setOpen] = useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
   return (
     <footer className="bg-secondary text-white p-4">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
@@ -342,12 +352,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/categories"
+                <p
+                  onClick={openDrawer}
                   className="text-white hover:text-gray-300"
                 >
                   Categories
-                </Link>
+                </p>
               </li>
               <li>
                 <Link to="/contact" className="text-white hover:text-gray-300">
@@ -401,26 +411,32 @@ export default function Footer() {
           <ul className="flex space-x-4">
             <li>
               <a
-                href="https://facebook.com"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white hover:text-gray-300"
               >
-                Facebook
+                <BiLogoFacebookCircle className="w-5 h-5" />
               </a>
             </li>
             <li>
               <a
-                href="https://twitter.com"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white hover:text-gray-300"
               >
-                Twitter
+                <BsTwitterX className="w-5 h-5" />
               </a>
             </li>
             <li>
               <a
-                href="https://instagram.com"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white hover:text-gray-300"
               >
-                Instagram
+                <BiLogoInstagram className="w-5 h-5" />{" "}
               </a>
             </li>
           </ul>
@@ -429,12 +445,16 @@ export default function Footer() {
 
       {/* Logo */}
       <div className="text-center mt-4">
-        <img
-          src={logo}
-          alt="Yoamart Logo"
-          className="w-24 mx-auto"
-        />
+        <img src={logo} alt="Yoamart Logo" className="w-24 mx-auto" />
       </div>
+      <Sidebar
+        openDrawer={openDrawer}
+        closeDrawer={closeDrawer}
+        open={open}
+        categoriesData={categoriesData}
+        // handleInStock={handleInStock}
+        // handlePriceRangeChange={handlePriceRangeChange}
+      />
     </footer>
   );
 }

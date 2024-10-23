@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   IconButton,
@@ -18,6 +18,8 @@ import Searchbox from "./seachbox";
 import AuthContext from "./Context/AuthContext";
 import { BiHeart } from "react-icons/bi";
 import { WishContext } from "./Context/WishContext";
+import { Sidebar } from "./Products/ProductsList";
+import { CategoryContext } from "./Context/CategoryContext";
 
 export default function Nav() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -34,44 +36,56 @@ export default function Nav() {
   }, []);
   const { itemAmount } = useContext(CartContext);
   const { auth } = useContext(AuthContext);
+  const { categoriesData } = useContext(CategoryContext);
+
   const { wish } = useContext(WishContext);
+  const [open, setOpen] = useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
 
   return (
     <>
       <div className="bg-white shadow-md sticky top-0 z-40 w-full py-3 ">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center justify-between px-4 py-3 w-[90%] mx-auto">
-            <div className="flex items-center gap-6">
+            {/* <div className="flex items-center gap-6 w-full"> */}
               {/* <Bars3Icon
                 onClick={openDrawer}
                 className="h-6 w-6 cursor-pointer lg:hidden "
                 strokeWidth={2}
               /> */}
 
-              <Link to="/" className="w-[50%] md:w-[70%] object-cover">
-                <img src={logo} alt="logo" className="mr-[40px]" />
+              <Link to="/" className="w-full">
+                <img src={logo} alt="logo" className="w-[50%] md:w-[40%] object-cover" />
               </Link>
-            </div>
+            {/* </div> */}
 
-            <div className="flex items-center justify-between gap-10  ml-[70px]">
-              <Link to="/products" className="duration-300 transform hover:scale-125 transition ease-linear hover:underline">
+            <div className="hidden md:flex items-center justify-between gap-10">
+              <Link
+                to="/products"
+                className="duration-300 transform hover:scale-125 transition ease-linear hover:underline"
+              >
                 Products{" "}
               </Link>
-              <Link to="/categories" className="duration-300 transform hover:scale-125 transition ease-linear hover:underline">
+              <span
+                onClick={openDrawer}
+                className="duration-300 transform hover:scale-125 transition ease-linear hover:underline mr-3"
+              >
                 Categories{" "}
-              </Link>
+              </span>
             </div>
-            <div className="hidden md:flex w-[70%] justify-center items-center gap-4">
+            <div className="hidden md:flex w-full justify-center items-center gap-4">
               <Searchbox placeholder="Search for all items here..." />
             </div>
             <div className="relative md:flex gap-4 right-1 flex justify-start px-2 md:justify-between  w-[25%] items-center">
               <Link to="/user/saved-items">
-                {/* <div className="relative">
+                <div className="relative">
                   <BiHeart className="w-6 h-6 duration-300 transform hover:scale-125 transition ease-linear" />
                   <span className="bg-secondary text-white text-[10px] rounded absolute top-[-3px] right-[-3px] px-[4px] py-0">
                     {wish && wish.length > 0 ? wish.length : 0}
                   </span>
-                </div> */}
+                </div>
               </Link>
               <Link to="/cart">
                 <div className="relative">
@@ -91,6 +105,15 @@ export default function Nav() {
           </div>
         </div>
       </div>
+
+      <Sidebar
+        openDrawer={openDrawer}
+        closeDrawer={closeDrawer}
+        open={open}
+        categoriesData={categoriesData}
+        // handleInStock={handleInStock}
+        // handlePriceRangeChange={handlePriceRangeChange}
+      />
     </>
   );
 }

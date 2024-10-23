@@ -31,13 +31,13 @@ export default function Hero() {
               </video>
             </div>
             {/* Second slide with image */}
-            <div>
+            {/* <div>
               <img
                 src={hero2}
                 className="object-cover w-full h-full"
                 alt="Slide 2"
               />
-            </div>
+            </div> */}
             {/* Third slide with image (optional) */}
             {/* <div>
               <img src={hero2} className="object-cover" alt="Slide 3" />

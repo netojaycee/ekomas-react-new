@@ -22,6 +22,7 @@ function EditCategory({ item }) {
 
   const [formData, setFormData] = useState({
     name: item.name,
+    description: item?.description,
     image: item.image,
     newImage: null, // Track the new image
   });
@@ -53,6 +54,7 @@ function EditCategory({ item }) {
       // Send data to backend endpoint
       const response = await axiosInstance.patch(`/category/${item._id}`, {
         name: formData.name,
+        description: formData.description,
         image: imageUrl,
       });
 
@@ -121,6 +123,19 @@ function EditCategory({ item }) {
               onChange={handleChange}
               name="name"
             />
+
+            <div className="flex flex-col flex-1">
+              <label htmlFor="name">Category Description</label>
+              <textarea
+                onChange={handleChange}
+                value={formData.description}
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Enter category description"
+                className="p-2 border border-gray-400 rounded-md"
+              />
+            </div>
 
             <div className="flex flex-col">
               <label htmlFor="image">Category Image</label>

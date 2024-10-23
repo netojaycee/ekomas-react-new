@@ -86,7 +86,6 @@ export default function ProductDetails() {
   const { data } = useContext(ProductContext);
   const detail = data && data.find((p) => p._id === productId);
 
-
   const { addToCart } = useContext(CartContext);
   const { addToWish, removeFromWish, wish, clearWish } =
     useContext(WishContext);
@@ -138,11 +137,14 @@ export default function ProductDetails() {
 
   return (
     <>
-      <div className="bg-white rounded-md shadow-md p-2 mt-3 w-[90%] mx-auto lg:w-[85%]">
-        <ArrowLeftIcon onClick={handleBack} className="w-5 h-5 cursor-pointer" />
+      <div className="bg-white rounded-md shadow-md p-2 mt-3  w-[90%] mx-auto lg:w-[85%]">
+        <ArrowLeftIcon
+          onClick={handleBack}
+          className="w-5 h-5 cursor-pointer"
+        />
       </div>
       {detail && (
-        <div className="flex flex-col gap-6 bg-gray-200">
+        <div className="flex flex-col gap-6 bg-gray-200 mb-5">
           <div className="bg-white shadow-md p-5 flex flex-col lg:flex-row  gap-4 w-[90%] lg:w-[85%] mx-auto mt-5 ">
             <div className="flex flex-row p-2 pr-0 relative  border-r-2  rounded-md md:w-1/2 w-full justify-center items-center min-h-[250px]">
               {/* <div className="flex flex-row gap-3 relative "> */}
@@ -195,22 +197,23 @@ export default function ProductDetails() {
                     <ChevronLeftIcon className="w-4" />
                   </button>
                   <input
-                  disabled={detail.quantity <= quantity}
+                    disabled={detail.quantity <= quantity}
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                     className="w-16 text-center border border-gray-300 rounded-md"
                   />
-                <button
-  disabled={detail.quantity <= quantity}
-  className={`py-2 px-3 border border-[#b32b2b] rounded flex items-center justify-center ${
-    detail.quantity <= quantity ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#b32b2b] text-white hover:bg-[#b32b2b]/80'
-  }`}
-  onClick={() => handleQuantityChange(1)}
->
-  <ChevronRightIcon className="w-4" />
-</button>
-
+                  <button
+                    disabled={detail.quantity <= quantity}
+                    className={`py-2 px-3 border border-[#b32b2b] rounded flex items-center justify-center ${
+                      detail.quantity <= quantity
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-[#b32b2b] text-white hover:bg-[#b32b2b]/80"
+                    }`}
+                    onClick={() => handleQuantityChange(1)}
+                  >
+                    <ChevronRightIcon className="w-4" />
+                  </button>
                 </div>
 
                 <button

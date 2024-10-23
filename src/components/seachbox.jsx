@@ -15,7 +15,7 @@ const Searchbox = ({ placeholder }) => {
   };
 
   return (
-    <div className="w-full lg:w-[60%] flex gap-3 items-center relative h-6 ">
+    <div className="w-full lg:w-[90%] flex gap-3 items-center relative h-6 ">
       <input
         type="text"
         className="w-full outline-none px-4 text-black h-full border border-gray-400 py-4 rounded-lg font-medium text-sm"

@@ -8,6 +8,7 @@ import axiosInstance from "../../config/axiosInstance";
 export default function AddCategory() {
   const [formData, setFormData] = useState({
     name: "",
+    description: "",
     image: null,
   });
   const { setIsLoading } = useLoading();
@@ -57,6 +58,7 @@ export default function AddCategory() {
       // Send data to backend endpoint
       const response = await axiosInstance.post("/category/create-category", {
         name: formData.name,
+        description: formData.description,
         image: imageUrl, // Send image URL to backend
       });
 
@@ -100,7 +102,21 @@ export default function AddCategory() {
                   className="p-2 border border-gray-400 rounded-md"
                 />
               </div>
+
+             
             </div>
+
+            <div className="flex flex-col flex-1">
+                <label htmlFor="name">Category Description</label>
+                <textarea
+                  onChange={handleChange}
+                  type="text"
+                  name="description"
+                  id="description"
+                  placeholder="Enter category description"
+                  className="p-2 border border-gray-400 rounded-md"
+                />
+              </div>
 
             <div className="flex flex-col">
               <label htmlFor="image">Category Image</label>
