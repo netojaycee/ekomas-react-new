@@ -2,6 +2,7 @@
 import Hero from "../components/Home/Hero";
 import Category from "../components/Home/Category";
 import about_home from "../assets/images/about-home.jpg";
+import About from "../components/Home/About";
 
 // import Products from "../components/Home/Products";
 // import Special from "../components/Home/Special-offers";
@@ -130,7 +131,7 @@ export default function Home() {
         <Explore /> */}
       </div>
       {/* <Reviews /> */}
-      {/* <About /> */}
+      <About />
       {/* <Join /> */}
       {/* </div> */}
       {/* <PaymentComplete

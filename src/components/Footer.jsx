@@ -326,97 +326,226 @@ export default function Footer() {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   return (
-    <footer className="bg-secondary text-white p-4">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between">
-        {/* Contact Info Column */}
-        <div className="contact-info mb-4 md:mb-0 w-full md:w-1/3 mr-0 md:mr-10">
-          <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
-          <ul className="list-none">
-            <li className="text-lg">+234 908 456 4949</li>
-            <li className="text-lg">
-              Femi Odutayo, Eyita Ojokoro
-              <br />
-              North, Ikorodu 104231, Lagos
-            </li>
-          </ul>
-        </div>
+    // <footer className="bg-white text-secondary p-4">
+    //   <div className="container mx-auto flex flex-col md:flex-row justify-between">
+    //     {/* Contact Info Column */}
+    //     <div className="contact-info mb-4 md:mb-0 w-full md:w-1/3 mr-0 md:mr-10">
+    //       <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
+    //       <ul className="list-none">
+    //         <li className="text-lg">+234 908 456 4949</li>
+    //         <li className="text-lg">
+    //           Femi Odutayo, Eyita Ojokoro
+    //           <br />
+    //           North, Ikorodu 104231, Lagos
+    //         </li>
+    //       </ul>
+    //     </div>
 
-        {/* Links Column (2 Subcolumns) */}
-        <div className="links mb-4 md:mb-0 w-full md:w-2/3 grid grid-cols-2 gap-4">
-          <div>
-            <h4 className="text-lg font-semibold mb-2">Links</h4>
+    //     {/* Links Column (2 Subcolumns) */}
+    //     <div className="links mb-4 md:mb-0 w-full md:w-2/3 grid grid-cols-2 gap-4">
+    //       <div>
+    //         <h4 className="text-lg font-semibold mb-2">Links</h4>
+    //         <ul className="list-none space-y-1">
+    //           <li>
+    //             <Link to="/products" className="text-white hover:text-gray-300">
+    //               Products
+    //             </Link>
+    //           </li>
+    //           <li>
+    //             <p
+    //               onClick={openDrawer}
+    //               className="text-white hover:text-gray-300"
+    //             >
+    //               Categories
+    //             </p>
+    //           </li>
+    //           <li>
+    //             <Link to="/contact" className="text-white hover:text-gray-300">
+    //               Contact
+    //             </Link>
+    //           </li>
+    //         </ul>
+    //       </div>
+    //       <div>
+    //         <h4 className="text-lg font-semibold h-6 mb-2"></h4>
+    //         <ul className="list-none space-y-1">
+    //           <li>
+    //             <Link
+    //               to="/privacy-policy"
+    //               className="text-white hover:text-gray-300"
+    //             >
+    //               Privacy Policy
+    //             </Link>
+    //           </li>
+    //           <li>
+    //             <Link
+    //               to="/terms-conditions"
+    //               className="text-white hover:text-gray-300"
+    //             >
+    //               Terms & Condition
+    //             </Link>
+    //           </li>
+    //           <li>
+    //             <Link
+    //               to="/refund-policy"
+    //               className="text-white hover:text-gray-300"
+    //             >
+    //               Refund Policy
+    //             </Link>
+    //           </li>
+    //           <li>
+    //             <Link
+    //               to="/shipping-policy"
+    //               className="text-white hover:text-gray-300"
+    //             >
+    //               Shipping Policy
+    //             </Link>
+    //           </li>
+    //         </ul>
+    //       </div>
+    //     </div>
+
+    //     {/* Social Media Column */}
+    //     <div className="social-media mb-4 md:mb-0 w-full md:w-1/3">
+    //       <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
+    //       <ul className="flex space-x-4">
+    //         <li>
+    //           <a
+    //             href="#"
+    //             target="_blank"
+    //             rel="noopener noreferrer"
+    //             className="text-white hover:text-gray-300"
+    //           >
+    //             <BiLogoFacebookCircle className="w-5 h-5" />
+    //           </a>
+    //         </li>
+    //         <li>
+    //           <a
+    //             href="#"
+    //             target="_blank"
+    //             rel="noopener noreferrer"
+    //             className="text-white hover:text-gray-300"
+    //           >
+    //             <BsTwitterX className="w-5 h-5" />
+    //           </a>
+    //         </li>
+    //         <li>
+    //           <a
+    //             href="#"
+    //             target="_blank"
+    //             rel="noopener noreferrer"
+    //             className="text-white hover:text-gray-300"
+    //           >
+    //             <BiLogoInstagram className="w-5 h-5" />{" "}
+    //           </a>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   </div>
+
+    //   {/* Logo */}
+    //   <div className="text-center mt-4">
+    //     <img src={logo} alt="Yoamart Logo" className="w-24 mx-auto" />
+    //   </div>
+    //   <Sidebar
+    //     openDrawer={openDrawer}
+    //     closeDrawer={closeDrawer}
+    //     open={open}
+    //     categoriesData={categoriesData}
+    //     // handleInStock={handleInStock}
+    //     // handlePriceRangeChange={handlePriceRangeChange}
+    //   />
+    // </footer>
+
+    <footer className="text-secondary">
+      {/* Top Footer Section */}
+      <div className="bg-white py-4">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between">
+          {/* Links Section */}
+          <div className="w-full md:w-1/4 mb-4 md:mb-0">
+            <h4 className="text-lg font-semibold mb-2">QUICK LINKS</h4>
             <ul className="list-none space-y-1">
               <li>
-                <Link to="/products" className="text-white hover:text-gray-300">
+                <Link to="/products" className="hover:text-gray-500">
                   Products
                 </Link>
               </li>
               <li>
-                <p
+                <Link
+                  to="/categories"
                   onClick={openDrawer}
-                  className="text-white hover:text-gray-300"
+                  className="hover:text-gray-500"
                 >
                   Categories
-                </p>
+                </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-white hover:text-gray-300">
+                <Link to="/contact" className="hover:text-gray-500">
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
-          <div>
-            <h4 className="text-lg font-semibold h-6 mb-2"></h4>
+          <div className="w-full md:w-1/4 mb-4 md:mb-0">
+            <h4 className="text-lg font-semibold mb-2">EXPLORE ECO-MAT</h4>
             <ul className="list-none space-y-1">
               <li>
-                <Link
-                  to="/privacy-policy"
-                  className="text-white hover:text-gray-300"
-                >
+                <Link to="/privacy-policy" className="hover:text-gray-500">
                   Privacy Policy
                 </Link>
               </li>
+              
               <li>
-                <Link
-                  to="/terms-conditions"
-                  className="text-white hover:text-gray-300"
-                >
-                  Terms & Condition
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/refund-policy"
-                  className="text-white hover:text-gray-300"
-                >
-                  Refund Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/shipping-policy"
-                  className="text-white hover:text-gray-300"
-                >
+                <Link to="/shipping-policy" className="hover:text-gray-500">
                   Shipping Policy
                 </Link>
               </li>
             </ul>
           </div>
+          <div className="w-full md:w-1/4 mb-4 md:mb-0">
+            <h4 className="text-lg font-semibold mb-2">TERMS & CONDITIONS</h4>
+            <ul className="list-none space-y-1">
+            <li>
+                <Link to="/terms-conditions" className="hover:text-gray-500">
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link to="/refund-policy" className="hover:text-gray-500">
+                  Refund Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full md:w-1/4">
+            <h4 className="text-lg font-semibold mb-2">CONTACT US</h4>
+            <ul className="list-none space-y-1">
+              <li className="text-lg">+234 908 456 4949</li>
+              <li className="text-lg">
+                Femi Odutayo, Eyita Ojokoro, Ikorodu 104231, Lagos
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
 
-        {/* Social Media Column */}
-        <div className="social-media mb-4 md:mb-0 w-full md:w-1/3">
-          <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
+      {/* Bottom Footer Section */}
+      <div className="bg-primary py-4">
+        <div className="container mx-auto flex justify-between items-center">
+          {/* Logo */}
+          <div className="w-24">
+            <img src={logo} alt="Yoamart Logo" className="w-full" />
+          </div>
+          {/* Social Media Links */}
           <ul className="flex space-x-4">
             <li>
               <a
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-gray-300"
+                className="text-white hover:text-gray-300 border border-secondary rounded-full p-2"
               >
-                <BiLogoFacebookCircle className="w-5 h-5" />
+                <BiLogoFacebookCircle className="w-6 h-6" />
               </a>
             </li>
             <li>
@@ -424,9 +553,9 @@ export default function Footer() {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-gray-300"
+                className="text-white hover:text-gray-300 border border-secondary rounded-full p-2"
               >
-                <BsTwitterX className="w-5 h-5" />
+                <BsTwitterX className="w-6 h-6" />
               </a>
             </li>
             <li>
@@ -434,19 +563,16 @@ export default function Footer() {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-gray-300"
+                className="text-white hover:text-gray-300 border border-secondary rounded-full p-2"
               >
-                <BiLogoInstagram className="w-5 h-5" />{" "}
+                <BiLogoInstagram className="w-6 h-6" />
               </a>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Logo */}
-      <div className="text-center mt-4">
-        <img src={logo} alt="Yoamart Logo" className="w-24 mx-auto" />
-      </div>
+      {/* Sidebar Component */}
       <Sidebar
         openDrawer={openDrawer}
         closeDrawer={closeDrawer}

@@ -46,7 +46,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className="bg-white shadow-md sticky top-0 z-40 w-full py-3 ">
+      <div className="bg-white shadow-md fixed top-0 z-40 w-full py-3 ">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center justify-between px-4 py-3 w-[90%] mx-auto">
             {/* <div className="flex items-center gap-6 w-full"> */}
@@ -57,14 +57,14 @@ export default function Nav() {
               /> */}
 
               <Link to="/" className="w-full">
-                <img src={logo} alt="logo" className="w-[50%] md:w-[40%] object-cover" />
+                <img src={logo} alt="logo" className="w-[50%] md:w-[30%] object-cover" />
               </Link>
             {/* </div> */}
 
-            <div className="hidden md:flex items-center justify-between gap-10">
+            <div className="flex items-center justify-between gap-10">
               <Link
                 to="/products"
-                className="duration-300 transform hover:scale-125 transition ease-linear hover:underline"
+                className="hidden md:block duration-300 transform hover:scale-125 transition ease-linear hover:underline"
               >
                 Products{" "}
               </Link>

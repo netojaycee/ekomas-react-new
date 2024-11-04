@@ -43,7 +43,7 @@ const Category = () => {
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 justify-categorys-center w-full lg:w-[85%] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-categorys-center w-full lg:w-[85%] mx-auto">
         {categoriesData.map((category, index) => (
           // <Link
           //   to={`/products?category=${category._id}`}
@@ -69,18 +69,18 @@ const Category = () => {
 
           <div
             key={index}
-            className="transition-transform transform hover:scale-105 hover:shadow-md hover:shadow-variant rounded-md flex flex-col shadow-md shadow-gray-400 bg-white pb-2 h-[350px]"
+            className="transition-transform transform hover:scale-105 hover:shadow-md hover:shadow-variant rounded-md flex flex-col hover:bg-white pb-2 w-[333px]"
           >
-            <div className="w-full h-48 overflow-hidden rounded-t-md" data-aos="fade-left" data-aos-delay="300">
+            <div className="w-[333px] h-[300px] overflow-hidden rounded-t-md" data-aos="fade-left" data-aos-delay="300">
               <img
                 src={category.image}
                 alt={category.name}
-                className="w-full h-full object-cover p-0"
+                className="w-full h-full  p-0 rounded-2xl shadow-md"
               />
             </div>
             <div className="flex flex-col mt-2 gap-1 px-3">
               {/* <div className="text-sm">{category.date}</div> */}
-              <h2 className="text-[#ff3e3e] font-semibold line-clamp-1">
+              <h2 className="text-[#ff3e3e] font-bold text-[20px] line-clamp-1 uppercase">
                 {/* {truncateTitle(category.title)} */}
                 {category.name}
               </h2>
