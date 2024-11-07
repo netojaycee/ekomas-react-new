@@ -93,24 +93,22 @@ export default function Home() {
     <>
       <Hero />
       <div className="w-full">
-        <div className="flex items-center p-6 justify-center my-6 rounded-lg">
+        <div className="flex items-center p-6 justify-center mt-6 rounded-lg">
           <h1 className="text-black text-4xl font-bold font-inter mb-3 text-center leading-tight">
             Shopping Made Simple!
           </h1>
         </div>
 
         {/* About Us Section */}
-        <div className="flex flex-col lg:flex-row items-center justify-between my-10 p-6 space-y-6 lg:space-y-0 lg:space-x-8 w-full lg:w-[85%] mx-auto">
-          {/* Image Section */}
+        {/* <div className="flex flex-col lg:flex-row items-center justify-between my-10 p-6 space-y-6 lg:space-y-0 lg:space-x-8 w-full lg:w-[85%] mx-auto">
           <div className="w-full lg:w-1/2 flex justify-center">
             <img
-              src={about_home} // Replace with actual image path
+              src={about_home} 
               alt="Person pushing a cart"
               className="rounded-full shadow-lg w-3/4 lg:w-full bg-gray-600"
             />
           </div>
 
-          {/* Text Section */}
           <div className="w-full lg:w-1/2">
             <h2 className="text-2xl font-semibold text-black mb-4">About Us</h2>
             <p className="text-gray-700 leading-relaxed text-[16px] font-inter">
@@ -120,7 +118,7 @@ export default function Home() {
               with us for the best deals and a seamless experience!
             </p>
           </div>
-        </div>
+        </div> */}
 
         <Category />
         {/* <LimitedStock />

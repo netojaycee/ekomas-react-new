@@ -533,7 +533,7 @@ export default function Footer() {
       <div className="bg-primary py-4">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo */}
-          <div className="w-24">
+          <div className="w-[130px]">
             <img src={logo} alt="Yoamart Logo" className="w-full" />
           </div>
           {/* Social Media Links */}

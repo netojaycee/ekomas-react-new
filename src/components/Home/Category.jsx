@@ -43,7 +43,7 @@ const Category = () => {
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-categorys-center w-full lg:w-[85%] mx-auto">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 justify-center w-full lg:w-[85%] mx-auto">
         {categoriesData.map((category, index) => (
           // <Link
           //   to={`/products?category=${category._id}`}
@@ -69,9 +69,9 @@ const Category = () => {
 
           <div
             key={index}
-            className="transition-transform transform hover:scale-105 hover:shadow-md hover:shadow-variant rounded-md flex flex-col hover:bg-white pb-2 w-[333px]"
+            className="transition-transform transform hover:scale-105 hover:shadow-md hover:shadow-variant rounded-md flex flex-col hover:bg-white pb-2 md:w-[333px]"
           >
-            <div className="w-[333px] h-[300px] overflow-hidden rounded-t-md" data-aos="fade-left" data-aos-delay="300">
+            <div className="md:w-[333px] h-[300px] overflow-hidden rounded-t-md" data-aos="fade-left" data-aos-delay="300">
               <img
                 src={category.image}
                 alt={category.name}
