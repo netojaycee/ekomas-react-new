@@ -204,7 +204,7 @@ export default function AddProduct() {
                   className="p-2 border border-gray-400 rounded-md"
                 />
               </div>
-              <div className="flex gap-3 md:flex-row flex-col items-center">
+              {/* <div className="flex gap-3 md:flex-row flex-col items-center">
                 <div className="flex flex-col flex-1 w-1/2">
                   <label htmlFor="quantity">Discount</label>
                   <select
@@ -224,7 +224,6 @@ export default function AddProduct() {
                     <option value="50">50%</option>
                     <option value="60">60%</option>
                     <option value="70">70%</option>
-                    {/* Add more options as needed */}
                   </select>
                 </div>
                 <div className="flex flex-col w-1/2">
@@ -243,7 +242,7 @@ export default function AddProduct() {
                     <option value="no">No</option>
                   </select>
                 </div>
-              </div>
+              </div> */}
               {/* submit button */}
               <div className="flex flex-col ">
                 <button

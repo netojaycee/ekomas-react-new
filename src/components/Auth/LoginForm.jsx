@@ -63,7 +63,9 @@ const LoginForm = () => {
         const redirectPath =
           location.state?.from?.pathname ||
           (role === "admin" ? "/admin/dashboard" : "/user/dashboard");
-        navigate(redirectPath);
+        if (role === "admin") {
+          navigate(redirectPath);
+        }
       }
     } catch (error) {
       setErrors(error.response.data.error || error.response.data.message);

@@ -27,7 +27,7 @@ export default function Login() {
         <LoginForm />
 
         <p className="my-5 text-center">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don&apos;t have an account? <Link to="/register">Register here</Link>
         </p>
       </div>
     </div>

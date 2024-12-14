@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogBody,
   Spinner,
+  Switch,
   Typography,
 } from "@material-tailwind/react";
 import { ProductContext } from "../../components/Context/ProductContext";
@@ -19,6 +20,7 @@ import { useLoading } from "../../components/Context/LoadingContext";
 import { toast } from "react-toastify";
 import { Table } from "antd";
 import axiosInstance from "../../config/axiosInstance";
+import { apiUrl } from "../../config/env";
 
 function EditProduct({ item }) {
   const [open, setOpen] = React.useState(false);
@@ -253,7 +255,7 @@ function EditProduct({ item }) {
                     className="p-2 border border-gray-400 rounded-md"
                   />
                 </div>
-                <div className="flex gap-3 md:flex-row flex-col items-center">
+                {/* <div className="flex gap-3 md:flex-row flex-col items-center">
                   <div className="flex flex-col flex-1 w-1/2">
                     <label htmlFor="quantity">Discount</label>
                     <select
@@ -273,7 +275,6 @@ function EditProduct({ item }) {
                       <option value="50">50%</option>
                       <option value="60">60%</option>
                       <option value="70">70%</option>
-                      {/* Add more options as needed */}
                     </select>
                   </div>
                   <div className="flex flex-col w-1/2">
@@ -292,7 +293,7 @@ function EditProduct({ item }) {
                       <option value="no">No</option>
                     </select>
                   </div>
-                </div>
+                </div> */}
 
                 {/* submit button */}
                 <div className="flex flex-col i">
@@ -313,11 +314,62 @@ function EditProduct({ item }) {
 }
 
 export default function AllProduct() {
-  const { data, handleDeleteProduct } = useContext(ProductContext);
+  const { data, handleDeleteProduct, fetchProducts } =
+    useContext(ProductContext);
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  console.log(data)
+  const handleToggleChange = async (item, checked) => {
+    const updatedItem = { ...item, inStock: checked }; // Update the item locally for UI responsiveness
+    try {
+      // Make the API call to toggle the status
+      const response = await axiosInstance.post(`/product/stock/`, {
+        productId: item._id,
+      });
+
+      console.log(response);
+
+      // Optionally handle the response from the server if needed
+      if (response.status === 200) {
+        // console.log("Status updated successfully");
+        toast.success("Status updated successfully");
+        fetchProducts();
+      } else {
+        // console.error("Error updating status");
+      }
+    } catch (error) {
+      // console.error("API call failed", error);
+      // Revert the toggle if the API call fails
+      updatedItem.inStock = !checked;
+    }
+  };
+
+  const handleExportToCsv = async () => {
+    try {
+      // Make the API call to get the CSV file
+      const response = await axiosInstance.get(`/product/export/csv/`, {
+        responseType: 'blob', // This is important to handle the CSV file as a blob
+      });
+  
+      // Create a URL for the Blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+  
+      // Create an anchor element and trigger the download
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'products.csv'); // Set the file name
+      document.body.appendChild(link);
+      link.click(); // Trigger the download
+      link.remove(); // Remove the link element
+  
+      toast.success("Product exported successfully");
+  
+    } catch (error) {
+      console.error("API call failed", error);
+      toast.error("Failed to export products");
+    }
+  };
+  
 
   const columns = [
     {
@@ -334,9 +386,11 @@ export default function AllProduct() {
     },
     {
       title: "Category",
-      dataIndex: "category",
+      dataIndex: "",
       key: "category",
-      render: (text) => <Typography variant="small">{text}</Typography>,
+      render: (item) => (
+        <Typography variant="small">{item.categoryId.name}</Typography>
+      ),
     },
     {
       title: "Price",
@@ -344,14 +398,19 @@ export default function AllProduct() {
       key: "price",
       render: (text) => <Typography variant="small">{text}</Typography>,
     },
+
     {
       title: "Status",
-      dataIndex: "inStock",
+      dataIndex: "",
       key: "status",
-      render: (text) => (
-        <Typography variant="small">
-          {text === true ? "In Stock" : "Out of Stock"}
-        </Typography>
+      render: (item) => (
+        <Switch
+          checked={item.inStock}
+          label="In stock"
+          size="sm"
+          ripple={true}
+          onChange={(e) => handleToggleChange(item, e.target.checked)} // Handle toggle state change
+        />
       ),
     },
 
@@ -381,7 +440,15 @@ export default function AllProduct() {
   return (
     <>
       <div className="">
-        <h3 className="font-bold text-xl mb-3">All Products Page</h3>
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="font-bold text-xl ">All Products Page</h3>
+          <button
+            className="border p-2 bg-secondary text-white"
+            onClick={handleExportToCsv}
+          >
+            Export to Csv
+          </button>
+        </div>
         <div className="bg-white shadow-md p-3 overflow-auto">
           <Table size="small" x={true} columns={columns} dataSource={data} />
         </div>
